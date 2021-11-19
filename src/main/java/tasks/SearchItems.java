@@ -8,12 +8,18 @@ import org.openqa.selenium.Keys;
 import userinsterfaces.HomePage;
 
 public class SearchItems implements Task {
+    private String nameSearch;
+
+    public SearchItems(String nameSearch) {
+        this.nameSearch = nameSearch;
+    }
+
     @Override
     public <T extends Actor> void performAs(T actor) {
-        actor.attemptsTo(Enter.theValue("Alexa").into(HomePage.SEARCH_BOX).thenHit(Keys.ENTER));
+        actor.attemptsTo(Enter.theValue(nameSearch).into(HomePage.SEARCH_BOX).thenHit(Keys.ENTER));
 
     }
-    public static SearchItems inAmazon(){
-        return Tasks.instrumented(SearchItems.class);
+    public static SearchItems inAmazon(String nameSearch){
+        return Tasks.instrumented(SearchItems.class,nameSearch);
     }
 }

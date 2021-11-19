@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c6e243f8-da55-4454-a337-3dd11b71d478" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/interactions/ReplaceUrl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/tasks/NextPage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/tasks/ProductList.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/tasks/SearchItems.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/userinsterfaces/HomePage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/userinsterfaces/ItemPages.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/userinsterfaces/ProductDescription.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/expections/MessageException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/questions/VerifyAddCartButton.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/utils/MessageError.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.bin" afterDir="false" />
@@ -23,6 +19,10 @@
       <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/interactions/ReplaceUrl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/tasks/NextPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/tasks/NextPage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/tasks/ProductList.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/tasks/ProductList.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/tasks/SearchItems.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/tasks/SearchItems.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/test/stepdefinitions/PurchaseItemStepDefinitions.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/test/stepdefinitions/PurchaseItemStepDefinitions.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/reports/tests/test/classes/As#20a#20Customer#20when#20I#20search#20for#20Alexa#2c#20I#20want#20to#20see#20if#20the#20third#20option#20on#20the#20second#20page#20is#20available#20for.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/classes/As#20a#20Customer#20when#20I#20search#20for#20Alexa#2c#20I#20want#20to#20see#20if#20the#20third#20option#20on#20the#20second#20page#20is#20available#20for.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/reports/tests/test/classes/runners.PurchaseItem.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/classes/runners.PurchaseItem.html" afterDir="false" />
@@ -33,8 +33,11 @@
       <change beforePath="$PROJECT_DIR$/build/test-results/test/TEST-As#20a#20Customer#20when#20I#20search#20for#20Alexa#2c#20I#20want#20to#20see#20if#20the#20third#20option#20on#20the#20second#20page#20is#20available#20for.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/TEST-As#20a#20Customer#20when#20I#20search#20for#20Alexa#2c#20I#20want#20to#20see#20if#20the#20third#20option#20on#20the#20second#20page#20is#20available#20for.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/test-results/test/TEST-runners.PurchaseItem.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/TEST-runners.PurchaseItem.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/output.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/output.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/output.bin.idx" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/output.bin.idx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interactions/ReplaceUrl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tasks/NextPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tasks/NextPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tasks/ProductList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tasks/ProductList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tasks/SearchItems.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tasks/SearchItems.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/stepdefinitions/PurchaseItemStepDefinitions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/stepdefinitions/PurchaseItemStepDefinitions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/features/purchase_item.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/purchase_item.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/site/serenity/481a645e4daad8e8a4df8fbe8e312e655340e894405fdcbe95ff3ed0f9a15aec.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/serenity/481a645e4daad8e8a4df8fbe8e312e655340e894405fdcbe95ff3ed0f9a15aec.html" afterDir="false" />

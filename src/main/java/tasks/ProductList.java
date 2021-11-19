@@ -7,11 +7,17 @@ import net.serenitybdd.screenplay.actions.Click;
 import userinsterfaces.ItemPages;
 
 public class ProductList implements Task {
+    private String numberList;
+
+    public ProductList(String numberList) {
+        this.numberList = numberList;
+    }
+
     @Override
     public <T extends Actor> void performAs(T actor) {
-        actor.attemptsTo(Click.on(ItemPages.PRODUCT_NUMBER_POSITION.of("3")));
+        actor.attemptsTo(Click.on(ItemPages.PRODUCT_NUMBER_POSITION.of(numberList)));
     }
-    public static ProductList inAmazon(){
-        return Tasks.instrumented(ProductList.class);
+    public static ProductList inAmazon(String numberList){
+        return Tasks.instrumented(ProductList.class,numberList);
     }
 }
