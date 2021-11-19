@@ -2,7 +2,7 @@ Feature: As a Customer when I search for Alexa, I want to see if the third optio
   purchase and can be added to the cart.
 
   Scenario: purchase an available item
-    Given the user navigates on the web page
+    Given the user navigates on the web page https://www.amazon.com/
     When The user searches for Alexa
     And The user navigates to the second page
     And The user selects the third item

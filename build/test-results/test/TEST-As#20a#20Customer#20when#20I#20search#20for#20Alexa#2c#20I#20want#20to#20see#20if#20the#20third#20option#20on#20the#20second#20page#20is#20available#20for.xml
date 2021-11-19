@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="As a Customer when I search for Alexa, I want to see if the third option on the second page is available for" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-11-19T02:38:47" hostname="RA1926295022150" time="5.096">
+<testsuite name="As a Customer when I search for Alexa, I want to see if the third option on the second page is available for" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-11-19T03:57:38" hostname="RA1926295022150" time="14.852">
   <properties/>
-  <testcase name="purchase an available item" classname="As a Customer when I search for Alexa, I want to see if the third option on the second page is available for" time="5.096"/>
+  <testcase name="purchase an available item" classname="As a Customer when I search for Alexa, I want to see if the third option on the second page is available for" time="14.852"/>
   <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[Nov 18, 2021 9:38:47 PM org.openqa.selenium.remote.DesiredCapabilities chrome
+  <system-err><![CDATA[Nov 18, 2021 10:57:38 PM org.openqa.selenium.remote.DesiredCapabilities chrome
 INFO: Using `new ChromeOptions()` is preferred to `DesiredCapabilities.chrome()`
 [Test worker] INFO net.serenitybdd.core.webdriver.driverproviders.ProvideNewDriver - Instantiating driver
 [Test worker] INFO net.serenitybdd.core.webdriver.driverproviders.ProvideNewDriver - Driver capabilities: Capabilities {acceptInsecureCerts: false, browserName: chrome, chrome.switches: --start-maximized, goog:chromeOptions: {args: [--start-maximized], extensions: []}, loggingPrefs: org.openqa.selenium.logging..., platform: ANY, version: }
-Starting ChromeDriver 95.0.4638.54 (d31a821ec901f68d0d34ccdbaea45b4c86ce543e-refs/branch-heads/4638@{#871}) on port 8708
+Starting ChromeDriver 95.0.4638.54 (d31a821ec901f68d0d34ccdbaea45b4c86ce543e-refs/branch-heads/4638@{#871}) on port 7268
 Only local connections are allowed.
 Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.
 ChromeDriver was started successfully.
-[1637289529.690][WARNING]: This version of ChromeDriver has not been tested with Chrome version 96.
-Nov 18, 2021 9:38:49 PM org.openqa.selenium.remote.ProtocolHandshake createSession
+[1637294260.461][WARNING]: This version of ChromeDriver has not been tested with Chrome version 96.
+Nov 18, 2021 10:57:40 PM org.openqa.selenium.remote.ProtocolHandshake createSession
 INFO: Detected dialect: W3C
 [Test worker] INFO net.thucydides.core.steps.ConsoleLoggingListener - 
         __    _____ _____ ____ _____   ____   _    ____  ____  _____ ____  

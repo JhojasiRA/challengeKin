@@ -10,6 +10,9 @@ import net.serenitybdd.screenplay.actors.Cast;
 import net.serenitybdd.screenplay.actors.OnStage;
 import net.thucydides.core.annotations.Managed;
 import org.openqa.selenium.WebDriver;
+import tasks.NextPage;
+import tasks.ProductList;
+import tasks.SearchItems;
 
 public class PurchaseItemStepDefinitions {
     @Managed
@@ -20,29 +23,29 @@ public class PurchaseItemStepDefinitions {
         OnStage.theActorCalled("The User");
 
     }
-    @Given("^the user navigates on the web page$")
-    public void theUserNavigatesOnTheWebPage() {
-        OnStage.theActorInTheSpotlight().can(BrowseTheWeb.with(hisBrower)).wasAbleTo(Open.url("https://www.amazon.com/"));
+    @Given("^the user navigates on the web page (.*)$")
+    public void theUserNavigatesOnTheWebPage(String url) {
+        OnStage.theActorInTheSpotlight().can(BrowseTheWeb.with(hisBrower)).wasAbleTo(Open.url(url));
     }
 
 
     @When("^The user searches for Alexa$")
     public void theUserSearchesForAlexa() {
-
+        OnStage.theActorInTheSpotlight().attemptsTo(SearchItems.inAmazon());
     }
 
     @When("^The user navigates to the second page$")
     public void theUserNavigatesToTheSecondPage() {
-
+        OnStage.theActorInTheSpotlight().attemptsTo(NextPage.inAmazon());
     }
 
     @When("^The user selects the third item$")
     public void theUserSelectsTheThirdItem() {
-
+        OnStage.theActorInTheSpotlight().attemptsTo(ProductList.inAmazon());
     }
 
-    @Then("^User will be able to add tje item to the cart$")
-    public void userWillBeAbleToAddTjeItemToTheCart() {
+    @Then("^User will be able to add the item to the cart$")
+    public void userWillBeAbleToAddTheItemToTheCart() {
 
     }
 
