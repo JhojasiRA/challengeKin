@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite errors="1" failures="0" name="i want create new user in utest.com" skipped="0" tests="1" time="7.92" timestamp="2021-11-18 09:26:37"><testcase name="create new users"><error message="no such window: target window already closed&#10;from unknown error: web view not found&#10;  (Session info: chrome=96.0.4664.45)&#10;Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'&#10;System info: host: 'RA1926295022150', ip: '192.168.1.1', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_282'&#10;Driver info: org.openqa.selenium.chrome.ChromeDriver&#10;Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 96.0.4664.45, chrome: {chromedriverVersion: 95.0.4638.54 (d31a821ec901f..., userDataDir: C:\Users\JSierra1\AppData\L...}, goog:chromeOptions: {debuggerAddress: localhost:55677}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}&#10;Session ID: 220a1c91cb6f2e0217aa6264a2d56d32&#10;*** Element info: {Using=xpath, value=//a[@class='unauthenticated-nav-bar__sign-up']}" type="org.openqa.selenium.NoSuchWindowException">no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=96.0.4664.45)
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'RA1926295022150', ip: '192.168.1.1', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_282'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 96.0.4664.45, chrome: {chromedriverVersion: 95.0.4638.54 (d31a821ec901f..., userDataDir: C:\Users\JSierra1\AppData\L...}, goog:chromeOptions: {debuggerAddress: localhost:55677}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 220a1c91cb6f2e0217aa6264a2d56d32
+*** Element info: {Using=xpath, value=//a[@class='unauthenticated-nav-bar__sign-up']}</error><system-err>no such window:
+  target window already closed
+  from unknown error: web view not found
+  (Session info: chrome=96.0.4664.45)
+  Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+  System info: host: 'RA1926295022150', ip: '192.168.1.1', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0',
+  java.version: '1.8.0_282'
+  Driver info: org.openqa.selenium.chrome.ChromeDriver
+  Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 96.0.4664.45, chrome:
+  {chromedriverVersion: 95.0.4638.54 (d31a821ec901f..., userDataDir: C:\Users\JSierra1\AppData\L...},
+  goog:chromeOptions: {debuggerAddress: localhost:55677}, javascriptEnabled: true, networkConnectionEnabled: false,
+  pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true,
+  strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior:
+  dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true,
+  webauthn:virtualAuthenticators: true}
+  Session ID: 220a1c91cb6f2e0217aa6264a2d56d32
+  *** Element info: {Using=xpath, value=//a[@class='unauthenticated-nav-bar__sign-up']}&#13;
+  tasks.RegisterTask.performAs(RegisterTask.java:14)&#13;
+  stepdefinitions.PurchaseItemStepDefinition.createNewUser(LoginStepdefinion.java:40)&#13;
+  cucumber.runner.Runner.runPickle(Runner.java:80)&#13;
+</system-err></testcase></testsuite>
