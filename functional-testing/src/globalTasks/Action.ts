@@ -1,4 +1,3 @@
-
 export class Action {
 
     public async click(element:WebdriverIO.Element): Promise<void> {
