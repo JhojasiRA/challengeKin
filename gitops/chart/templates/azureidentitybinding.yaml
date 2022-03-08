@@ -1,0 +1,7 @@
+apiVersion: "aadpodidentity.k8s.io/v1"
+kind: AzureIdentityBinding
+metadata:
+  name: {{ include "testing-automation.fullname" . }}-binding
+spec:
+  azureIdentity: {{ include "testing-automation.fullname" . }}
+  selector: {{ include "testing-automation.fullname" . }}

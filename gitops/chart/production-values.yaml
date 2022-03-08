@@ -1,0 +1,58 @@
+# Default values for identity-server-chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+## Define chronschedules for your cronjobs in prod as e.g: 
+# cronScheduleCJ1: "*/15 * * * *"  
+# cronScheduleCJ2: "*/1 * * * *"
+
+## Define the values for the env variables in prod. e.g: 
+# portalUrl: https://vault.cloud.rockwellautomation.com
+# homeUrl: https://home.cloud.rockwellautomation.com/
+# testUser: lemans.synthetic.tests@gmail.com
+# splunkHost: http-inputs-ra.splunkcloud.com
+# splunkIndex: lemans
+# apiUrl: https://api.cloud.rockwellautomation.com/
+
+image:
+  repository: ghcr.io/rockwell-automation-inc/lemans-testingautomation-idh
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  #tag: 0.1.0-prerelease
+
+imagePullSecrets: image-pull-secrets
+
+nameOverride: ""
+
+fullnameOverride: ""
+
+# Controll the ASP.NET Core env.   Development enables more debugging
+environment: Production
+
+trigger:
+    type: ConfigChange
+
+strategy:
+    type: RollingUpdate
+
+keyVault:
+  enabled: true
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

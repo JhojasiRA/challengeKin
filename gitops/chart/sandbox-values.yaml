@@ -1,0 +1,62 @@
+# Default values for identity-server-chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+
+## Define chronschedules for your cronjobs in sandbox. e.g: 
+# cronScheduleCJ1: "*/15 * * * *"  
+# cronScheduleCJ2: "*/1 * * * *"
+
+## Define the values for the env variables in sandbox. e.g: 
+# testUser: lemans.idh.vault@gmail.com
+# testLocalUseridh2: testeridh2@rockwellautomation.com
+# testLocalUseridh3: testeridh3@rockwellautomation.com
+# testLocalUseridh5: testeridh5@rockwellautomation.com
+# splunkHost: http-inputs-ra.splunkcloud.com
+# portalUrl: https://vault.lemans-sandbox.rockwellautomation.com/
+# portalUrlHome: https://home.lemans-sandbox.rockwellautomation.com/
+# auth0Url: https://factorytalkhub.us.auth0.com
+# apiUrl: https://api.lemans-sandbox.rockwellautomation.com/
+
+
+image:
+  repository: ghcr.io/rockwell-automation-inc/lemans-testingautomation-idh
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  #tag: 0.1.0-prerelease
+
+imagePullSecrets: image-pull-secrets
+
+nameOverride: ""
+
+fullnameOverride: ""
+
+# Controll the ASP.NET Core env.   Development enables more debugging
+environment: Production
+trigger:
+    type: ConfigChange
+
+strategy:
+    type: RollingUpdate
+
+keyVault:
+  enabled: true
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

@@ -1,0 +1,6 @@
+node_modules
+.vscode
+reports
+coverage
+*.md
+docker-compose*
