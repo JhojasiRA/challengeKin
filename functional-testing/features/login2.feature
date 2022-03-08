@@ -14,4 +14,5 @@ Feature: Access different applications among the Hub
     When the user types the credentials
       And the user is redirected to the landpage
       And the user accesses the FTRA app
-    Then the FTRA app is opened afa
+    Then the FTRA app is opened
+    
