@@ -41,6 +41,7 @@
     "wdio-chromedriver-service": "^7.2.8",
     "wdio-cucumberjs-json-reporter": "^4.4.0",
     "wdio-docker-service": "^3.2.0",
-    "wdio-geckodriver-service": "^2.1.0"
+    "wdio-geckodriver-service": "^2.1.0",
+    "to-uuid": "^0.1.3"
   }
 }
