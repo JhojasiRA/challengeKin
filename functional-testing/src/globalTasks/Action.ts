@@ -47,6 +47,19 @@ export class Action {
         }
     }
 
+    public async switchToNewTab(element: WebdriverIO.Element): Promise<void> {
+        var currentTab = browser.getWindowHandle();
+        await this.click(element);
+        var allTabs = browser.getWindowHandles();
+        for (var i = 0; i < allTabs.length; i++) {
+            if (allTabs[i] != currentTab) {
+                await browser.switchWindow(allTabs[i]);
+            break;
+            }
+
+        }
+    }
+
     /**
     * Opens a sub page of the page
     * @param path path of the sub page (e.g. /path/to/page.html)
