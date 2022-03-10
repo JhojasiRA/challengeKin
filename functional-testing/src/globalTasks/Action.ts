@@ -47,16 +47,15 @@ export class Action {
         }
     }
 
-    public async switchToNewTab(element: WebdriverIO.Element): Promise<void> {
-        var currentTab = browser.getWindowHandle();
-        await this.click(element);
+    public async switchToNewTab(currentTab: string): Promise<void> {
+      //  var currentTab = browser.getWindowHandle();
+      //  await this.click(element);
         var allTabs = browser.getWindowHandles();
         for (var i = 0; i < allTabs.length; i++) {
             if (allTabs[i] != currentTab) {
                 await browser.switchWindow(allTabs[i]);
             break;
             }
-
         }
     }
 
