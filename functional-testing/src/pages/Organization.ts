@@ -23,12 +23,12 @@ export class Organization extends Action {
     public async newOrganization():Promise<void>{
         await this.enterText(this.nameOrganizationField,"Organization automation");
         await this.enterText(this.descriptionField,"TEST");
-        await this.createButton.click();
+        await this.click(this.createButton);
         }
 
     public async cancelCreation():Promise<void>{
         await this.enterText(this.nameOrganizationField,"E2E automation tenant");
-        await this.cancelCreationButton.click();
+        await this.click(this.cancelCreationButton);
         }
     
     public async editOrganization():Promise<void>{
@@ -36,12 +36,12 @@ export class Organization extends Action {
         await this.enterText(this.nameOrganizationField,newTextName);
         let newText = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
         await this.enterText(this.descriptionField, newText);
-        await this.saveButton.click();
+        await this.click(this.saveButton);
         }
 
     public async canceleditOrganization():Promise<void>{
         await this.enterText(this.descriptionField,"TEST");
-        await this.cancelEditInfo.click();
+        await this.click(this.cancelEditInfo);
         }
 
     public async ok():Promise<void>{
@@ -50,18 +50,18 @@ export class Organization extends Action {
         }
 
     public async continue():Promise<void>{
-        await this.continueDiscardChanges.click();
+        await this.click(this.continueDiscardChanges);
         }
 
     public async inviteCode():Promise<void>{
        // await browser.waitForAngularEnabled(false);
-        await this.copyInviteCodeBtn.click();
-        await this.closeMessageInviteCodeCopied.click();
+        await this.click(this.copyInviteCodeBtn);
+        await this.click(this.closeMessageInviteCodeCopied);
         }
 
     public async newInviteCode(): Promise<void>{
         //await browser.waitForAngularEnabled(false);
-        await this.newCodeButton.click();
+        await this.click(this.newCodeButton);
         //await browser.waitForAngularEnabled(true)
         }
 
@@ -74,8 +74,8 @@ export class Organization extends Action {
         }
 
     public async joinRequestWithOutDateCode(): Promise<void>{
-        await this.joinUsingInviCode.click();
-        await this.searchInput.click();
+        await this.click(this.joinUsingInviCode);
+        await this.click(this.searchInput);
         await this.searchInput.keys(["\uE009", "V"]);
         await this.searchInput.keys("\uE003");
         }
