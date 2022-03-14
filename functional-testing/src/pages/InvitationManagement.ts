@@ -6,11 +6,13 @@ export class Organization extends Action {
     get okButton() { return browser.$('//*[contains(@id, "mat-dialog")]//button');}
 
     public async resendActiveInvitation(): Promise<void> {
+        await browser.pause(1000);
         await this.click(this.resendButton);
         await this.click(this.okButton);
       }
     
       public async cancelActiveInvitation(): Promise<void> {
+        await browser.pause(1000);
         await this.click(this.cancelButton);
         await this.click(this.okButton);
       }

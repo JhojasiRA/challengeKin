@@ -27,24 +27,31 @@ export class Organization extends Action {
         }
 
     public async cancelCreation():Promise<void>{
+        await browser.pause(1000);
         await this.enterText(this.nameOrganizationField,"E2E automation tenant");
         await this.click(this.cancelCreationButton);
         }
     
     public async editOrganization():Promise<void>{
+        await browser.pause(1000);
         let newTextName = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
         await this.enterText(this.nameOrganizationField,newTextName);
+        await browser.pause(1000);
         let newText = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
         await this.enterText(this.descriptionField, newText);
+        await browser.pause(1000);
         await this.click(this.saveButton);
         }
 
     public async canceleditOrganization():Promise<void>{
+        await browser.pause(1000);
         await this.enterText(this.descriptionField,"TEST");
+        await browser.pause(1000);
         await this.click(this.cancelEditInfo);
         }
 
     public async ok():Promise<void>{
+        await browser.pause(1000);
        // await browser.waitForAngularEnabled(false);
         await this.click(this.OK);
         }
@@ -54,12 +61,14 @@ export class Organization extends Action {
         }
 
     public async inviteCode():Promise<void>{
+        await browser.pause(2000);
        // await browser.waitForAngularEnabled(false);
         await this.click(this.copyInviteCodeBtn);
         await this.click(this.closeMessageInviteCodeCopied);
         }
 
     public async newInviteCode(): Promise<void>{
+        await browser.pause(1000);
         //await browser.waitForAngularEnabled(false);
         await this.click(this.newCodeButton);
         //await browser.waitForAngularEnabled(true)
@@ -67,9 +76,11 @@ export class Organization extends Action {
 
     public async joinRequest():Promise<void>{
         await this.joinUsingInviCode.click();
+        await browser.pause(1000);
        //await this.searchInput.keys(['CTRL', 'V']);
         await this.searchInput.keys(["\uE009", "V"]);
         await this.searchInput.keys("\uE003"); //back_space
+        await browser.pause(1000);
         await this.click(this.continueButtonRequest);
         }
 
@@ -78,6 +89,7 @@ export class Organization extends Action {
         await this.click(this.searchInput);
         await this.searchInput.keys(["\uE009", "V"]);
         await this.searchInput.keys("\uE003");
+        await browser.pause(1000);
         }
 
     public getMessageCreateOrganization(): WebdriverIO.Element{

@@ -25,6 +25,7 @@ export class Organization extends Action {
     public async editOrganizationOption():Promise<void>{
         //global.lastError = 'menu icon was not located'
         await this.click(this.menuIcon);
+        await browser.pause(1000);
         await this.click(this.editOrganization);
       }
 
