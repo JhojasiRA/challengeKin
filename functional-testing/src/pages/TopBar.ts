@@ -1,4 +1,4 @@
-import {Action} from '../globalTasks/Action'
+import {Action} from '../globalTasks/Action';
 
 export class TopBar extends Action {
     get helpIcon() { return browser.$('//*[@id="navbar"]/button[4]');}
@@ -32,10 +32,12 @@ export class TopBar extends Action {
       }
 
       public async gettingStartedTool(): Promise<void> {
+        await browser.pause(1000);
         var currentTab = browser.getWindowHandle();
         await this.switchToNewTab(currentTab);
         await this.click(this.gettingStartedComponent);
         var currentTab = browser.getWindowHandle();
+        await browser.pause(1000);
         await browser.closeWindow();
         await this.switchToNewTab(currentTab);
       };
@@ -44,54 +46,62 @@ export class TopBar extends Action {
         var currentTab = browser.getWindowHandle();
         await browser.closeWindow();
         await this.switchToNewTab(currentTab);
+        await browser.pause(1000);
         await this.click(this.provideFeedbackComponent)
         await this.click(this.feedbackType);
+        await browser.pause(1000);
         await this.click(this.cancelButton);
       }
 
       public async releaseNotesTool(): Promise<void> {
+        await browser.pause(1000);
         var currentTab = browser.getWindowHandle();
-        await this.click(this.releaseNotesComponent);
+        await this.releaseNotesComponent.click();
         await this.switchToNewTab(currentTab);
       }
 
       public async signOutOption(): Promise<void> {
+        await browser.pause(1000);
         await this.click(this.expandIcon)
         await this.click(this.signOut);
       }
 
       public async logOut(): Promise<void> {
-        await this.click(this.expandIconVault)
-        await this.click(this.LogOut);
+        await browser.pause(1000);
+        await this.expandIconVault.click()
+        await this.LogOut.click();
       }
 
       public async aboutTool(): Promise<void> {
+        await browser.pause(1000);
         var currentTab = browser.getWindowHandle();
         await browser.closeWindow();
         await this.switchToNewTab(currentTab);
-        await this.click(this.aboutComponent);
+        await this.aboutComponent.click();
       }
 
       public async legalTool(): Promise<void> {
         var currentTab = browser.getWindowHandle();
         await browser.closeWindow();
         await this.switchToNewTab(currentTab);
-        await this.click(this.legalOption);
+        await this.legalOption.click();
       }
       public async privacyPolicyTool(): Promise<void> {
+        await browser.pause(1000);
         var currentTab = browser.getWindowHandle();
         await browser.closeWindow();
         await this.switchToNewTab(currentTab);
-        await this.click(this.privacyPolicyOption);
+        await this.privacyPolicyOption.click();
         var currentTab = browser.getWindowHandle();
         await this.switchToNewTab(currentTab);
       }
 
       public async termsUseOptionTool(): Promise<void> {
+        await browser.pause(1000);
         var currentTab = browser.getWindowHandle();
         await browser.closeWindow();
         await this.switchToNewTab(currentTab);
-        await this.click(this.termsUseOption);
+        await this.termsUseOption.click();
         var currentTab = browser.getWindowHandle();
         await this.switchToNewTab(currentTab);
       }
