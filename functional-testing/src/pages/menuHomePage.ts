@@ -1,6 +1,6 @@
 import {Action} from '../globalTasks/Action';
 
-export class Organization extends Action {
+export class menuHomePage extends Action {
     get menuIcon() { return browser.$('//*[text()="apps"]');}
     get approveUser() { return browser.$('//*[@class="mat-list-item-content"]//*[ contains (text(), "Approve Users")]');}
     get createOrganization() { return browser.$('//*[ contains (text(), "Create Organization")]');}
