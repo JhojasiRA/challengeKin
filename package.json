@@ -34,6 +34,7 @@
     "fs-extra": "^10.0.1",
     "geckodriver": "^3.0.1",
     "multiple-cucumber-html-reporter": "^1.19.0",
+    "cucumber-html-reporter": "^5.3.0",
     "prettier": "2.4.1",
     "selenium-standalone": "^8.0.9",
     "splunk-logging": "^0.11.1",
