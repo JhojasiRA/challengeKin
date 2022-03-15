@@ -1,13 +1,12 @@
 import 'regenerator-runtime/runtime';
 const axios = require('axios');
 import { getToken, getToken2 } from '../Token';
-import {browser} from 'protractor';
 
 let requestId = {id:"", status:""};
 let tenantId = "";
 //------------Create acces request
 export var createAccesRequest = async() =>{
-    await browser.sleep(2000);
+    await browser.pause(2000);
     let token = await getToken();
     try {
     let url  = `${process.env.API_CS}/api/accessrequests`
@@ -30,7 +29,7 @@ export var createAccesRequest = async() =>{
 
 //------------Create acces request with parameters
 export var accessRequest = async(tenantId:string, resourceId:string, token:string) =>{
-    await browser.sleep(2000);
+    await browser.pause(2000);
     try {
     let url  = `${process.env.API_CS}/accessrequests`
     let config = {
@@ -52,7 +51,7 @@ export var accessRequest = async(tenantId:string, resourceId:string, token:strin
 
 //------------get acces request by id
 export var getAccesRequestById = async() =>{
-    await browser.sleep(3000);
+    await browser.pause(2000);
     try {
     let url  = `${process.env.API_CS}/api/accessrequests/${requestId.id}`
     let config = {

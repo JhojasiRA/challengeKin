@@ -1,0 +1,17 @@
+{
+    
+    "creds": {
+        "clientId": "aaBfPCIAl15xFjeRLXIFSFryVWP5j63M",
+        "rockwell_user": "testuser20",
+        "user": "cs.tester04",
+        "user2": "cs.tester05"
+    },
+
+    "defaultOrg": {
+        "name": "Organization automation",
+        "location": "Medellin, Antioquia",
+        "description": "org exclusively for automation purposes",
+        "visibility": "Private"
+
+    }
+}
