@@ -1,5 +1,4 @@
 import  {getToken5}  from '../Token';
-import {browser} from 'protractor';
 import { getPreferences, getUserIdWithParam } from './Users';
 import { accessRequest, approveAccessRequest} from './AccesRequest'
 
@@ -7,7 +6,7 @@ import { accessRequest, approveAccessRequest} from './AccesRequest'
 var jp = require('jsonpath')
 
 export var joinTenant = async(tenantName: string, user:string, role:string)=>{
-    await browser.sleep(1000);
+    await browser.pause(1000);
     let tokenUser1 = await getToken5(process.env.USERNAME, process.env.PASSWORD)
     let tokenUser2 = await getToken5(user,process.env.PASSWORD)
     let userId = await getUserIdWithParam(tokenUser1)
