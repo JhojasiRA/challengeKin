@@ -1,4 +1,4 @@
-import {setDefaultTimeout,Given,When, Then } from '@cucumber/cucumber';
+import {setDefaultTimeout, Given, When, Then} from '@cucumber/cucumber';
 import 'regenerator-runtime/runtime';
 import { indexPage,eula,homePage,question,externalAccount } from '../../support/Hooks';
 
