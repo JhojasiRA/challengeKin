@@ -1,7 +1,8 @@
 export class Action {
 
     public async click(element:WebdriverIO.Element): Promise<void> {
-        await element.moveTo();
+        await element.waitForClickable({ timeout: global.intElementsTimeout })
+        await element.scrollIntoView();
         await element.click();
     }
 
@@ -35,10 +36,10 @@ export class Action {
 
         try {
             if (browser.$(WEB_ELEMENT(option)).isDisplayed) {
-                webElement = browser.$(WEB_ELEMENT(option));
-                await webElement.waitForClickable({ reverse: true, timeout: 10000 });
+                webElement = await browser.$(WEB_ELEMENT(option));
+                await webElement.waitForClickable({ timeout: 10000 });
                 await webElement.click();
-                if (await webElement.waitForExist({ reverse: true, timeout:5000 })) { await webElement.keys("\uE00C") };
+                if (await webElement.waitForExist({ timeout: 5000 })) { await webElement.keys("\uE00C") };
             }
         } catch (error) {
             global.lastError = 'Option: ' + option + ' is not displayed'

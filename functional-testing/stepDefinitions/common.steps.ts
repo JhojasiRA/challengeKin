@@ -3,5 +3,5 @@ import { indexPage } from '../support/Hooks'
 
 Given(/^the user access the portal URL$/, async() => {
     await indexPage.open('')
-    await indexPage.clickSignin();
+    //await indexPage.clickSignin();
 })

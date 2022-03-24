@@ -1,18 +1,36 @@
-const { generate } = require('multiple-cucumber-html-reporter');
-const { removeSync } = require('fs-extra');
-//@ts-ignore
-import { logJSONresults } from '../support/SplunkLog'
-
-var intStepsTimeoutDefault = 60000;
-let intStepsTimeout = process.env.STEPS_TIMEOUT !== undefined ? parseInt(process.env.STEPS_TIMEOUT) : intStepsTimeoutDefault;
-intStepsTimeout = isNaN(global.intElementsTimeout) ? intStepsTimeoutDefault : intStepsTimeout;
-
-export const BaseConfig: WebdriverIO.Config = {
+export const config: WebdriverIO.Config = {
     //
     // ====================
     // Runner Configuration
     // ====================
+    // 
     //
+    // =====================
+    // ts-node Configurations
+    // =====================
+    // 
+    // You can write tests using TypeScript to get autocompletion and type safety.
+    // You will need typescript and ts-node installed as devDependencies. 
+    // WebdriverIO will automatically detect if these dependencies are installed 
+    // and will compile your config and tests for you. 
+    // If you need to configure how ts-node runs please use the
+    // environment variables for ts-node or use wdio config's autoCompileOpts section.
+    //
+    
+    autoCompileOpts: {
+        autoCompile: true,
+        // see https://github.com/TypeStrong/ts-node#cli-and-programmatic-options
+        // for all available options
+        tsNodeOpts: {
+            transpileOnly: true,
+            project: 'test/tsconfig.json'
+        }
+        // tsconfig-paths is only used if "tsConfigPathsOpts" are provided, if you
+        // do please make sure "tsconfig-paths" is installed as dependency
+        //tsConfigPathsOpts: {
+        //    baseUrl: './'
+        //}
+    },
     //
     // ==================
     // Specify Test Files
@@ -30,19 +48,12 @@ export const BaseConfig: WebdriverIO.Config = {
     // will be called from there.
     //
     specs: [
-        'functional-testing/features/*/*.feature'
+        'functional-testing/features/*.feature'
     ],
     // Patterns to exclude.
     exclude: [
         // 'path/to/excluded/files'
     ],
-    // host: "localhost",
-    // port: 4444,
-    // path: '/wd/hub',
-    // protocol: 'http',
-    // runner: 'local',
-
-    
     //
     // ============
     // Capabilities
@@ -59,38 +70,26 @@ export const BaseConfig: WebdriverIO.Config = {
     // and 30 processes will get spawned. The property handles how many capabilities
     // from the same test should run tests.
     //
-    maxInstances: 1,
+    maxInstances: 10,
     //
     // If you have trouble getting all important capabilities together, check out the
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
-    // https://docs.saucelabs.com/reference/platforms-configurator
+    // https://saucelabs.com/platform/platform-configurator
     //
-    capabilities: [
-        {
+    capabilities: [{
     
         // maxInstances can get overwritten per capability. So if you have an in-house Selenium
         // grid with only 5 firefox instances available you can make sure that not more than
         // 5 instances get started at a time.
-        maxInstances: 1,
-        },
-    // {
-    //     maxInstances: 1,
-    //     browserName:'firefox',
-    //     'moz:firefoxOptions':{
-    //         args:['-start-maximized']
-    //     //     args:['-headless','--disable-gpu','--window-size=2000,1024','--disable-infobars','--disable-dev-shm-usage','--no-sandbox']
-    //     }
-
-    // },
-    // {
-    //     maxInstances: 1,
-    //     browserName:'MicrosoftEdge',
-    //     'ms:EdgeOptions':{
-    //         args:['start-maximized']
-    //     //     args:['-headless','--disable-gpu','--window-size=2000,1024','--disable-infobars','--disable-dev-shm-usage','--no-sandbox']
-    //     }
-    // }
-    ],
+        maxInstances: 5,
+        //
+        browserName: 'chrome',
+        acceptInsecureCerts: true
+        // If outputDir is provided WebdriverIO can capture driver session logs
+        // it is possible to configure which logTypes to include/exclude.
+        // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
+        // excludeDriverLogs: ['bugreport', 'server'],
+    }],
     //
     // ===================
     // Test Configurations
@@ -98,7 +97,7 @@ export const BaseConfig: WebdriverIO.Config = {
     // Define all options that are relevant for the WebdriverIO instance here
     //
     // Level of logging verbosity: trace | debug | info | warn | error | silent
-    logLevel: 'error',
+    logLevel: 'info',
     //
     // Set specific log levels per logger
     // loggers:
@@ -122,31 +121,24 @@ export const BaseConfig: WebdriverIO.Config = {
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    //baseUrl: 'http://localhost',
+    baseUrl: 'https://home.lemans-sandbox.rockwellautomation.com',
     //
     // Default timeout for all waitFor* commands.
-    waitforTimeout: 30000,
+    waitforTimeout: 10000,
     //
     // Default timeout in milliseconds for request
     // if browser driver or grid doesn't send response
-    connectionRetryTimeout: 60000,
+    connectionRetryTimeout: 120000,
     //
     // Default request retries count
-    connectionRetryCount: 1,
+    connectionRetryCount: 3,
     //
     // Test runner services
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    // services: [
-    //     ['selenium-standalone', {
-    //         logPath: './temp',
-    //         args: {
-    //             version: "3.141.59",
-    //             seleniumArgs: ['-host', '127.0.0.1','-port', '4444']
-    //         },
-    //     }]
-    // ],
+    services: ['selenium-standalone','firefox-profile','eslinter','docker'],
+    
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
     // see also: https://webdriver.io/docs/frameworks
@@ -167,28 +159,14 @@ export const BaseConfig: WebdriverIO.Config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    // reporters: [
-    
-    //     ['cucumberjs-json', {
-    //             jsonFolder: 'Results/',
-    //             language: 'en',
-    //         },
-    //     ],
-    // ],
-    reporters: [
-        "spec",
-        ['cucumberjs-json', {
-                jsonFolder: './reports/',
-                language: 'en',
-            },
-        ],
-    ],
+    reporters: ['spec'],
+
 
     //
     // If you are using Cucumber you need to specify the location of your step definitions.
     cucumberOpts: {
         // <string[]> (file/dir) require files before executing features
-        require: ['functional-testing/stepDefinitions/*/*.ts'],
+        require: ['functional-testing/stepDefinitions/*.ts'],
         // <boolean> show full backtrace for errors
         backtrace: false,
         // <string[]> ("extension:module") require files with the given EXTENSION after requiring MODULE (repeatable)
@@ -197,20 +175,16 @@ export const BaseConfig: WebdriverIO.Config = {
         dryRun: false,
         // <boolean> abort the run on first failure
         failFast: false,
-        // <string[]> (type[:path]) specify the output format, optionally supply PATH to redirect formatter output (repeatable)
-        format: ['pretty'],
         // <boolean> hide step definition snippets for pending steps
         snippets: true,
         // <boolean> hide source uris
         source: true,
-        // <string[]> (name) specify the profile to use
-        profile: [],
         // <boolean> fail if there are any undefined or pending steps
         strict: false,
         // <string> (expression) only execute the features or scenarios with tags matching the expression
-        tagExpression: '@invitationManagement',
+        tagExpression: '',
         // <number> timeout for step definitions
-        timeout: intStepsTimeout,
+        timeout: 60000,
         // <boolean> Enable this config to treat undefined definitions as warnings.
         ignoreUndefinedDefinitions: false
     },
@@ -228,10 +202,8 @@ export const BaseConfig: WebdriverIO.Config = {
      * @param {Object} config wdio configuration object
      * @param {Array.<Object>} capabilities list of capabilities details
      */
-    //@ts-ignore
-    onPrepare: function (config, capabilities) {
-        removeSync('./reports/');
-    },
+    // onPrepare: function (config, capabilities) {
+    // },
     /**
      * Gets executed before a worker process is spawned and can be used to initialise specific service
      * for that worker as well as modify runtime environments in an async fashion.
@@ -281,45 +253,45 @@ export const BaseConfig: WebdriverIO.Config = {
     /**
      *
      * Runs before a Cucumber Scenario.
-     * @param {ITestCaseHookParameter} world world object containing information on pickle and test step
+     * @param {ITestCaseHookParameter} world    world object containing information on pickle and test step
+     * @param {Object}                 context  Cucumber World object
      */
-    // beforeScenario: function (world) {
+    // beforeScenario: function (world, context) {
     // },
     /**
      *
      * Runs before a Cucumber Step.
      * @param {Pickle.IPickleStep} step     step data
      * @param {IPickle}            scenario scenario pickle
+     * @param {Object}             context  Cucumber World object
      */
-    // beforeStep: function (step, scenario) {
+    // beforeStep: function (step, scenario, context) {
     // },
     /**
      *
      * Runs after a Cucumber Step.
-     * @param {Pickle.IPickleStep} step     step data
-     * @param {IPickle}            scenario scenario pickle
-     * @param {Object}             result   results object containing scenario results
-     * @param {boolean}            result.passed   true if scenario has passed
-     * @param {string}             result.error    error stack if scenario failed
-     * @param {number}             result.duration duration of scenario in milliseconds
+     * @param {Pickle.IPickleStep} step             step data
+     * @param {IPickle}            scenario         scenario pickle
+     * @param {Object}             result           results object containing scenario results
+     * @param {boolean}            result.passed    true if scenario has passed
+     * @param {string}             result.error     error stack if scenario failed
+     * @param {number}             result.duration  duration of scenario in milliseconds
+     * @param {Object}             context          Cucumber World object
      */
-    // afterStep: function (step, scenario, result) {
+    // afterStep: function (step, scenario, result, context) {
     // },
     /**
      *
-     * Runs before a Cucumber Scenario.
-     * @param {ITestCaseHookParameter} world  world object containing information on pickle and test step
-     * @param {Object}                 result results object containing scenario results
-     * @param {boolean}                result.passed   true if scenario has passed
-     * @param {string}                 result.error    error stack if scenario failed
-     * @param {number}                 result.duration duration of scenario in milliseconds
+     * Runs after a Cucumber Scenario.
+     * @param {ITestCaseHookParameter} world            world object containing information on pickle and test step
+     * @param {Object}                 result           results object containing scenario results
+     * @param {boolean}                result.passed    true if scenario has passed
+     * @param {string}                 result.error     error stack if scenario failed
+     * @param {number}                 result.duration  duration of scenario in milliseconds
+     * @param {Object}                 context          Cucumber World object
      */
-    //@ts-ignore
-    afterScenario: async (world,result) => {
-        await browser.reloadSession();
-    },
-
-
+    // afterScenario: function (world, result, context) {
+    // },
     /**
      *
      * Runs after a Cucumber Feature.
@@ -363,25 +335,8 @@ export const BaseConfig: WebdriverIO.Config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {<Object>} results object containing test results
      */
-    //@ts-ignore
-    onComplete: async() => {
-        const path = require('path')
-        //@ts-ignore
-        // TODO: Set test type from execution
-        await logJSONresults(path.join(process.cwd(),`reports`), `WDIO Template`, new Date().toUTCString(), process.argv[process.argv.length - 1])
-            .then(() => {console.log(`Splunk logs sent`)})
-            .catch((err) => console.log(`Splunk logs were not sent: ${err.message}`));
-        
-        await generate({
-            // Required
-            // This part needs to be the same path where you store the JSON files
-            // default = '.tmp/json/'
-            jsonDir: './reports/',
-            reportPath: './reports/',
-            // for more options see https://github.com/wswebcreation/multiple-cucumber-html-reporter#options
-        });
-    }
-    
+    // onComplete: function(exitCode, config, capabilities, results) {
+    // },
     /**
     * Gets executed when a refresh happens.
     * @param {String} oldSessionId session ID of the old session
@@ -390,5 +345,3 @@ export const BaseConfig: WebdriverIO.Config = {
     //onReload: function(oldSessionId, newSessionId) {
     //}
 }
-
-

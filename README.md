@@ -65,7 +65,7 @@ The `launch.json` file should look like this
     // Use IntelliSense to learn about possible attributes.
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
+"version": "0.2.0",
     "configurations": [
         {
             "name": "Debug sandbox",
@@ -87,10 +87,14 @@ The `launch.json` file should look like this
                 "STEPS_TIMEOUT": "60000",
                 "SPLUNK_HOST":"http-inputs-ra.splunkcloud.com",
                 "SPLUNK_TOKEN":"BC52A2C6-44D3-44AC-9A72-1EE326278672",
-                "USERNAME_APP":"[username]",// Replace this by the username you will use
-                "TESTUSERS_PASSWORD":"[password]", // Replace this by the password of the username you will use
+                "USERNAME":"testuser20@rockwellautomation.com",
+                "PASSWORD":"Lr53B3yds",
                 "AUTH0_URL":"https://factorytalkhub.us.auth0.com",
-                "HOME_URL":"https://home.lemans-sandbox.rockwellautomation.com"
+                "HOME_URL":"https://home.lemans-sandbox.rockwellautomation.com",
+                "IS_URL": "https://factorytalkhub.us.auth0.com/oauth/token",
+                "API_CS": "https://common.lemans-sandbox.rockwellautomation.com",
+                "URL_NOTIF": "https://api-notifications.lemans-sandbox.rockwellautomation.com",
+                "CLIENT_SECRET": "2DzuchrxHhUSueR87yAEO6BqiPHxHV_ma6yx9EdlsLoYQxAqkYTBLPzj2sc8i2PI"
             },
         },
 
@@ -114,10 +118,14 @@ The `launch.json` file should look like this
                 "STEPS_TIMEOUT": "60000",
                 "SPLUNK_HOST":"http-inputs-ra.splunkcloud.com",
                 "SPLUNK_TOKEN":"BC52A2C6-44D3-44AC-9A72-1EE326278672",
-                "USERNAME_APP":"[username]",// Replace this by the username you will use
-                "TESTUSERS_PASSWORD":"[password]", // Replace this by the password of the username you will use
+                "USERNAME":"[USERNAME]",
+                "PASSWORD":"[PASSWORD]",
                 "AUTH0_URL":"https://factorytalkhub.us.auth0.com",
-                "HOME_URL":"https://home.cloud-dev.rockwellautomation.com"
+                "HOME_URL":"https://home.cloud-dev.rockwellautomation.com",
+                "IS_URL": "https://factorytalkhub.us.auth0.com/oauth/token",
+                "API_CS": "https://common.cloud-dev.rockwellautomation.com",
+                "URL_NOTIF": "https://api-notifications.lemans-sandbox.rockwellautomation.com",
+                "CLIENT_SECRET": "2DzuchrxHhUSueR87yAEO6BqiPHxHV_ma6yx9EdlsLoYQxAqkYTBLPzj2sc8i2PI"
             },
         },
         {
@@ -140,10 +148,13 @@ The `launch.json` file should look like this
                 "STEPS_TIMEOUT": "60000",
                 "SPLUNK_HOST":"http-inputs-ra.splunkcloud.com",
                 "SPLUNK_TOKEN":"BC52A2C6-44D3-44AC-9A72-1EE326278672",
-                "USERNAME_APP":"[username]",// Replace this by the username you will use
-                "TESTUSERS_PASSWORD":"[password]", // Replace this by the password of the username you will use
+                "USERNAME":"[USERNAME]",
+                "PASSWORD":"[PASSWORD]",
                 "AUTH0_URL":"https://factorytalkhub.us.auth0.com",
-                "HOME_URL":"https://home.cloud.rockwellautomation.com"
+                "HOME_URL":"https://home.cloud.rockwellautomation.com",
+                "IS_URL": "https://factorytalkhub.us.auth0.com/oauth/token",
+                "URL_NOTIF": "https://api-notifications.lemans-sandbox.rockwellautomation.com",
+                "CLIENT_SECRET": "2DzuchrxHhUSueR87yAEO6BqiPHxHV_ma6yx9EdlsLoYQxAqkYTBLPzj2sc8i2PI"
             },
         },
     ],
@@ -165,7 +176,7 @@ The `launch.json` file should look like this
             "description": "What tag?",
             "options": [
                 "@Test",
-                ""
+                "@invitationManagement"
             ],
             "default": ""
         }

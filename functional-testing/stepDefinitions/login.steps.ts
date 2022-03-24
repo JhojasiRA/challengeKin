@@ -1,4 +1,4 @@
-import { When, After, Then } from '@wdio/cucumber-framework';
+/**import { When, After, Then } from '@wdio/cucumber-framework';
 import { auth0Page, homePage, ftraPage, vaultPage } from '../support/Hooks'
 import cucumberJson from 'wdio-cucumberjs-json-reporter';
 
@@ -38,4 +38,4 @@ After(async(scenario) => {
         return;
     }
     cucumberJson.attach(await browser.takeScreenshot(), 'image/png')
-})
+})**/
