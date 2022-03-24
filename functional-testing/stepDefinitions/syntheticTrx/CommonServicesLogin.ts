@@ -11,7 +11,7 @@ When('the user submit the form with its credentials', async() => {
 });
 
 When('the user accept the EULA testing eula {string}', async(testingEula:string) => {
-  await browser.pause(3000);
+  await browser.pause(2000);
   await eula.acceptEula(testingEula);
 });
 
