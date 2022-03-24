@@ -65,7 +65,7 @@ export class Action {
     * @param path path of the sub page (e.g. /path/to/page.html)
     */
      open (path?: string) {
-        return browser.url(`${process.env.HOME_URL}/${path}`)
+        return browser.url(`${process.env.PORTAL_URL}/${path}`)
     }
 
 
