@@ -14,7 +14,7 @@ Scenario: Cancel user creation
     And the user submit the form with its name
     Then User should see a message pop up: "Changes will not be saved. Do you want to proceed?"
     And the user should see the "Home" page
-@edit
+@edit @afterEditOrganization
 Scenario: Edit Organization info successfuly
     When the user go inside to edit organization option
     And the user submit the form with new information
