@@ -1,5 +1,5 @@
 import 'regenerator-runtime/runtime';
-import { getToken, getToken5 } from '../Token';
+import { getToken5 } from '../Token';
 import { getPreferences, getUserIdWithParam } from './Users';
 const axios = require('axios');
 var jp = require('jsonpath')
