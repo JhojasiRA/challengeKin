@@ -3,6 +3,9 @@ const axios = require('axios');
 import { getToken, getToken5 } from '../Token';
 import { expect } from 'chai';
 import { toUUID } from 'to-uuid'
+import { getLastAccessedTenantId, getTenantById } from './Tenants';
+var jp = require('jsonpath')
+
 
 let invitationId = { id: "", status: "" };
 let infTenantidCreator = { id: "", serviceId: "" };
@@ -48,16 +51,16 @@ export class Invitation {
     }
 }
 var invitation = new Invitation()
-var jp = require('jsonpath')
 
 
 
 
 //------------Create invitation----------
 export var createInvitation = async (target: string, role: string, resource: string) => {
-    //await browser.sleep(2000);
-    await getTenant();
-    let resourceId = resource == "Vault" ? infoCurrentTenant.vaultId[0] : resource == "FTRA" ? infoCurrentTenant.ftraId[0] : infoCurrentTenant.vaultId[0]
+    await browser.pause(1000);
+    let tenantId = await getLastAccessedTenantId()
+    let tenant = await getTenantById(tenantId)
+    let resourceId = resource == "Vault" ? jp.query(tenant, "$.services[?(@.kind=='Vault')].serviceId")[0] : resource == "FTRA" ? jp.query(tenant, "$.services[?(@.kind=='SecureRemoteAccess')].serviceId")[0] : resource == "Machine Monitoring" ? jp.query(tenant, "$.services[?(@.kind=='MachineMonitoring')].serviceId")[0] : tenantId
     let token = await getToken5(process.env.USERNAME, process.env.PASSWORD)
     try {
         let url = `${process.env.API_CS}/api/invitations`
@@ -65,17 +68,17 @@ export var createInvitation = async (target: string, role: string, resource: str
             headers: {
                 'Authorization': 'Bearer ' + token,
                 'Content-Type': 'application/json',
-                'tenantid': resourceId
+                'tenantId': tenantId
 
             }
         }
         var response = await axios.post(url, {
-            tenantId: resourceId,
+            tenantId: tenantId,
             resourceId: resourceId,
             toEmail: target,
             role: role
         }, config);
-       // await browser.sleep(2000);
+        await browser.pause(2000);
         invitationId = { status: response.status, id: response.data.invitationId }
         url = `${process.env.API_CS}/invitations/${invitationId.id}`
         response = await axios.get(url, config)
@@ -132,6 +135,8 @@ export var getTenant = async () => {
     }
 }
 
+
+
 //------------delete invitation by id
 export var deleteInvitationById = async () => {
    // await browser.sleep(2000);
@@ -156,18 +161,20 @@ export var deleteInvitationById = async () => {
 
 //------------get invitation by id
 export var getInvitationById = async () => {
-   // await browser.sleep(2000);
+    await browser.pause(1000);
     let token = await getToken5(process.env.USERNAME, process.env.PASSWORD)
+    let tenantId = await getLastAccessedTenantId()
     try {
         let url = `${process.env.API_CS}/api/invitations/${invitationId.id}`
         let config = {
             headers: {
                 'Authorization': 'Bearer ' + token,
                 'Content-Type': 'application/json',
-                'tenantid': `${infoCurrentTenant.vaultId}`
+                'tenantid': tenantId,
             }
         }
         const response = await axios.get(url, config);
+        await browser.pause(2000)
         invitation.id = response.data.id
         invitation.toEmail = response.data.toEmail
         invitation.createdBy = response.data.createdBy

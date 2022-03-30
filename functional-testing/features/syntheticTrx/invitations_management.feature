@@ -16,14 +16,14 @@ Feature: As a user, I want to invite new users to my tenant and services
         Then user should see all the invitations are carried out successfully
 
     #Resource options: Vault, FTRA, Tenant
-    @invitationManagement 
+    @invitationManagement
     Scenario: Resend an invitation to a user
         Given the user submit the form with its credentials
         And an invitation has been made to the user "testuser6@rockwellautomation.com" with the role "Contributor" to the resource "Tenant" 
         When the user resends the invitation to the user mentioned
         Then user should see that the invitation is resent successfully
 
-    @invitationManagement 
+    @invitationManagement
     Scenario: Cancel an active invitation
         Given the user submit the form with its credentials
         And an invitation has been made to the user "testuser6@rockwellautomation.com" with the role "Contributor" to the resource "Vault" 

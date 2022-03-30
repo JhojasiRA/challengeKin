@@ -1,6 +1,8 @@
 import 'regenerator-runtime/runtime';
-import { getToken5 } from '../Token';
+import { getToken, getToken5 } from '../Token';
+import { getPreferences, getUserIdWithParam } from './Users';
 const axios = require('axios');
+var jp = require('jsonpath')
 
 let statusAndTenantId = { id: "", status: "", role: "" };
 let ownerId = { id: "" }
@@ -56,6 +58,25 @@ export var getTenant = async () => {
         global.lastError = 'Error getting tenant by id'
         var tenantInfo = { status: response.status, tenantStatus: response.data.tenantStatus, name: response.data.name, description: response.data.description, emailDomain: response.data.emailDomain, location: response.data.location, visibility: response.data.visibility };
         return tenantInfo;
+    } catch (error) {
+        console.log(error);
+        return error.response.status;
+    }
+}
+
+export var getTenantById = async (tenantId: string) => {
+    let token = await getToken5(process.env.USERNAME, process.env.PASSWORD)
+    try {
+        let url = `${process.env.API_CS}/api/tenant`;
+        let config = {
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json',
+                'tenantId': tenantId
+            }
+        }
+        const response = await axios.get(url, config);
+        return response.data;
     } catch (error) {
         console.log(error);
         return error.response.status;
@@ -211,4 +232,11 @@ export var getTenantEffectiveRoles = async (userId: string, token: string) => {
         console.error(error);
         return error.response.status;
     }
+}
+
+export var getLastAccessedTenantId = async () => {
+    let token = await getToken5(process.env.USERNAME, process.env.PASSWORD);
+    let userId = await getUserIdWithParam(token)
+    let preferences = await getPreferences(userId, token)
+    return await jp.query(preferences, '$..preferences.lastAccessedTenantId')[0]
 }

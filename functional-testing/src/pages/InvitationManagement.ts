@@ -2,7 +2,7 @@ import {Action} from '../globalTasks/Action';
 
 export class InvitationManagement extends Action {
     get resendButton() { return browser.$('//*[@role="row"]/child::*[contains(text(),"Active")]/following::*[contains(text(),"RESEND")]');}
-    get cancelButton() { return browser.$('//*[@role="row"]/child::*[contains(text(),"Active")]/following::*[contains(text(),"CANCEL")]');}
+    get cancelButton() { return browser.$('//*[@role="row"]/child::*[contains(text(),"Active")]/following::*[contains(text(),"delete")]');}
     get okButton() { return browser.$('//*[contains(@id, "mat-dialog")]//button');}
 
     public async resendActiveInvitation(): Promise<void> {
