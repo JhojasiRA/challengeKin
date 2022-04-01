@@ -95,7 +95,7 @@ export const BaseConfig: WebdriverIO.Config = {
         source: true,
         profile: [],
         strict: false,
-        tagExpression: '',
+        tagExpression: '@ApiInvitation',
         timeout: intStepsTimeout,
         ignoreUndefinedDefinitions: false
     },

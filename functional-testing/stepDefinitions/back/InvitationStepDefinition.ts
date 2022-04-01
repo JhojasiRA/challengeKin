@@ -2,7 +2,7 @@ import {When, Then } from '@cucumber/cucumber';
 import 'regenerator-runtime/runtime';
 import {assert} from 'chai';
 import {creds} from '../../constant.json';
-import { acceptInvitation, createInvitation, deleteInvitationById, getInvitationById, Invitation} from '../../services/Invitations';
+import { acceptInvitation, createInvitationCall, getInvitationById, Invitation} from '../../services/Invitations';
 
 var invitation: Invitation;
 
@@ -14,28 +14,13 @@ When('it send an invitation POST {string}', async(endpoint) => {
 
 Then('invites a new user as {string} level to the {string} service, response should be: status {string} ok', async (role:string,service:string,status) => {
     
-        invitation = await createInvitation(creds.user + "@rockwellautomation.com",role,service);
+        invitation = await createInvitationCall(creds.user + "@rockwellautomation.com",role,service);
         assert.equal(status,invitation.apiStatus);
       });
 
  Then('the user should see that the invitation gets {string}', async (status) => {
         assert.equal(status,invitation.status);
     });
-  
-
-//-----------------Delete an invitation-------------
-When('it send a request to revoke the currently invitation {string}', async(endpoint) => {
-        console.log(endpoint)
-        });
-    
-Then('revoke an invitation response should be: status {string} ok', async (status) => {
-        let deleteInvitation = await deleteInvitationById();
-        assert.equal(status,deleteInvitation);
-          });
-  Then('the user should see that the invitation gets {string} not found', async (status) => {
-        let deleteInvitation = await deleteInvitationById();
-        assert.equal(status,deleteInvitation);
-});
 
 //-----------------get invitations by Id---------------
 When('it send an invitation GET {string}', async(endpoint) => {
