@@ -6,7 +6,9 @@
   "scripts": {
     "chrome": "npx wdio functional-testing/config/chrome.config.ts",
     "chrome.headless": "npx wdio functional-testing/config/chrome.headless.config.ts",
-    "wdio": "npx wdio functional-testing/config/wdio.conf.js"
+    "wdio": "npx wdio functional-testing/config/wdio.conf.js",
+    "local:syntheticTrx": "npx wdio functional-testing/config/wdio.conf.js --suite syntheticTrx"
+
   },
   "author": "JorgeZapataC, JhojasiRA",
   "license": "ISC",
