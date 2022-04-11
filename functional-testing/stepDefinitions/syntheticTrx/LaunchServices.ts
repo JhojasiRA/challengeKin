@@ -2,7 +2,6 @@ import {When, Then } from '@cucumber/cucumber'
 import { indexPage,homePage,question,topBar } from '../../support/Hooks';
 
 When('the user launch the vault card', async() => {
-  await browser.pause(3000);
   await homePage.launchVault();
 });
 

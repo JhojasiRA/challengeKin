@@ -51,10 +51,10 @@ export class Action {
     public async switchToNewTab(currentTab: string): Promise<void> {
       //  var currentTab = browser.getWindowHandle();
       //  await this.click(element);
-        var allTabs = browser.getWindowHandles();
+        var allTabs = await browser.getWindowHandles();
         for (var i = 0; i < allTabs.length; i++) {
             if (allTabs[i] != currentTab) {
-                await browser.switchWindow(allTabs[i]);
+                await browser.switchToWindow(allTabs[i]);
             break;
             }
         }

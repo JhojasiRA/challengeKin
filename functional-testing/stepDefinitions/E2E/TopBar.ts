@@ -1,5 +1,5 @@
 import { When, Then } from '@cucumber/cucumber';
-import { topBar, question } from '../../support/Hooks';
+import { topBar, indexPage, question } from '../../support/Hooks';
 
 
 When('the user go inside on the help icon', async () => {
@@ -11,7 +11,7 @@ When('the user go inside on Online help option', async () => {
 });
 Then('the user should see the page {string}', async (pageTittle) => {
     await browser.pause(3000);
-    await question.assertElementText(topBar.getMessageOnlineHelp(), pageTittle);
+    await question.assertElementContainsText(topBar.pageTitle, pageTittle)
 });
 
 When('the user go inside on getting started option', async () => {
@@ -19,7 +19,7 @@ When('the user go inside on getting started option', async () => {
 });
 Then('the user should see {string} page tittle', async (pageTittle) => {
     await browser.pause(3000);
-    await question.assertElementText(topBar.getMessageGettingStarted(), pageTittle);
+    await question.assertElementText(topBar.pageTitle, pageTittle);
 });
 
 When('the user go inside on provide feedback option', async () => {
@@ -31,7 +31,7 @@ When('the user go inside on Release Notes', async () => {
 });
 Then('the user should see page with title {string}', async (pageTittle) => {
     await browser.pause(3000);
-    await question.assertElementText(topBar.getMessageReleaseNote(), pageTittle);
+    await question.assertElementContainsText(topBar.pageTitle, pageTittle);
 });
 
 When('the user click on about option', async () => {
@@ -40,4 +40,8 @@ When('the user click on about option', async () => {
 
 When('the user click on its profile', async () => {
     await topBar.signOutOption();
+});
+
+Then('the user should see the login page', async () => {
+    await question.assertElementExist(indexPage.signInButton)
 });

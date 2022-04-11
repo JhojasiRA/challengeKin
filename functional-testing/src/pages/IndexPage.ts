@@ -6,12 +6,10 @@ export class IndexPage extends Action{
     get instructionLogOut () { return $('//*[@id="instruction"]');}
 
     public async goToSignIn(): Promise<void> {
-        //global.lastError = 'Sign in button was not located'
         await this.click(this.signInButton);
     }
       
     public getLogOutPage(): WebdriverIO.Element{
-        //global.lastError = 'coul not see Log out page'
         return this.signInButton;
     }
     public getCompanyLogo(): WebdriverIO.Element{

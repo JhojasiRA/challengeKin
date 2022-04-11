@@ -7,7 +7,8 @@ Background:  Be on the Le Mans portal
  Scenario: Launch vault into Home page
     When the user launch the vault card
     Then the user should see the "Vault" page of controller project
-@LaunchServices      
+
+@LaunchServices   
 Scenario: sign out vault and homepage
     When the user launch the vault card
     And the user sign out the home page

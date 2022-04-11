@@ -4,7 +4,6 @@ var chai = require('chai');
 var expect = chai.expect;
 var chaiAsPromised = require("chai-as-promised");
 chai.use(chaiAsPromised);
-const fs = require('fs');
 chai.use(require('chai-like'));
 chai.use(require('chai-things')); 
 var jp = require('jsonpath')
@@ -21,6 +20,7 @@ export class Question {
 
     public async assertElementText(element, text: string): Promise<void>{
         await element.waitForExist({timeout: global.intElementsTimeout})
+        console.log('loggin: ' + await element.getText());
         await expect(await element.getText()).to.equal(text);
     }
 
@@ -61,7 +61,7 @@ export class Question {
     }
 
     public async assertElementContainsText(element, text: string): Promise<void>{
-        await element.waitForVisible({timeout: global.intElementsTimeout});
+        await element.waitForExist({timeout: global.intElementsTimeout});
         await expect(await element.getText()).to.contain(text)
     }
 
@@ -73,7 +73,6 @@ export class Question {
         const response = await getAllInvitations(process.env.USERNAME, process.env.PASSWORD)
         let status = jp.query(response, '$..records[*].status')
         expect(await status).to.be.an('array').that.include('Active')
-     // global.lastError = "Invitation to the specified resource was not found"
     }
 
 

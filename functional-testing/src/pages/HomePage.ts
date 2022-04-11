@@ -16,7 +16,7 @@ export class HomePage extends Action {
     async launchVault(): Promise<void> {
         // global.lastError = 'vault card was not located'
         await this.click(this.vaultCard);
-        let handles = await browser.getWindowHandles
+        let handles = await browser.getWindowHandles()
         await browser.switchToWindow(handles[1])
     }
 

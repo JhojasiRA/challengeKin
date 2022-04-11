@@ -18,11 +18,9 @@ When('User2 sign in on his account', async() => {
 
 
 When('User2 go inside to the option join request', async() => {
-    await browser.pause(3000);
     await menuhomepage.joinOrganizationOption();
 });
 When('User2 send a join request', async() => {
-  await browser.pause(3000);
   await organization.joinRequest();
 });
 
