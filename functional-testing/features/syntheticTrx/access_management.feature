@@ -1,6 +1,6 @@
 Feature: As an admin of an organization, I want to manage the access to my application, granting, modifying and removing permissions as needed
 
-    @TearDownAddAccess
+    @TearDownAddAccess @SyntheticTrx
     Scenario: Add access to a user to the tenant with role administrator
         Given the user "testuser21" has joined the tenant "Organization automation" with role "Contributor"
         And the user open the Le Mans portal
@@ -9,7 +9,7 @@ Feature: As an admin of an organization, I want to manage the access to my appli
         When the admin grants access to the user "testuser21@rockwellautomation.com" to the resource "Organization" with role "Administrator"
         Then the admin should see that the user "testuser21@rockwellautomation.com" has correct access to the resource "Organization" with role "Admin"
 
-    @TearDownAddAccess
+    @TearDownAddAccess @SyntheticTrx
     Scenario: Add access to a user to the tenant with role contributor
         Given the user "testuser21" has joined the tenant "Organization automation" with role "Administrator"
         And the user open the Le Mans portal
@@ -19,7 +19,7 @@ Feature: As an admin of an organization, I want to manage the access to my appli
         Then the admin should see that the user "testuser21@rockwellautomation.com" has correct access to the resource "Organization" with role "Contributor"
 
 
-    @TearDownAddAccess 
+    @TearDownAddAccess @SyntheticTrx
     Scenario: Add access to a user to a service with role administrator
         Given the user "testuser21" has joined the tenant "Organization automation" with role "Contributor"
         And the user open the Le Mans portal
@@ -28,7 +28,7 @@ Feature: As an admin of an organization, I want to manage the access to my appli
         When the admin adds access to user "George Martin" to the service "Vault" with role "Administrator"
         Then the admin should see that the user "testuser21@rockwellautomation.com" has correct access to the resource "Vault" with role "Admin"
 
-    @TearDownAddAccess 
+    @TearDownAddAccess @SyntheticTrx
     Scenario: Add access to a user to a service with role contributor
         Given the user "testuser21" has joined the tenant "Organization automation" with role "Administrator"
         And the user open the Le Mans portal
@@ -36,7 +36,7 @@ Feature: As an admin of an organization, I want to manage the access to my appli
         And the user accept the EULA testing eula "false"
         When the admin adds access to user "George Martin" to the service "Vault" with role "Contributor"
         Then the admin should see that the user "testuser21@rockwellautomation.com" has correct access to the resource "Vault" with role "Contributor"
-
+    @SyntheticTrx
     Scenario: Remove access to a user to a tenant with role administrator
         Given the user "testuser21" has joined the tenant "Organization automation" with role "Administrator"
         And the user open the Le Mans portal
