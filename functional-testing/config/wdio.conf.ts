@@ -10,6 +10,12 @@ export const BaseConfig: WebdriverIO.Config = {
 
     specs: [
         'functional-testing/features/*/*.feature'
+   /*  'functional-testing/features/syntheticTrx/common_services_login.feature',
+        'functional-testing/features/syntheticTrx/create_organization.feature',
+        'functional-testing/features/syntheticTrx/join_request.feature',
+        'functional-testing/features/syntheticTrx/access_management.feature',
+        'functional-testingfeatures/syntheticTrx/launch_services.feature',
+        'functional-testingfeatures/syntheticTrx/launch_services.feature/invitations_management.feature' */
     ],
     exclude: [
     ],
@@ -95,7 +101,7 @@ export const BaseConfig: WebdriverIO.Config = {
         source: true,
         profile: [],
         strict: false,
-        tagExpression: '@ApiInvitation',
+        tagExpression: '@create',
         timeout: intStepsTimeout,
         ignoreUndefinedDefinitions: false
     },

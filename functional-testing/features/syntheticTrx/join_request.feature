@@ -5,7 +5,7 @@ Background:  Be on the Le Mans portal
     When the user submit the form with its credentials
     And the user accept the EULA testing eula "false"
 
-@joinrequest
+@joinrequest @SyntheticTrx
 Scenario: Send a join request successfuly
     When the user go inside to edit organization option
     And User1 copy a new invite code
@@ -16,12 +16,12 @@ Scenario: Send a join request successfuly
     And User2 send a join request
     Then the user2 will see a message pop up: "You will be notified once the owner of the organization approves your request"
 
-@joinrequest
+@joinrequest @SyntheticTrx
 Scenario: Dismiss join request
     When User1 go to approve user option
     And User1 dismiss the user2 request to join to the organization
     Then the user1 will see a message pop up: "User request to join your organization will be dismissed."
-@joinrequest
+@joinrequest @SyntheticTrx
 Scenario: Send a join request with an outdate invite code
     When the user go inside to edit organization option
     And User1 copy a new invite code

@@ -11,6 +11,8 @@ const ChromeOptions: WebdriverIO.Config = {
     services: ['chromedriver'],
     //@ts-ignore
     chromeDriverLogs: './logs'
+
+    
 };
 
 
