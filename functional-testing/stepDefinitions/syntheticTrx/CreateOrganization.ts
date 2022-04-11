@@ -6,15 +6,12 @@ import {defaultOrg} from '../../constant.json'
 
 setDefaultTimeout(60 * 1000);
 When('the user go inside to create organization option', async() => {
-    await browser.pause(2000);
     await menuhomepage.createOrganizationOption();
   });
 When('the user submit the form with its information', async() => {
-    await browser.pause(2000);
     await organization.newOrganization();
 });  
   Then('the user should see the message {string}', async(message) => {
-      await browser.pause(2000);
       await question.assertElementText(organization.getMessageCreateOrganization(),message);
       await organization.ok();
     });
@@ -23,22 +20,18 @@ When('the user submit the form with its name', async() => {
       await organization.cancelCreation();
   });  
    Then('User should see a message pop up: {string}', async(DiscardChangemessage) => {
-        await browser.pause(2000);
         await question.assertElementText(organization.getDiscardChangesMessage(),DiscardChangemessage);
         await organization.continue();
       });
 
 
 When('the user go inside to edit organization option', async() => {
-  await browser.pause(2000);
   await menuhomepage.editOrganizationOption();
   }); 
 When('the user submit the form with new information', async() => {
-  await browser.pause(2000);
     await organization.editOrganization();
 }); 
   Then('the user will see the message {string}', async(message) => {
-  await browser.pause(2000);
   await question.assertElementText(organization.getMessageEditOrganization(),message);
   await organization.ok();
 }); 

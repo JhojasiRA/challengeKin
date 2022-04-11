@@ -54,7 +54,7 @@ When('it send a put request to edit organization {string}', async(endpoint) => {
 Then('edit org tenant response should be: status {string} ok', async(status) => {
         let orgModified = await editTenantInfo();
         assert.equal(status,orgModified);
-        await browser.pause(4000);
+       await browser.pause(4000);
 });
   //-----------------get a user by effective roles   
 When('it send a effective request GET {string}', async(endp) => {
