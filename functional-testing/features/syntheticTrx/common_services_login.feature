@@ -1,4 +1,4 @@
-Feature: As a user, I want to login into acces management Le Mans portal
+Feature: As a user, I want to login in FactoryTalk Hub
 
 Background:  Be on the Le Mans portal
     Given the user open the Le Mans portal

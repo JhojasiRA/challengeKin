@@ -16,14 +16,8 @@ export const BaseConfig: WebdriverIO.Config = {
             'functional-testing/features/syntheticTrx/access_management.feature',
             'functional-testingfeatures/syntheticTrx/launch_services.feature',
             'functional-testingfeatures/syntheticTrx/invitations_management.feature'
-        ],
-        'functional-testing/features/*/*.feature'
-   /*  'functional-testing/features/syntheticTrx/common_services_login.feature',
-        'functional-testing/features/syntheticTrx/create_organization.feature',
-        'functional-testing/features/syntheticTrx/join_request.feature',
-        'functional-testing/features/syntheticTrx/access_management.feature',
-        'functional-testingfeatures/syntheticTrx/launch_services.feature',
-        'functional-testingfeatures/syntheticTrx/launch_services.feature/invitations_management.feature' */
+        ]
+
     ],
 
     exclude: [

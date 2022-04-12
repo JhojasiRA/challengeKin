@@ -18,7 +18,7 @@ When('the user sign out the home page', async() => {
 
 Then('the user should see logout page', async() => {
   await browser.pause(3000);
-  await question.assertElementNotExist(indexPage.getLogOutPage());
+  await question.assertElementExist(indexPage.signInButton);
 });
 
 When('the user launch the FTRA card', async() => {
