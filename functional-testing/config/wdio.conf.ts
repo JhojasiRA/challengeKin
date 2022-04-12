@@ -106,7 +106,7 @@ export const BaseConfig: WebdriverIO.Config = {
         source: true,
         profile: [],
         strict: false,
-        tagExpression: '@create',
+        tagExpression: '',
         timeout: intStepsTimeout,
         ignoreUndefinedDefinitions: false
     },

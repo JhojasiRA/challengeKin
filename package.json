@@ -8,7 +8,6 @@
     "chrome.headless": "npx wdio functional-testing/config/chrome.headless.config.ts",
     "wdio": "npx wdio functional-testing/config/wdio.conf.js",
     "local:syntheticTrx": "npx wdio functional-testing/config/wdio.conf.js --suite syntheticTrx"
-
   },
   "author": "JorgeZapataC, JhojasiRA",
   "license": "ISC",
@@ -31,7 +30,7 @@
     "@wdio/selenium-standalone-service": "^7.18.0",
     "@wdio/spec-reporter": "^7.18.0",
     "chai-datetime": "^1.8.0",
-    "chromedriver": "^100.0",
+    "chromedriver": "^100.0.0",
     "cucumber-html-reporter": "^5.3.0",
     "eslint": "8.1.0",
     "eslint-config-prettier": "8.3.0",

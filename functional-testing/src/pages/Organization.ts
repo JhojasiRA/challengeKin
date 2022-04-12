@@ -34,11 +34,8 @@ export class Organization extends Action {
 
     public async editOrganization(): Promise<void> {
         await browser.pause(1000);
-        let newTextName = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
+        let newTextName = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(3, 8);
         await this.enterText(this.nameOrganizationField, newTextName);
-        await browser.pause(1000);
-        let newText = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
-        await this.enterText(this.descriptionField, newText);
         await browser.pause(1000);
         await this.click(this.saveButton);
     }
