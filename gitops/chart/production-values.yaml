@@ -2,20 +2,18 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-## Define chronschedules for your cronjobs in prod as e.g: 
-# cronScheduleCJ1: "*/15 * * * *"  
-# cronScheduleCJ2: "*/1 * * * *"
+cronScheduleSynthetictrx: "0 0/8 * * *"
+cronScheduleapi: "* 0 1 1 *"
 
-## Define the values for the env variables in prod. e.g: 
-# portalUrl: https://vault.cloud.rockwellautomation.com
-# homeUrl: https://home.cloud.rockwellautomation.com/
-# testUser: lemans.synthetic.tests@gmail.com
-# splunkHost: http-inputs-ra.splunkcloud.com
-# splunkIndex: lemans
-# apiUrl: https://api.cloud.rockwellautomation.com/
+splunkHost: http-inputs-ra.splunkcloud.com
+splunkIndex: lemans
+IS_URL: https://factorytalkhub.us.auth0.com/oauth/token
+API_CS: https://portal.cloud.rockwellautomation.com
+PORTAL_URL: https://home.cloud.rockwellautomation.com
+#URL_NOTIF: https://api-notifications.lemans-sandbox.rockwellautomation.com
 
 image:
-  repository: ghcr.io/rockwell-automation-inc/lemans-testingautomation-idh
+  repository: ghcr.io/rockwell-automation-inc/lemans-testingautomation-commonservices
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   #tag: 0.1.0-prerelease
@@ -30,10 +28,13 @@ fullnameOverride: ""
 environment: Production
 
 trigger:
-    type: ConfigChange
+   type: ConfigChange
 
 strategy:
     type: RollingUpdate
+
+armAuth:
+  identityResourceID: null
 
 keyVault:
   enabled: true
