@@ -5,7 +5,7 @@ import { accessRequest, approveAccessRequest} from './AccesRequest'
 
 var jp = require('jsonpath')
 
-export var joinTenant = async(tenantName: string, user:string, role:string)=>{
+export var joinLastaccessedTenant = async(user:string, role:string)=>{
     await browser.pause(1000);
     let tokenUser1 = await getToken5(process.env.USERNAME, process.env.PASSWORD)
     let tokenUser2 = await getToken5(user,process.env.PASSWORD)
@@ -14,5 +14,4 @@ export var joinTenant = async(tenantName: string, user:string, role:string)=>{
     let tenantId = await jp.query(preferences, '$..preferences.lastAccessedTenantId')[0]
     await accessRequest(tenantId, tenantId, tokenUser2)
     await approveAccessRequest(tenantId, tokenUser1, role)
-    console.log(tenantName)
 }

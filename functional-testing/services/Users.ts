@@ -1,7 +1,7 @@
 import 'regenerator-runtime/runtime';
 const axios = require('axios');
 import {getToken,getToken2} from '../Token';
-import { getTenantId } from './Tenants';
+import { getLastAccessedTenantId } from './Tenants';
 
 let tenantInfo = {id:"",status:""};
 let eula = {version:"",status:""};
@@ -277,12 +277,12 @@ export var getPreferences = async(userId: string, token:string) => {
 export var revokeRole = async(userId: string, resourceId:string, token:string, ) => {
     try{
         let url = `${process.env.API_CS}/api/users/${userId}/roles/?resid=${resourceId}`;
-        let tenantId = await getTenantId(token)
+        let tenantId = await getLastAccessedTenantId()
         let config = {
             headers: {
                 'Authorization': 'Bearer ' + token,
                 'Content-Type': 'application/json',
-                'tenantid': tenantId.id
+                'tenantid': tenantId
             }
        
         }

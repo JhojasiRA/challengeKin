@@ -1,5 +1,5 @@
 import {Given, When, Then, After} from '@cucumber/cucumber';
-import { joinTenant } from '../../services/JoinTenant'
+import { joinLastaccessedTenant } from '../../services/JoinTenant'
 import { menuhomepage, accesManagement as accessManagement, question } from '../../support/Hooks';
 import { getTenantEffectiveRoles, getUserId } from '../../services/Tenants';
 import { revokeRole } from '../../services/Users';
@@ -9,8 +9,8 @@ var asset ='';
 var userToRevoke='';
 
 
-Given(/^the user "([^"]*)" has joined the tenant "([^"]*)" with role "([^"]*)"$/, async (user: string, tenantName: string, role: string) => {
-  await joinTenant(tenantName, user, role)
+Given(/^the user "([^"]*)" has joined the last accessed tenant with role "([^"]*)"$/, async (user: string, role: string) => {
+  await joinLastaccessedTenant(user, role)
 });
 
 When(/^the admin grants access to the user "([^"]*)" to the resource "([^"]*)" with role "([^"]*)"$/, async (user: string, resource: string, role: string) => {

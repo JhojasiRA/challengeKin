@@ -213,16 +213,14 @@ export var editTenantInfoWithParams = async (name: string, location: string, des
 }
 
 export var getTenantEffectiveRoles = async (userId: string, token: string) => {
-    if (statusAndTenantId.id == '') {
-        await getTenantId(token);
-    }
+    let tenantId = await getLastAccessedTenantId()
     try {
         let url = `${process.env.API_CS}/api/users/${userId}/tenanteffectiveroles`;
         let config = {
             headers: {
                 'Authorization': 'Bearer ' + token,
                 'Content-Type': 'application/json',
-                'tenantId': statusAndTenantId.id
+                'tenantId': tenantId
             }
         }
         global.lastError = 'Error getting tenant effective roles'

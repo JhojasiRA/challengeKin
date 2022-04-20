@@ -12,7 +12,7 @@ export class AccesManagement extends Action {
     get roleSelect () { return $("#resourceName_select'")}
     get addButton () { return $("//button[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), 'add')]")}
     get saveButton () { return $("//button[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), 'save')]")}
-    get selectResourceType () { return $("#mat-select-value-1'")}
+    get selectResourceType () { return $("#mat-select-value-1")}
     get selectResource () { return $("#mat-select-value-3")}
     get selectRole () { return $("#mat-select-value-5")}
     get removeOption () { return $("//*[@id='cdk-overlay-0']/descendant::button[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), 'remove')]")}
