@@ -8,6 +8,7 @@ node_modules
 
 errorShots
 coverage
+wdio.conf.js
 
 # Editor files
 .idea
