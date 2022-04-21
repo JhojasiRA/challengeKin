@@ -22,13 +22,13 @@ on:
         description: "Specify Tag (optional)"
         required: false
 
-env:    
+env:
   DOCKER_FILE: "Dockerfile"
   CONTAINER_PORT: 80
-  KUBERNETES_NAMESPACE: # K8S Namespace
+  KUBERNETES_NAMESPACE: testing-automation
   SECURITY_NAMESPACE: security
-  KUBERNETES_APP_NAME: # K8S Appname
-  HELM_CHART_NAME: # Chart name defined in gitops/Chart.yaml
+  KUBERNETES_APP_NAME: testing-automation-commonservices
+  HELM_CHART_NAME: testing-automation-commonservices
   CONTAINER_REGISTRY_NAME: ghcr.io
   BUILD_CONFIG: "Debug"
   HELM_CHART_RELATIVE_LOCATION: gitops/chart
@@ -113,8 +113,7 @@ jobs:
       # Build the Docker image tagged for pre-release or release.
       - name: Build the Docker image
         run: |
-          docker build . --file ${{ env.DOCKER_FILE }} --tag buildimage
-
+          docker build . --file ${{ env.DOCKER_FILE }} --tag buildimage          
       - uses: ./.github/actions/common-outputs
         if: github.event.inputs.tags || 
             github.ref == 'refs/heads/master' || 
@@ -131,15 +130,9 @@ jobs:
             github.ref == 'refs/heads/develop'
         run: |
           docker tag buildimage ${DOCKER_TAG}:${BUILD_VERSION}
-          docker tag buildimage-selenium-edge ${DOCKER_SELENIUM_EDGE_TAG}:${BUILD_VERSION}
-          docker tag buildimage-selenium-grid ${DOCKER_SELENIUM_GRID_TAG}:${BUILD_VERSION}
           docker push ${DOCKER_TAG}:${BUILD_VERSION}
-          docker push ${DOCKER_SELENIUM_EDGE_TAG}:${BUILD_VERSION}
-          docker push ${DOCKER_SELENIUM_GRID_TAG}:${BUILD_VERSION}
         env:
           DOCKER_TAG: ${{ steps.common.outputs.container-registry-docker-tag }}
-          DOCKER_SELENIUM_EDGE_TAG: ${{ steps.common.outputs.container-registry-docker-tag }}-selenium-edge
-          DOCKER_SELENIUM_GRID_TAG: ${{ steps.common.outputs.container-registry-docker-tag }}-selenium-grid
           BUILD_VERSION: ${{ steps.next_tag.outputs.new_tag || 
                               steps.next_tag_dev.outputs.new_tag || 
                               github.event.inputs.tags }}
@@ -168,552 +161,540 @@ jobs:
         with:
           name: helm-charts
           path: ${{ env.HELM_CHART_RELATIVE_LOCATION }}
+    
+  sandbox-application-deployment:
+    if: ${{ github.ref == 'refs/heads/develop' && github.event_name == 'push' }}
+    needs: [build]
+    timeout-minutes: 180
+    runs-on:
+      - self-hosted
+      - ${{ matrix.location }}
+      - ${{ matrix.environment }}
+      - deployment
+    environment:
+      name: ${{ matrix.environment }}
+    strategy:
+      fail-fast: false  # Don't fail all if one fails.
+      matrix:
+        location: [eastus2]
+        include:
+          - location: eastus2
+            environment: sandbox
+            resource_group_prefix: rg-sandbox-usermanaged-aks
+            cluster_name: aks-eastus2-sandbox0
+            key_vault_name: kv-0083-eastus2-LeMans
+            identity_resource_id: /subscriptions/a7ffc9c0-e376-4bb4-8f03-b13f138296d0/resourceGroups/rg-sandbox-usermanaged-aks-eastus2/providers/Microsoft.ManagedIdentity/userAssignedIdentities/aks-keyvault-managed-identity
+            identity_client_id: 16461407-dd82-438a-9c9c-df523d82c745
+    env:
+      AZURE_TENANT_ID: ${{ secrets.AZURE_ROCKWELL_AUTOMATION_TENANT_ID }}
+      DEPLOYMENT_ENVIRONMENT: sandbox
+      KUBECONFIG: ${{ secrets.LEMANS_SANDBOX_KUBECONFIGS }}
 
-  # *** IMPORTANT ***
-  # UNCOMMENT THE REST OF THE FILE WHEN YOU HAVE SOMETHING TO DEPLOY TO THE K8S CLUSTERS
+    steps:
+      - name: Checkout RA Action Repo
+        uses: actions/checkout@v2
+        with:
+          repository: Rockwell-Automation-Inc/actions
+          ref: v9.3
+          token: ${{ secrets.READ_GITHUB_ACTIONS_PAT }}
+          path: .github/actions
 
-  # sandbox-application-deployment:
-  #   if: ${{ github.ref == 'refs/heads/develop' && github.event_name == 'push' }}
-  #   needs: [build]
-  #   timeout-minutes: 180
-  #   runs-on:
-  #     - self-hosted
-  #     - ${{ matrix.location }}
-  #     - ${{ matrix.environment }}
-  #     - deployment
-  #   environment:
-  #     name: ${{ matrix.environment }}
-  #   strategy:
-  #     fail-fast: false  # Don't fail all if one fails.
-  #     matrix:
-  #       location: [eastus2]
-  #       include:
-  #         - location: eastus2
-  #           environment: sandbox
-  #           resource_group_prefix: rg-sandbox-usermanaged-aks
-  #           cluster_name: aks-eastus2-sandbox0
-  #           key_vault_name: kv-0083-eastus2-LeMans
-  #           identity_resource_id: /subscriptions/a7ffc9c0-e376-4bb4-8f03-b13f138296d0/resourceGroups/rg-sandbox-usermanaged-aks-eastus2/providers/Microsoft.ManagedIdentity/userAssignedIdentities/aks-keyvault-managed-identity
-  #           identity_client_id: 16461407-dd82-438a-9c9c-df523d82c745
-  #   env:
-  #     AZURE_TENANT_ID: ${{ secrets.AZURE_ROCKWELL_AUTOMATION_TENANT_ID }}
-  #     DEPLOYMENT_ENVIRONMENT: sandbox
-  #     KUBECONFIG: ${{ secrets.LEMANS_SANDBOX_KUBECONFIGS }}
+      - name: Download Helm Chart artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: helm-charts
+          path: ${{ env.HELM_CHART_RELATIVE_LOCATION }}
 
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v2
+      - name: Login to Azure using MSI
+        run: |
+          az login --identity
 
-  #     - name: Checkout RA Action Repo
-  #       uses: actions/checkout@v2
-  #       with:
-  #         repository: Rockwell-Automation-Inc/actions
-  #         ref: v9.3
-  #         token: ${{ secrets.READ_GITHUB_ACTIONS_PAT }}
-  #         path: .github/actions
+      - name: Set Kubernetes context
+        uses: azure/k8s-set-context@v1
+        with:
+          kubeconfig: ${{ secrets.LEMANS_SANDBOX_KUBECONFIGS }}
+          context: ${{ matrix.cluster_name }}-admin
 
-  #     - name: Download Helm Chart artifacts
-  #       uses: actions/download-artifact@v2
-  #       with:
-  #         name: helm-charts
-  #         path: ${{ env.HELM_CHART_RELATIVE_LOCATION }}
+      - name: Start deployment
+        uses: bobheadxi/deployments@v0.6.0
+        id: deployment
+        with:
+          step: start
+          token: ${{ secrets.GITHUB_TOKEN }}
+          env: ${{ env.DEPLOYMENT_ENVIRONMENT }}
 
-  #     - name: Login to Azure using MSI
-  #       run: |
-  #         az login --identity
+      # Create additional Kubernetes namespace if they don't exist yet.
+      - name: Create Kubernetes namespaces (if they don't exist)
+        run: |
+          kubectl create namespace ${{ env.KUBERNETES_NAMESPACE}} --dry-run=client -o json | kubectl apply -f -
+          kubectl create namespace ${{ env.SECURITY_NAMESPACE }} --dry-run=client -o json | kubectl apply -f -
 
-  #     - name: Set Kubernetes context
-  #       uses: azure/k8s-set-context@v1
-  #       with:
-  #         kubeconfig: ${{ secrets.LEMANS_SANDBOX_KUBECONFIGS }}
-  #         context: ${{ matrix.cluster_name }}-admin
+      # Create image-pull-secret for GitHub Package registry.
+      - name: Create Kubernetes secret for GitHub access (if it doesn't exist)
+        uses: azure/k8s-create-secret@v1
+        with:
+          namespace: ${{ env.KUBERNETES_NAMESPACE }}
+          container-registry-url: ${{ env.CONTAINER_REGISTRY_NAME }}
+          container-registry-username: ${{ secrets.READ_GITHUB_PACKAGES_USER }}
+          container-registry-password: ${{ secrets.READ_GITHUB_PACKAGES_PAT }}
+          secret-name: image-pull-secrets
 
-  #     - name: Start deployment
-  #       uses: bobheadxi/deployments@v0.6.0
-  #       id: deployment
-  #       with:
-  #         step: start
-  #         token: ${{ secrets.GITHUB_TOKEN }}
-  #         env: ${{ env.DEPLOYMENT_ENVIRONMENT }}
+      - name: Deployment
+        run: |
+          helm upgrade --install --atomic --debug ${{ env.KUBERNETES_APP_NAME }} \
+            ${{ env.HELM_CHART_RELATIVE_LOCATION }} \
+            -f ${{ env.HELM_CHART_RELATIVE_LOCATION }}/${{ matrix.environment }}-values.yaml \
+            --namespace=${{ env.KUBERNETES_NAMESPACE}} \
+            --create-namespace \
+            --wait \
+            --timeout ${{ env.HELM_TIMEOUT }} \
+            --set keyVault.name="${{ matrix.key_vault_name }}" \
+            --set keyVault.tenantId="${{ env.AZURE_TENANT_ID }}" \
+            --set armAuth.identityResourceID="${{ matrix.identity_resource_id }}" \
+            --set armAuth.identityClientID="${{ matrix.identity_client_id }}"
 
-  #     # Create additional Kubernetes namespace if they don't exist yet.
-  #     - name: Create Kubernetes namespaces (if they don't exist)
-  #       run: |
-  #         kubectl create namespace ${{ env.KUBERNETES_NAMESPACE}} --dry-run=client -o json | kubectl apply -f -
-  #         kubectl create namespace ${{ env.SECURITY_NAMESPACE }} --dry-run=client -o json | kubectl apply -f -
+      - name: DevOpstic event payload - success
+        uses: ./.github/actions/devopstic-eventpayload
+        if: success()
+        continue-on-error: true
+        id: eventpayloadsuccess
+        with:
+          event-commit_id: $GITHUB_SHA
+          event-type: "deploy"
+          event-pipeline_id: $GITHUB_REPOSITORY
+          event-environment: ${{ matrix.environment }}
+          event-status: "success"
 
-  #     # Create image-pull-secret for GitHub Package registry.
-  #     - name: Create Kubernetes secret for GitHub access (if it doesn't exist)
-  #       uses: azure/k8s-create-secret@v1
-  #       with:
-  #         namespace: ${{ env.KUBERNETES_NAMESPACE }}
-  #         container-registry-url: ${{ env.CONTAINER_REGISTRY_NAME }}
-  #         container-registry-username: ${{ secrets.READ_GITHUB_PACKAGES_USER }}
-  #         container-registry-password: ${{ secrets.READ_GITHUB_PACKAGES_PAT }}
-  #         secret-name: image-pull-secrets
+      - name: DevOpstic event payload - failed
+        uses: ./.github/actions/devopstic-eventpayload
+        if: failure()
+        continue-on-error: true
+        id: eventpayloadfailure
+        with:
+          event-commit_id: $GITHUB_SHA
+          event-type: "deploy"
+          event-pipeline_id: $GITHUB_REPOSITORY
+          event-environment: ${{ matrix.environment }}
+          event-status: "failed"
 
-  #     - name: Deployment
-  #       run: |
-  #         helm upgrade --install --atomic --debug ${{ env.KUBERNETES_APP_NAME }} \
-  #           ${{ env.HELM_CHART_RELATIVE_LOCATION }} \
-  #           -f ${{ env.HELM_CHART_RELATIVE_LOCATION }}/${{ matrix.environment }}-values.yaml \
-  #           --namespace=${{ env.KUBERNETES_NAMESPACE}} \
-  #           --create-namespace \
-  #           --wait \
-  #           --timeout ${{ env.HELM_TIMEOUT }} \
-  #           --set keyVault.name="${{ matrix.key_vault_name }}" \
-  #           --set keyVault.tenantId="${{ env.AZURE_TENANT_ID }}" \
-  #           --set armAuth.identityResourceID="${{ matrix.identity_resource_id }}" \
-  #           --set armAuth.identityClientID="${{ matrix.identity_client_id }}"
+      - name: Update deployment status
+        uses: bobheadxi/deployments@v0.6.0
+        if: always()
+        with:
+          step: finish
+          token: ${{ secrets.GITHUB_TOKEN }}
+          status: ${{ job.status }}
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
 
-  #     - name: DevOpstic event payload - success
-  #       uses: ./.github/actions/devopstic-eventpayload
-  #       if: success()
-  #       continue-on-error: true
-  #       id: eventpayloadsuccess
-  #       with:
-  #         event-commit_id: $GITHUB_SHA
-  #         event-type: "deploy"
-  #         event-pipeline_id: $GITHUB_REPOSITORY
-  #         event-environment: ${{ matrix.environment }}
-  #         event-status: "success"
+  create-devprerelease:
+    if: ${{ github.ref == 'refs/heads/develop' && github.event_name == 'push' }}
+    needs: sandbox-application-deployment
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all workflow artifacts
+        uses: actions/download-artifact@v2
+        with:
+          path: ${{ env.HELM_CHART_RELATIVE_LOCATION }}
 
-  #     - name: DevOpstic event payload - failed
-  #       uses: ./.github/actions/devopstic-eventpayload
-  #       if: failure()
-  #       continue-on-error: true
-  #       id: eventpayloadfailure
-  #       with:
-  #         event-commit_id: $GITHUB_SHA
-  #         event-type: "deploy"
-  #         event-pipeline_id: $GITHUB_REPOSITORY
-  #         event-environment: ${{ matrix.environment }}
-  #         event-status: "failed"
+      - name: Create Release Artifact
+        run: |
+          zip -r ../${{ env.KUBERNETES_APP_NAME }}.zip ${{ env.HELM_CHART_RELATIVE_LOCATION }}
 
-  #     - name: Update deployment status
-  #       uses: bobheadxi/deployments@v0.6.0
-  #       if: always()
-  #       with:
-  #         step: finish
-  #         token: ${{ secrets.GITHUB_TOKEN }}
-  #         status: ${{ job.status }}
-  #         deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+      - name: Checkout repository with entire history
+        uses: actions/checkout@v2
+        with:
+          # Fetches entire history, so we can analyze commits since last tag.
+          fetch-depth: 0
 
-  # create-devprerelease:
-  #   if: ${{ github.ref == 'refs/heads/develop' && github.event_name == 'push' }}
-  #   needs: sandbox-application-deployment
-  #   timeout-minutes: 10
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Download all workflow artifacts
-  #       uses: actions/download-artifact@v2
-  #       with:
-  #         path: ${{ env.HELM_CHART_RELATIVE_LOCATION }}
+      - name: Bump version and push tag
+        id: create_tag
+        uses: anothrNick/github-tag-action@1.36.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
+          RELEASE_BRANCHES: master
+          PRERELEASE_SUFFIX: development
+          DRY_RUN: false
 
-  #     - name: Create Release Artifact
-  #       run: |
-  #         zip -r ../${{ env.KUBERNETES_APP_NAME }}.zip ${{ env.HELM_CHART_RELATIVE_LOCATION }}
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.create_tag.outputs.new_tag || github.event.inputs.tags }}
+          release_name: Release ${{ steps.create_tag.outputs.new_tag || github.event.inputs.tags }}
+          body: Change logs temporarily disabled.
+          draft: false
+          prerelease: false
 
-  #     - name: Checkout repository with entire history
-  #       uses: actions/checkout@v2
-  #       with:
-  #         # Fetches entire history, so we can analyze commits since last tag.
-  #         fetch-depth: 0
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ../${{ env.KUBERNETES_APP_NAME }}.zip
+          asset_name: ${{ env.KUBERNETES_APP_NAME }}.zip
+          asset_content_type: application/zip
 
-  #     - name: Bump version and push tag
-  #       id: create_tag
-  #       uses: anothrNick/github-tag-action@1.36.0
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #         DEFAULT_BUMP: patch
-  #         RELEASE_BRANCHES: master
-  #         PRERELEASE_SUFFIX: development
-  #         DRY_RUN: false
-
-  #     - name: Create Release
-  #       id: create_release
-  #       uses: actions/create-release@v1
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #       with:
-  #         tag_name: ${{ steps.create_tag.outputs.new_tag || github.event.inputs.tags }}
-  #         release_name: Release ${{ steps.create_tag.outputs.new_tag || github.event.inputs.tags }}
-  #         body: Change logs temporarily disabled.
-  #         draft: false
-  #         prerelease: false
-
-  #     - name: Upload Release Asset
-  #       id: upload-release-asset
-  #       uses: actions/upload-release-asset@v1
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #       with:
-  #         upload_url: ${{ steps.create_release.outputs.upload_url }}
-  #         asset_path: ../${{ env.KUBERNETES_APP_NAME }}.zip
-  #         asset_name: ${{ env.KUBERNETES_APP_NAME }}.zip
-  #         asset_content_type: application/zip
-
-  # nonprod-application-deployment:
-  #   if: ${{ github.ref == 'refs/heads/release' && github.event_name == 'push' }}
-  #   needs: [build]
-  #   timeout-minutes: 180
-  #   runs-on:
-  #     - self-hosted
-  #     - ${{ matrix.location }}
-  #     - ${{ matrix.environment }}
-  #     - deployment
-  #   environment:
-  #     name: ${{ matrix.environment }}
-  #   strategy:
-  #     fail-fast: false  # Don't fail all if one fails.
-  #     matrix:
-  #       location: [eastus2]
-  #       include:
-  #         - location: eastus2
-  #           environment: nonprod
-  #           resource_group_prefix: rg-dev-usermanaged-aks
-  #           cluster_name: aks-eastus2-dev0
-  #           key_vault_name: kv-0117-eastus2-LeMans
-  #           identity_resource_id: /subscriptions/13960a1d-f5d0-4cc1-b82e-8bb9c42aa6fa/resourceGroups/rg-dev-usermanaged-aks-eastus2/providers/Microsoft.ManagedIdentity/userAssignedIdentities/aks-keyvault-managed-identity
-  #           identity_client_id: 8520892a-aa21-40a5-9941-4ee093966d55
-  #   env:
-  #     AZURE_TENANT_ID: ${{ secrets.AZURE_ROCKWELL_AUTOMATION_TENANT_ID }}
-  #     DEPLOYMENT_ENVIRONMENT: nonprod
-  #     KUBECONFIG: ${{ secrets.LEMANS_NONPROD_KUBECONFIGS }}
+  nonprod-application-deployment:
+    if: ${{ github.ref == 'refs/heads/release' && github.event_name == 'push' }}
+    needs: [build]
+    timeout-minutes: 180
+    runs-on:
+      - self-hosted
+      - ${{ matrix.location }}
+      - ${{ matrix.environment }}
+      - deployment
+    environment:
+      name: ${{ matrix.environment }}
+    strategy:
+      fail-fast: false  # Don't fail all if one fails.
+      matrix:
+        location: [eastus2]
+        include:
+          - location: eastus2
+            environment: nonprod
+            resource_group_prefix: rg-dev-usermanaged-aks
+            cluster_name: aks-eastus2-dev0
+            key_vault_name: kv-0117-eastus2-LeMans
+            identity_resource_id: /subscriptions/13960a1d-f5d0-4cc1-b82e-8bb9c42aa6fa/resourceGroups/rg-dev-usermanaged-aks-eastus2/providers/Microsoft.ManagedIdentity/userAssignedIdentities/aks-keyvault-managed-identity
+            identity_client_id: 8520892a-aa21-40a5-9941-4ee093966d55
+    env:
+      AZURE_TENANT_ID: ${{ secrets.AZURE_ROCKWELL_AUTOMATION_TENANT_ID }}
+      DEPLOYMENT_ENVIRONMENT: nonprod
+      KUBECONFIG: ${{ secrets.LEMANS_NONPROD_KUBECONFIGS }}
 
 
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v2
+    steps:
+      - name: Checkout RA Action Repo
+        uses: actions/checkout@v2
+        with:
+          repository: Rockwell-Automation-Inc/actions
+          ref: v9.3
+          token: ${{ secrets.READ_GITHUB_ACTIONS_PAT }}
+          path: .github/actions
 
-  #     - name: Checkout RA Action Repo
-  #       uses: actions/checkout@v2
-  #       with:
-  #         repository: Rockwell-Automation-Inc/actions
-  #         ref: v9.3
-  #         token: ${{ secrets.READ_GITHUB_ACTIONS_PAT }}
-  #         path: .github/actions
+      - name: Download Helm Chart artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: helm-charts
+          path: ${{ env.HELM_CHART_RELATIVE_LOCATION }}
+      # ... Actual deployment ...
 
-  #     - name: Download Helm Chart artifacts
-  #       uses: actions/download-artifact@v2
-  #       with:
-  #         name: helm-charts
-  #         path: ${{ env.HELM_CHART_RELATIVE_LOCATION }}
-  #     # ... Actual deployment ...
+      - name: Login to Azure using MSI
+        run: |
+          az login --identity
 
-  #     - name: Login to Azure using MSI
-  #       run: |
-  #         az login --identity
+      - name: Set Kubernetes context
+        uses: azure/k8s-set-context@v1
+        with:
+          kubeconfig: ${{ secrets.LEMANS_NONPROD_KUBECONFIGS }}
+          context: ${{ matrix.cluster_name }}-admin
 
-  #     - name: Set Kubernetes context
-  #       uses: azure/k8s-set-context@v1
-  #       with:
-  #         kubeconfig: ${{ secrets.LEMANS_NONPROD_KUBECONFIGS }}
-  #         context: ${{ matrix.cluster_name }}-admin
+      - name: Start deployment
+        uses: bobheadxi/deployments@v0.6.0
+        id: deployment
+        with:
+          step: start
+          token: ${{ secrets.GITHUB_TOKEN }}
+          env: ${{ env.DEPLOYMENT_ENVIRONMENT }}
 
-  #     - name: Start deployment
-  #       uses: bobheadxi/deployments@v0.6.0
-  #       id: deployment
-  #       with:
-  #         step: start
-  #         token: ${{ secrets.GITHUB_TOKEN }}
-  #         env: ${{ env.DEPLOYMENT_ENVIRONMENT }}
+      # Create additional Kubernetes namespace if they don't exist yet.
+      - name: Create Kubernetes namespaces (if they don't exist)
+        run: |
+          kubectl create namespace ${{ env.KUBERNETES_NAMESPACE}} --dry-run=client -o json | kubectl apply -f -
+          kubectl create namespace ${{ env.SECURITY_NAMESPACE }} --dry-run=client -o json | kubectl apply -f -
 
-  #     # Create additional Kubernetes namespace if they don't exist yet.
-  #     - name: Create Kubernetes namespaces (if they don't exist)
-  #       run: |
-  #         kubectl create namespace ${{ env.KUBERNETES_NAMESPACE}} --dry-run=client -o json | kubectl apply -f -
-  #         kubectl create namespace ${{ env.SECURITY_NAMESPACE }} --dry-run=client -o json | kubectl apply -f -
+      # Create image-pull-secret for GitHub Package registry.
+      - name: Create Kubernetes secret for GitHub access (if it doesn't exist)
+        uses: azure/k8s-create-secret@v1
+        with:
+          namespace: ${{ env.KUBERNETES_NAMESPACE }}
+          container-registry-url: ${{ env.CONTAINER_REGISTRY_NAME }}
+          container-registry-username: ${{ secrets.READ_GITHUB_PACKAGES_USER }}
+          container-registry-password: ${{ secrets.READ_GITHUB_PACKAGES_PAT }}
+          secret-name: image-pull-secrets
 
-  #     # Create image-pull-secret for GitHub Package registry.
-  #     - name: Create Kubernetes secret for GitHub access (if it doesn't exist)
-  #       uses: azure/k8s-create-secret@v1
-  #       with:
-  #         namespace: ${{ env.KUBERNETES_NAMESPACE }}
-  #         container-registry-url: ${{ env.CONTAINER_REGISTRY_NAME }}
-  #         container-registry-username: ${{ secrets.READ_GITHUB_PACKAGES_USER }}
-  #         container-registry-password: ${{ secrets.READ_GITHUB_PACKAGES_PAT }}
-  #         secret-name: image-pull-secrets
+      - name: Deployment
+        run: |
+          helm upgrade --install --atomic --debug ${{ env.KUBERNETES_APP_NAME }} \
+            ${{ env.HELM_CHART_RELATIVE_LOCATION }} \
+            -f ${{ env.HELM_CHART_RELATIVE_LOCATION }}/${{ matrix.environment }}-values.yaml \
+            --namespace=${{ env.KUBERNETES_NAMESPACE}} \
+            --create-namespace \
+            --wait \
+            --timeout ${{ env.HELM_TIMEOUT }} \
+            --set keyVault.name="${{ matrix.key_vault_name }}" \
+            --set keyVault.tenantId="${{ env.AZURE_TENANT_ID }}" \
+            --set armAuth.identityResourceID="${{ matrix.identity_resource_id }}" \
+            --set armAuth.identityClientID="${{ matrix.identity_client_id }}"
 
-  #     - name: Deployment
-  #       run: |
-  #         helm upgrade --install --atomic --debug ${{ env.KUBERNETES_APP_NAME }} \
-  #           ${{ env.HELM_CHART_RELATIVE_LOCATION }} \
-  #           -f ${{ env.HELM_CHART_RELATIVE_LOCATION }}/${{ matrix.environment }}-values.yaml \
-  #           --namespace=${{ env.KUBERNETES_NAMESPACE}} \
-  #           --create-namespace \
-  #           --wait \
-  #           --timeout ${{ env.HELM_TIMEOUT }} \
-  #           --set keyVault.name="${{ matrix.key_vault_name }}" \
-  #           --set keyVault.tenantId="${{ env.AZURE_TENANT_ID }}" \
-  #           --set armAuth.identityResourceID="${{ matrix.identity_resource_id }}" \
-  #           --set armAuth.identityClientID="${{ matrix.identity_client_id }}"
+      - name: DevOpstic event payload - success
+        uses: ./.github/actions/devopstic-eventpayload
+        if: success()
+        continue-on-error: true
+        id: eventpayloadsuccess
+        with:
+          event-commit_id: $GITHUB_SHA
+          event-type: "deploy"
+          event-pipeline_id: $GITHUB_REPOSITORY
+          event-environment: ${{ matrix.environment }}
+          event-status: "success"
 
-  #     - name: DevOpstic event payload - success
-  #       uses: ./.github/actions/devopstic-eventpayload
-  #       if: success()
-  #       continue-on-error: true
-  #       id: eventpayloadsuccess
-  #       with:
-  #         event-commit_id: $GITHUB_SHA
-  #         event-type: "deploy"
-  #         event-pipeline_id: $GITHUB_REPOSITORY
-  #         event-environment: ${{ matrix.environment }}
-  #         event-status: "success"
+      - name: DevOpstic event payload - failed
+        uses: ./.github/actions/devopstic-eventpayload
+        if: failure()
+        continue-on-error: true
+        id: eventpayloadfailure
+        with:
+          event-commit_id: $GITHUB_SHA
+          event-type: "deploy"
+          event-pipeline_id: $GITHUB_REPOSITORY
+          event-environment: ${{ matrix.environment }}
+          event-status: "failed"
 
-  #     - name: DevOpstic event payload - failed
-  #       uses: ./.github/actions/devopstic-eventpayload
-  #       if: failure()
-  #       continue-on-error: true
-  #       id: eventpayloadfailure
-  #       with:
-  #         event-commit_id: $GITHUB_SHA
-  #         event-type: "deploy"
-  #         event-pipeline_id: $GITHUB_REPOSITORY
-  #         event-environment: ${{ matrix.environment }}
-  #         event-status: "failed"
+      - name: Update deployment status
+        uses: bobheadxi/deployments@v0.6.0
+        if: always()
+        with:
+          step: finish
+          token: ${{ secrets.GITHUB_TOKEN }}
+          status: ${{ job.status }}
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
 
-  #     - name: Update deployment status
-  #       uses: bobheadxi/deployments@v0.6.0
-  #       if: always()
-  #       with:
-  #         step: finish
-  #         token: ${{ secrets.GITHUB_TOKEN }}
-  #         status: ${{ job.status }}
-  #         deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+  create-prerelease:
+    if: ${{ github.ref == 'refs/heads/release' && github.event_name == 'push' }}
+    needs: nonprod-application-deployment
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all workflow artifacts
+        uses: actions/download-artifact@v2
+        with:
+          path: ${{ env.HELM_CHART_RELATIVE_LOCATION }}
 
-  # create-prerelease:
-  #   if: ${{ github.ref == 'refs/heads/release' && github.event_name == 'push' }}
-  #   needs: nonprod-application-deployment
-  #   timeout-minutes: 10
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Download all workflow artifacts
-  #       uses: actions/download-artifact@v2
-  #       with:
-  #         path: ${{ env.HELM_CHART_RELATIVE_LOCATION }}
+      - name: Create Release Artifact
+        run: |
+          zip -r ../${{ env.KUBERNETES_APP_NAME }}.zip ${{ env.HELM_CHART_RELATIVE_LOCATION }}
 
-  #     - name: Create Release Artifact
-  #       run: |
-  #         zip -r ../${{ env.KUBERNETES_APP_NAME }}.zip ${{ env.HELM_CHART_RELATIVE_LOCATION }}
+      - name: Checkout repository with entire history
+        uses: actions/checkout@v2
+        with:
+          # Fetches entire history, so we can analyze commits since last tag.
+          fetch-depth: 0
 
-  #     - name: Checkout repository with entire history
-  #       uses: actions/checkout@v2
-  #       with:
-  #         # Fetches entire history, so we can analyze commits since last tag.
-  #         fetch-depth: 0
+      - name: Bump version and push tag
+        id: create_tag
+        uses: anothrNick/github-tag-action@1.36.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
+          RELEASE_BRANCHES: master
+          PRERELEASE_SUFFIX: prerelease
+          DRY_RUN: false
 
-  #     - name: Bump version and push tag
-  #       id: create_tag
-  #       uses: anothrNick/github-tag-action@1.36.0
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #         DEFAULT_BUMP: patch
-  #         RELEASE_BRANCHES: master
-  #         PRERELEASE_SUFFIX: prerelease
-  #         DRY_RUN: false
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.create_tag.outputs.new_tag || github.event.inputs.tags }}
+          release_name: Release ${{ steps.create_tag.outputs.new_tag || github.event.inputs.tags }}
+          body: Change logs temporarily disabled.
+          draft: false
+          prerelease: false
 
-  #     - name: Create Release
-  #       id: create_release
-  #       uses: actions/create-release@v1
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #       with:
-  #         tag_name: ${{ steps.create_tag.outputs.new_tag || github.event.inputs.tags }}
-  #         release_name: Release ${{ steps.create_tag.outputs.new_tag || github.event.inputs.tags }}
-  #         body: Change logs temporarily disabled.
-  #         draft: false
-  #         prerelease: false
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ../${{ env.KUBERNETES_APP_NAME }}.zip
+          asset_name: ${{ env.KUBERNETES_APP_NAME }}.zip
+          asset_content_type: application/zip
 
-  #     - name: Upload Release Asset
-  #       id: upload-release-asset
-  #       uses: actions/upload-release-asset@v1
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #       with:
-  #         upload_url: ${{ steps.create_release.outputs.upload_url }}
-  #         asset_path: ../${{ env.KUBERNETES_APP_NAME }}.zip
-  #         asset_name: ${{ env.KUBERNETES_APP_NAME }}.zip
-  #         asset_content_type: application/zip
+  production-application-deployment:
+    if: ${{ github.ref == 'refs/heads/master' && github.event_name == 'push' }}
+    needs: [build]
+    timeout-minutes: 180
+    runs-on:
+      - self-hosted
+      - ${{ matrix.location }}
+      - ${{ matrix.environment }}
+      - deployment
+    environment:
+      name: ${{ matrix.environment }}
+    strategy:
+      fail-fast: false  # Don't fail all if one fails.
+      matrix:
+        location: [eastus2]
+        include:
+          - location: eastus2
+            environment: production
+            resource_group_prefix: rg-production-usermanaged-aks
+            cluster_name: aks-eastus2-production0
+            key_vault_name: kv-0118-eastus2-LeMans
+            identity_resource_id: /subscriptions/f640c38c-4250-49fd-9a7b-0cf526feb98f/resourceGroups/rg-production-usermanaged-aks-eastus2/providers/Microsoft.ManagedIdentity/userAssignedIdentities/aks-keyvault-managed-identity
+            identity_client_id: 5eda9a11-993b-474f-837f-26681fa799ba
+    env:
+      AZURE_TENANT_ID: ${{ secrets.AZURE_ROCKWELL_AUTOMATION_TENANT_ID }}
+      DEPLOYMENT_ENVIRONMENT: production
+      KUBECONFIG: ${{ secrets.LEMANS_PRODUCTION_KUBECONFIGS }}
 
-  # production-application-deployment:
-  #   if: ${{ github.ref == 'refs/heads/master' && github.event_name == 'push' }}
-  #   needs: [build]
-  #   timeout-minutes: 180
-  #   runs-on:
-  #     - self-hosted
-  #     - ${{ matrix.location }}
-  #     - ${{ matrix.environment }}
-  #     - deployment
-  #   environment:
-  #     name: ${{ matrix.environment }}
-  #   strategy:
-  #     fail-fast: false  # Don't fail all if one fails.
-  #     matrix:
-  #       location: [eastus2]
-  #       include:
-  #         - location: eastus2
-  #           environment: production
-  #           resource_group_prefix: rg-production-usermanaged-aks
-  #           cluster_name: aks-eastus2-production0
-  #           key_vault_name: kv-0118-eastus2-LeMans
-  #           identity_resource_id: /subscriptions/f640c38c-4250-49fd-9a7b-0cf526feb98f/resourceGroups/rg-production-usermanaged-aks-eastus2/providers/Microsoft.ManagedIdentity/userAssignedIdentities/aks-keyvault-managed-identity
-  #           identity_client_id: 5eda9a11-993b-474f-837f-26681fa799ba
-  #   env:
-  #     AZURE_TENANT_ID: ${{ secrets.AZURE_ROCKWELL_AUTOMATION_TENANT_ID }}
-  #     DEPLOYMENT_ENVIRONMENT: production
-  #     KUBECONFIG: ${{ secrets.LEMANS_PRODUCTION_KUBECONFIGS }}
+    steps:
+      - name: Checkout RA Action Repo
+        uses: actions/checkout@v2
+        with:
+          repository: Rockwell-Automation-Inc/actions
+          ref: v9.3
+          token: ${{ secrets.READ_GITHUB_ACTIONS_PAT }}
+          path: .github/actions
 
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v2
+      - name: Download Helm Chart artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: helm-charts
+          path: ${{ env.HELM_CHART_RELATIVE_LOCATION }}
 
-  #     - name: Checkout RA Action Repo
-  #       uses: actions/checkout@v2
-  #       with:
-  #         repository: Rockwell-Automation-Inc/actions
-  #         ref: v9.3
-  #         token: ${{ secrets.READ_GITHUB_ACTIONS_PAT }}
-  #         path: .github/actions
+      # ... Actual deployment ...
+      - name: Login to Azure using MSI
+        run: |
+          az login --identity
 
-  #     - name: Download Helm Chart artifacts
-  #       uses: actions/download-artifact@v2
-  #       with:
-  #         name: helm-charts
-  #         path: ${{ env.HELM_CHART_RELATIVE_LOCATION }}
+      - name: Set Kubernetes context
+        uses: azure/k8s-set-context@v1
+        with:
+          kubeconfig: ${{ secrets.LEMANS_PRODUCTION_KUBECONFIGS }}
+          context: ${{ matrix.cluster_name }}-admin
 
-  #     # ... Actual deployment ...
-  #     - name: Login to Azure using MSI
-  #       run: |
-  #         az login --identity
+      - name: Start deployment
+        uses: bobheadxi/deployments@v0.6.0
+        id: deployment
+        with:
+          step: start
+          token: ${{ secrets.GITHUB_TOKEN }}
+          env: ${{ env.DEPLOYMENT_ENVIRONMENT }}
 
-  #     - name: Set Kubernetes context
-  #       uses: azure/k8s-set-context@v1
-  #       with:
-  #         kubeconfig: ${{ secrets.LEMANS_PRODUCTION_KUBECONFIGS }}
-  #         context: ${{ matrix.cluster_name }}-admin
+      # Create additional Kubernetes namespace if they don't exist yet.
+      - name: Create Kubernetes namespaces (if they don't exist)
+        run: |
+          kubectl create namespace ${{ env.KUBERNETES_NAMESPACE}} --dry-run=client -o json | kubectl apply -f -
+          kubectl create namespace ${{ env.SECURITY_NAMESPACE }} --dry-run=client -o json | kubectl apply -f -
 
-  #     - name: Start deployment
-  #       uses: bobheadxi/deployments@v0.6.0
-  #       id: deployment
-  #       with:
-  #         step: start
-  #         token: ${{ secrets.GITHUB_TOKEN }}
-  #         env: ${{ env.DEPLOYMENT_ENVIRONMENT }}
+      # Create image-pull-secret for GitHub Package registry.
+      - name: Create Kubernetes secret for GitHub access (if it doesn't exist)
+        uses: azure/k8s-create-secret@v1
+        with:
+          namespace: ${{ env.KUBERNETES_NAMESPACE }}
+          container-registry-url: ${{ env.CONTAINER_REGISTRY_NAME }}
+          container-registry-username: ${{ secrets.READ_GITHUB_PACKAGES_USER }}
+          container-registry-password: ${{ secrets.READ_GITHUB_PACKAGES_PAT }}
+          secret-name: image-pull-secrets
 
-  #     # Create additional Kubernetes namespace if they don't exist yet.
-  #     - name: Create Kubernetes namespaces (if they don't exist)
-  #       run: |
-  #         kubectl create namespace ${{ env.KUBERNETES_NAMESPACE}} --dry-run=client -o json | kubectl apply -f -
-  #         kubectl create namespace ${{ env.SECURITY_NAMESPACE }} --dry-run=client -o json | kubectl apply -f -
+      - name: Deployment
+        run: |
+          helm upgrade --install --atomic --debug ${{ env.KUBERNETES_APP_NAME }} \
+            ${{ env.HELM_CHART_RELATIVE_LOCATION }} \
+            -f ${{ env.HELM_CHART_RELATIVE_LOCATION }}/${{ matrix.environment }}-values.yaml \
+            --namespace=${{ env.KUBERNETES_NAMESPACE}} \
+            --create-namespace \
+            --wait \
+            --timeout ${{ env.HELM_TIMEOUT }} \
+            --set keyVault.name="${{ matrix.key_vault_name }}" \
+            --set keyVault.tenantId="${{ env.AZURE_TENANT_ID }}" \
+            --set armAuth.identityResourceID="${{ matrix.identity_resource_id }}" \
+            --set armAuth.identityClientID="${{ matrix.identity_client_id }}"
 
-  #     # Create image-pull-secret for GitHub Package registry.
-  #     - name: Create Kubernetes secret for GitHub access (if it doesn't exist)
-  #       uses: azure/k8s-create-secret@v1
-  #       with:
-  #         namespace: ${{ env.KUBERNETES_NAMESPACE }}
-  #         container-registry-url: ${{ env.CONTAINER_REGISTRY_NAME }}
-  #         container-registry-username: ${{ secrets.READ_GITHUB_PACKAGES_USER }}
-  #         container-registry-password: ${{ secrets.READ_GITHUB_PACKAGES_PAT }}
-  #         secret-name: image-pull-secrets
+      - name: DevOpstic event payload - success
+        uses: ./.github/actions/devopstic-eventpayload
+        if: success()
+        continue-on-error: true
+        id: eventpayloadsuccess
+        with:
+          event-commit_id: $GITHUB_SHA
+          event-type: "deploy"
+          event-pipeline_id: $GITHUB_REPOSITORY
+          event-environment: ${{ matrix.environment }}
+          event-status: "success"
 
-  #     - name: Deployment
-  #       run: |
-  #         helm upgrade --install --atomic --debug ${{ env.KUBERNETES_APP_NAME }} \
-  #           ${{ env.HELM_CHART_RELATIVE_LOCATION }} \
-  #           -f ${{ env.HELM_CHART_RELATIVE_LOCATION }}/${{ matrix.environment }}-values.yaml \
-  #           --namespace=${{ env.KUBERNETES_NAMESPACE}} \
-  #           --create-namespace \
-  #           --wait \
-  #           --timeout ${{ env.HELM_TIMEOUT }} \
-  #           --set keyVault.name="${{ matrix.key_vault_name }}" \
-  #           --set keyVault.tenantId="${{ env.AZURE_TENANT_ID }}" \
-  #           --set armAuth.identityResourceID="${{ matrix.identity_resource_id }}" \
-  #           --set armAuth.identityClientID="${{ matrix.identity_client_id }}"
+      - name: DevOpstic event payload - failed
+        uses: ./.github/actions/devopstic-eventpayload
+        if: failure()
+        continue-on-error: true
+        id: eventpayloadfailure
+        with:
+          event-commit_id: $GITHUB_SHA
+          event-type: "deploy"
+          event-pipeline_id: $GITHUB_REPOSITORY
+          event-environment: ${{ matrix.environment }}
+          event-status: "failed"
 
-  #     - name: DevOpstic event payload - success
-  #       uses: ./.github/actions/devopstic-eventpayload
-  #       if: success()
-  #       continue-on-error: true
-  #       id: eventpayloadsuccess
-  #       with:
-  #         event-commit_id: $GITHUB_SHA
-  #         event-type: "deploy"
-  #         event-pipeline_id: $GITHUB_REPOSITORY
-  #         event-environment: ${{ matrix.environment }}
-  #         event-status: "success"
+      - name: Update deployment status
+        uses: bobheadxi/deployments@v0.6.0
+        if: always()
+        with:
+          step: finish
+          token: ${{ secrets.GITHUB_TOKEN }}
+          status: ${{ job.status }}
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
 
-  #     - name: DevOpstic event payload - failed
-  #       uses: ./.github/actions/devopstic-eventpayload
-  #       if: failure()
-  #       continue-on-error: true
-  #       id: eventpayloadfailure
-  #       with:
-  #         event-commit_id: $GITHUB_SHA
-  #         event-type: "deploy"
-  #         event-pipeline_id: $GITHUB_REPOSITORY
-  #         event-environment: ${{ matrix.environment }}
-  #         event-status: "failed"
+  create-release:
+    if: ${{ github.ref == 'refs/heads/master' && github.event_name == 'push' }}
+    needs: production-application-deployment
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all workflow artifacts
+        uses: actions/download-artifact@v2
+        with:
+          path: ${{ env.HELM_CHART_RELATIVE_LOCATION }}
 
-  #     - name: Update deployment status
-  #       uses: bobheadxi/deployments@v0.6.0
-  #       if: always()
-  #       with:
-  #         step: finish
-  #         token: ${{ secrets.GITHUB_TOKEN }}
-  #         status: ${{ job.status }}
-  #         deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+      - name: Create Release Artifact
+        run: |
+          zip -r ../${{ env.KUBERNETES_APP_NAME }}.zip ${{ env.HELM_CHART_RELATIVE_LOCATION }}
 
-  # create-release:
-  #   if: ${{ github.ref == 'refs/heads/master' && github.event_name == 'push' }}
-  #   needs: production-application-deployment
-  #   timeout-minutes: 10
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Download all workflow artifacts
-  #       uses: actions/download-artifact@v2
-  #       with:
-  #         path: ${{ env.HELM_CHART_RELATIVE_LOCATION }}
+      - name: Checkout repository with entire history
+        uses: actions/checkout@v2
+        with:
+          # Fetches entire history, so we can analyze commits since last tag.
+          fetch-depth: 0
 
-  #     - name: Create Release Artifact
-  #       run: |
-  #         zip -r ../${{ env.KUBERNETES_APP_NAME }}.zip ${{ env.HELM_CHART_RELATIVE_LOCATION }}
+      - name: Bump version and push tag
+        id: create_tag
+        uses: anothrNick/github-tag-action@1.36.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
+          RELEASE_BRANCHES: master
+          PRERELEASE_SUFFIX: prerelease
+          DRY_RUN: false
 
-  #     - name: Checkout repository with entire history
-  #       uses: actions/checkout@v2
-  #       with:
-  #         # Fetches entire history, so we can analyze commits since last tag.
-  #         fetch-depth: 0
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.create_tag.outputs.new_tag || github.event.inputs.tags }}
+          release_name: Release ${{ steps.create_tag.outputs.new_tag || github.event.inputs.tags }}
+          body: Change logs temporarily disabled.
+          draft: false
+          prerelease: false
 
-  #     - name: Bump version and push tag
-  #       id: create_tag
-  #       uses: anothrNick/github-tag-action@1.36.0
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #         DEFAULT_BUMP: patch
-  #         RELEASE_BRANCHES: master
-  #         PRERELEASE_SUFFIX: prerelease
-  #         DRY_RUN: false
-
-  #     - name: Create Release
-  #       id: create_release
-  #       uses: actions/create-release@v1
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #       with:
-  #         tag_name: ${{ steps.create_tag.outputs.new_tag || github.event.inputs.tags }}
-  #         release_name: Release ${{ steps.create_tag.outputs.new_tag || github.event.inputs.tags }}
-  #         body: Change logs temporarily disabled.
-  #         draft: false
-  #         prerelease: false
-
-  #     - name: Upload Release Asset
-  #       id: upload-release-asset
-  #       uses: actions/upload-release-asset@v1
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #       with:
-  #         upload_url: ${{ steps.create_release.outputs.upload_url }}
-  #         asset_path: ../${{ env.KUBERNETES_APP_NAME }}.zip
-  #         asset_name: ${{ env.KUBERNETES_APP_NAME }}.zip
-  #         asset_content_type: application/zip
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ../${{ env.KUBERNETES_APP_NAME }}.zip
+          asset_name: ${{ env.KUBERNETES_APP_NAME }}.zip
+          asset_content_type: application/zip

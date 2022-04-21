@@ -2,25 +2,19 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+cronScheduleSynthetictrx: "0 0/8 * * *"
+cronScheduleapi: "0 0/2 * * *"
 
-## Define chronschedules for your cronjobs in sandbox. e.g: 
-# cronScheduleCJ1: "*/15 * * * *"  
-# cronScheduleCJ2: "*/1 * * * *"
-
-## Define the values for the env variables in sandbox. e.g: 
-# testUser: lemans.idh.vault@gmail.com
-# testLocalUseridh2: testeridh2@rockwellautomation.com
-# testLocalUseridh3: testeridh3@rockwellautomation.com
-# testLocalUseridh5: testeridh5@rockwellautomation.com
-# splunkHost: http-inputs-ra.splunkcloud.com
-# portalUrl: https://vault.lemans-sandbox.rockwellautomation.com/
-# portalUrlHome: https://home.lemans-sandbox.rockwellautomation.com/
-# auth0Url: https://factorytalkhub.us.auth0.com
-# apiUrl: https://api.lemans-sandbox.rockwellautomation.com/
+splunkHost: http-inputs-ra.splunkcloud.com
+splunkIndex: lemans_sandbox
+IS_URL: https://factorytalkhub.us.auth0.com/oauth/token
+API_CS: https://common.lemans-sandbox.rockwellautomation.com
+PORTAL_URL: https://home.lemans-sandbox.rockwellautomation.com
+#URL_NOTIF: https://api-notifications.lemans-sandbox.rockwellautomation.com
 
 
 image:
-  repository: ghcr.io/rockwell-automation-inc/lemans-testingautomation-idh
+  repository: ghcr.io/rockwell-automation-inc/leMans-CommonServices-ta
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   #tag: 0.1.0-prerelease
@@ -33,11 +27,14 @@ fullnameOverride: ""
 
 # Controll the ASP.NET Core env.   Development enables more debugging
 environment: Production
-trigger:
+trigger: 
     type: ConfigChange
 
 strategy:
     type: RollingUpdate
+
+armAuth:
+  identityResourceID: null
 
 keyVault:
   enabled: true

@@ -1,0 +1,56 @@
+version: 2
+registries:
+  npm-ghp-rockwell-automation:
+    type: npm-registry
+    url: https://npm.pkg.github.com/Rockwell-Automation-Inc
+    username: ${{ secrets.DEPENDABOT_REGISTRY_USERNAME }}
+    password: ${{ secrets.DEPENDABOT_READ_REGISTRY }}
+  docker-ghc-rockwell-automation:
+    type: docker-registry
+    url: https://ghcr.io
+    username: ${{ secrets.DEPENDABOT_REGISTRY_USERNAME }}
+    password: ${{ secrets.DEPENDABOT_READ_REGISTRY }}
+
+updates:
+  # Keep npm dependencies up to date
+  - package-ecosystem: "npm"
+    directory: "/angular-app"
+    assignees:
+      - "engineering"
+      - "devsecops"
+    schedule:
+      interval: "daily"
+    registries:
+      - npm-ghp-rockwell-automation
+    # Raise all npm pull requests with custom labels
+    labels:
+      - "npm dependencies"
+
+    # Keep Docker dependencies up to date
+  - package-ecosystem: "docker"
+    directory: "/"
+    assignees:
+      - "engineering"
+      - "devsecops"
+    schedule:
+      interval: "daily"
+    registries:
+      - docker-ghc-rockwell-automation
+    labels:
+      - "docker dependencies"
+
+    # Keep Terraform Providers up to date
+  - package-ecosystem: "terraform"
+    directory: "/gitops/terraform"
+    assignees:
+      - "devsecops"
+    schedule:
+      interval: "daily"
+
+    # Keep GitHub Actions up to date
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    assignees:
+      - "devsecops"
+    schedule:
+      interval: "daily"

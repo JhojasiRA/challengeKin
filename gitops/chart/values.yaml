@@ -1,28 +1,18 @@
 # Default values for identity-server-chart.
 # This is a YAML-formatted file.
-# Declare variables to be passed into your templates
+# Declare variables to be passed into your templates.
 
-.
-## Define chronschedules for your cronjobs by default e.g: 
-# cronScheduleCJ1: "*/15 * * * *"  
-# cronScheduleCJ2: "*/1 * * * *"
 
-## Define the values for the env variables by default. e.g: 
-# portalUrl: https://portal.lemans-sandbox.rockwellautomation.com/
-# homeUrl: https://home.lemans-sandbox.rockwellautomation.com/
-# auth0Url: https://factorytalkhub.us.auth0.com
-# perfUser: perf_test_user
-# address: rockwellautomation.com
-# clientId: aaBfPCIAl15xFjeRLXIFSFryVWP5j63M
-# testLocalUseridh2: testeridh2@rockwellautomation.com
-# testLocalUseridh3: testeridh3@rockwellautomation.com
-# testLocalUseridh5: testeridh5@rockwellautomation.com
-# splunkHost: http-inputs-ra.splunkcloud.com
-# splunkIndex: lemans_sandbox
-# apiCS: https://common.lemans-sandbox.rockwellautomation.com
+#splunkHost: http-inputs-ra.splunkcloud.com
+#splunkIndex: lemans_sandbox
+#IS_URL: https://factorytalkhub.us.auth0.com/oauth/token
+#API_CS: https://common.lemans-sandbox.rockwellautomation.com
+#PORTAL_URL: https://home.lemans-sandbox.rockwellautomation.com/#/sign-in
+#URL_NOTIF : https://api-notifications.lemans-sandbox.rockwellautomation.com
+
 
 image:
-  repository: ghcr.io/rockwell-automation-inc/lemans-testingautomation-idh
+  repository: ghcr.io/rockwell-automation-inc/leMans-CommonServices-ta
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   #tag: 0.1.0-prerelease
@@ -35,19 +25,17 @@ fullnameOverride: ""
 
 # Controll the ASP.NET Core env.   Development enables more debugging
 environment: Production
-trigger:
+trigger: 
     type: ConfigChange
 
 strategy:
     type: RollingUpdate
 
+armAuth:
+  identityResourceID: null
+
 keyVault:
   enabled: true
-  name: kv-0083-eastus-LeMansK8s
-  resourceGroup: rg-sandbox-usermanaged-kubernetes-eastus
-  subscriptionId: a7ffc9c0-e376-4bb4-8f03-b13f138296d0
-  tenantId: 855b093e-7340-45c7-9f0c-96150415893e
-  userAssignedId: 7c9205b7-3d46-4965-ab54-b37b2228426b
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious

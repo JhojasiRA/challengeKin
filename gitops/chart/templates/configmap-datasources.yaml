@@ -1,0 +1,22 @@
+{{- if .Values.k6s }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: datasource-influxdb-k6s-cm
+  labels:
+    release: perftest-configmap
+    grafana_datasource: "true"
+data:
+  datasource-influxdb.yaml: |
+    apiVersion: 1
+    datasources:
+      - name: InfluxDB
+        type: influxdb
+        access: proxy
+        isDefault: false
+        url: http://influxdb.monitor.svc.cluster.local:8086
+        # This database should be mapped to a bucket
+        database: K6DB
+        jsonData:
+          httpMode: GET
+{{- end }}

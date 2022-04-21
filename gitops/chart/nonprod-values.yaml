@@ -2,20 +2,18 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-## Define chronschedules for your cronjobs in non-prod. e.g: 
-# cronScheduleCJ1: "*/15 * * * *"  
-# cronScheduleCJ2: "*/1 * * * *"
+cronScheduleSynthetictrx: "0 0/8 * * *"
+cronScheduleapi: "* 0 1 1 *"
 
-## Define the values for the env variables in non-prod. e.g: 
-# portalUrl: https://vault.cloud-dev.rockwellautomation.com
-# homeUrl: https://home.cloud-dev.rockwellautomation.com/
-# splunkHost: http-inputs-ra.splunkcloud.com
-# splunkIndex: lemans_nonprod
-# apiUrl: https://api.cloud-dev.rockwellautomation.com/
-# testUser: cloudsupport@ra.rockwell.com
+splunkHost: http-inputs-ra.splunkcloud.com
+splunkIndex: lemans_nonprod
+IS_URL: https://factorytalkhub.us.auth0.com/oauth/token
+API_CS: https://common.cloud-dev.rockwellautomation.com
+PORTAL_URL: https://home.cloud-dev.rockwellautomation.com
+#URL_NOTIF: https://api-notifications.lemans-sandbox.rockwellautomation.com
 
 image:
-  repository: ghcr.io/rockwell-automation-inc/lemans-testingautomation-idh
+  repository: ghcr.io/rockwell-automation-inc/leMans-CommonServices-ta
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   #tag: 0.1.0-prerelease
@@ -30,14 +28,17 @@ fullnameOverride: ""
 environment: Production
 
 trigger:
-    type: ConfigChange
+   type: ConfigChange
 
 strategy:
     type: RollingUpdate
 
+armAuth:
+  identityResourceID: null
+
 keyVault:
   enabled: true
-  
+
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little

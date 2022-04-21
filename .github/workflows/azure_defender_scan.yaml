@@ -1,0 +1,18 @@
+name: Azure Defender Scan
+
+on:
+  push:
+    branches:
+      - release/**
+      - hotfix/**
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  azure-defender-scan:
+    uses: Rockwell-Automation-Inc/workflows/.github/workflows/workflow_call_azure_defender_scan.yaml@main
+    with:
+      image_name: lemans-testingautomation-commonservices
+    secrets:
+      token: ${{ secrets.READ_GITHUB_ACTIONS_PAT }}
