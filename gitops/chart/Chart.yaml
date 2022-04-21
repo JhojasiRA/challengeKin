@@ -1,5 +1,5 @@
 apiVersion: v2
-name: # Chart name: must be the same than the one in .github/workflows/[HELM_CHART_NAME(line 31)]
+name: ta-commonservices
 description: Deploys cron jobs that run periodic health checks
 
 # A chart can be either an 'application' or a 'library' chart.

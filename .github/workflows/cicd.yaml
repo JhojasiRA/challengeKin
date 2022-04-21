@@ -27,8 +27,8 @@ env:
   CONTAINER_PORT: 80
   KUBERNETES_NAMESPACE: testing-automation
   SECURITY_NAMESPACE: security
-  KUBERNETES_APP_NAME: testing-automation-commonservices
-  HELM_CHART_NAME: testing-automation-commonservices
+  KUBERNETES_APP_NAME: ta-commonservices
+  HELM_CHART_NAME: ta-commonservices
   CONTAINER_REGISTRY_NAME: ghcr.io
   BUILD_CONFIG: "Debug"
   HELM_CHART_RELATIVE_LOCATION: gitops/chart
