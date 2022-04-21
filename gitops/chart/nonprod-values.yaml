@@ -13,7 +13,7 @@ PORTAL_URL: https://home.cloud-dev.rockwellautomation.com
 #URL_NOTIF: https://api-notifications.lemans-sandbox.rockwellautomation.com
 
 image:
-  repository: ghcr.io/rockwell-automation-inc/lemans-testingautomation-commonservices
+  repository: ghcr.io/rockwell-automation-inc/leMans-CommonServices-ta
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   #tag: 0.1.0-prerelease
