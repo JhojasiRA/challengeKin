@@ -15,6 +15,11 @@ When('the user accept the EULA testing eula {string}', async(testingEula:string)
   await eula.acceptEula(testingEula);
 });
 
+When('the user logs in with MyRockwell-SAML', async() => {
+  await indexPage.goToSignIn();
+  await externalAccount.loginWithSAML(process.env.RA_USERNAME,process.env.RA_PASSWORD);
+});
+
 Then('the user should see the {string} page', async(MessageHomePage) => {
   await question.assertElementText(homePage.getMessageHome(),MessageHomePage);
 });

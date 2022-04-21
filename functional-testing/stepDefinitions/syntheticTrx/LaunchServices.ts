@@ -16,6 +16,10 @@ When('the user sign out the home page', async() => {
   await topBar.signOutOption();
 });
 
+When('the user logs out', async() => {
+  await topBar.signOutOption();
+});
+
 Then('the user should see logout page', async() => {
   await browser.pause(3000);
   await question.assertElementExist(indexPage.signInButton);
