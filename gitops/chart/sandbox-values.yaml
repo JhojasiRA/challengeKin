@@ -14,7 +14,7 @@ PORTAL_URL: https://home.lemans-sandbox.rockwellautomation.com
 
 
 image:
-  repository: ghcr.io/rockwell-automation-inc/leMans-CommonServices-ta
+  repository: ghcr.io/rockwell-automation-inc/lemans-commonservices-ta
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   #tag: 0.1.0-prerelease
