@@ -60,7 +60,6 @@ export class TopBar extends Action {
       }
 
       public async signOutOption(): Promise<void> {
-        await browser.pause(1000);
         await this.click(this.expandIcon)
         await this.click(this.signOut);
       }
