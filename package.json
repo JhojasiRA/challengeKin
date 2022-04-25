@@ -5,9 +5,12 @@
   "main": "index.js",
   "scripts": {
     "chrome": "npx wdio functional-testing/config/chrome.config.ts",
-    "headless:syntheticTrx": "npx wdio functional-testing/config/chrome.headless.config.ts",
+    "headless:syntheticTrx": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@SyntheticTrx\"",
+    "headless:api": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@APITest\"",
     "testing": "npx wdio functional-testing/config/wdio.conf.ts",
-    "local:syntheticTrx": "npx wdio functional-testing/config/wdio.conf.js --suite syntheticTrx"
+    "local:syntheticTrx": "npx wdio functional-testing/config/wdio.conf.js --suite syntheticTrx",
+    "api:test": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@APITest\""
+    
   },
   "author": "JorgeZapataC, JhojasiRA",
   "license": "ISC",

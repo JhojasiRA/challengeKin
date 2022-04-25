@@ -27,6 +27,7 @@ const ChromeConfig = {
             }
         }
     ],
+    
 };
 const config = Object.assign({}, BaseConfig,ChromeOptions,ChromeConfig);
 export  {config, ChromeOptions, ChromeConfig} ;
