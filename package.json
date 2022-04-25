@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "chrome": "npx wdio functional-testing/config/chrome.config.ts",
-    "chrome.headless": "npx wdio functional-testing/config/chrome.headless.config.ts",
-    "wdio": "npx wdio functional-testing/config/wdio.conf.js",
+    "headless:syntheticTrx": "npx wdio functional-testing/config/chrome.headless.config.ts",
+    "testing": "npx wdio functional-testing/config/wdio.conf.ts",
     "local:syntheticTrx": "npx wdio functional-testing/config/wdio.conf.js --suite syntheticTrx"
   },
   "author": "JorgeZapataC, JhojasiRA",
