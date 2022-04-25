@@ -30,7 +30,6 @@ const ChromeConfig = {
                     '--disable-infobars',
                     '--headless',
                     '--disable-gpu',
-                    '--window-size=2000,2000',
                     '--disable-popup-blocking',
                     '--no-default-browser-check',
                 ],

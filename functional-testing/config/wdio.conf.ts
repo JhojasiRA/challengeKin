@@ -14,70 +14,30 @@ export const BaseConfig: WebdriverIO.Config = {
             'functional-testing/features/syntheticTrx/create_organization.feature',
             'functional-testing/features/syntheticTrx/join_request.feature',
             'functional-testing/features/syntheticTrx/access_management.feature',
-            'functional-testingfeatures/syntheticTrx/launch_services.feature',
-            'functional-testingfeatures/syntheticTrx/invitations_management.feature'
+            'functional-testing/features/syntheticTrx/launch_services.feature',
+            'functional-testing/features/syntheticTrx/invitations_management.feature'
         ]
 
     ],
-
+    suites: {
+        api: ['../../functional-testing/features/API/*.feature'],
+        apinotification: ['../../functional-testing/features/back/notification_service.feature'],
+        accessrequest: ['../../functional-testing/features/API/request_access.feature'],
+        apiinvitation: ['../../functional-testing/features/back/userInvitation.feature'],
+        login: ['../../functional-testing/features/syntheticTrx/common_services_login.feature'],
+        vault: ['../../functional-testing/features/syntheticTrx/launch_services.feature'],
+        topBar: ['../../functional-testing/features/E2E/top_bar.feature'],
+        syntheticTrx: ['../../functional-testing/features/syntheticTrx/*.feature'],
+        invitationsManagement: ['../../functional-testing/features/syntheticTrx/invitations_management.feature'],
+        createOrg: ['../../functional-testing/features/syntheticTrx/create_organization.feature'],
+        join: ['../../functional-testing/features/syntheticTrx/join_request.feature'],
+        accessManagement: ['../../functional-testing/features/syntheticTrx/access_management.feature']
+    },
     exclude: [
     ],
 
-
-    // host: "localhost",
-    // port: 4444,
-    // path: '/wd/hub',
-    // protocol: 'http',
-    // runner: 'local',
-
-
-    //
-    // ============
-    // Capabilities
-    // ============
-    // Define your capabilities here. WebdriverIO can run multiple capabilities at the same
-    // time. Depending on the number of capabilities, WebdriverIO launches several test
-    // sessions. Within your capabilities you can overwrite the spec and exclude options in
-    // order to group specific specs to a specific capability.
-    //
-    // First, you can define how many instances should be started at the same time. Let's
-    // say you have 3 different capabilities (Chrome, Firefox, and Safari) and you have
-    // set maxInstances to 1; wdio will spawn 3 processes. Therefore, if you have 10 spec
-    // files and you set maxInstances to 10, all spec files will get tested at the same time
-    // and 30 processes will get spawned. The property handles how many capabilities
-    // from the same test should run tests.
-    //
     maxInstances: 1,
-    //
-    // If you have trouble getting all important capabilities together, check out the
-    // Sauce Labs platform configurator - a great tool to configure your capabilities:
-    // https://docs.saucelabs.com/reference/platforms-configurator
-    //
     capabilities: [
-        {
-
-            // maxInstances can get overwritten per capability. So if you have an in-house Selenium
-            // grid with only 5 firefox instances available you can make sure that not more than
-            // 5 instances get started at a time.
-            maxInstances: 1,
-        },
-        // {
-        //     maxInstances: 1,
-        //     browserName:'firefox',
-        //     'moz:firefoxOptions':{
-        //         args:['-start-maximized']
-        //     //     args:['-headless','--disable-gpu','--window-size=2000,1024','--disable-infobars','--disable-dev-shm-usage','--no-sandbox']
-        //     }
-
-        // },
-        // {
-        //     maxInstances: 1,
-        //     browserName:'MicrosoftEdge',
-        //     'ms:EdgeOptions':{
-        //         args:['start-maximized']
-        //     //     args:['-headless','--disable-gpu','--window-size=2000,1024','--disable-infobars','--disable-dev-shm-usage','--no-sandbox']
-        //     }
-        // }
     ],
     logLevel: 'error',
     bail: 0,
