@@ -13,6 +13,6 @@ jobs:
   azure-defender-scan:
     uses: Rockwell-Automation-Inc/workflows/.github/workflows/workflow_call_azure_defender_scan.yaml@main
     with:
-      image_name: lemans-testingautomation-commonservices
+      image_name: lemans-commonservices-ta
     secrets:
       token: ${{ secrets.READ_GITHUB_ACTIONS_PAT }}
