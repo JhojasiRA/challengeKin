@@ -5,6 +5,10 @@
 #cronScheduleSynthetictrx: "0 0/8 * * *"
 #cronScheduleapi: "0 0/2 * * *"
 
+cronScheduleSynthetictrx: "0 0 * 12 *"
+cronScheduleapi: "0 0 * 12 *"
+
+
 splunkHost: http-inputs-ra.splunkcloud.com
 splunkIndex: lemans_sandbox
 IS_URL: https://factorytalkhub.us.auth0.com/oauth/token
