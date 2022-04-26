@@ -22,10 +22,6 @@ export const BaseConfig: WebdriverIO.Config = {
     ],
 
     maxInstances: 1,
-/** 
-    specs: [
-        'functional-testing\features\syntheticTrx',
-    ],*/
 
     waitforTimeout: 30000,
     connectionRetryTimeout: 60000,
@@ -56,7 +52,11 @@ export const BaseConfig: WebdriverIO.Config = {
         timeout: intStepsTimeout,
         ignoreUndefinedDefinitions: true
     },
-
+   /**
+     * Gets executed once before all workers get launched.
+     * @param {Object} config wdio configuration object
+     * @param {Array.<Object>} capabilities list of capabilities details
+     */
     //@ts-ignore
     onPrepare: function (config, capabilities) {
         removeSync('./reports/');
@@ -70,7 +70,7 @@ export const BaseConfig: WebdriverIO.Config = {
         const path = require('path')
         //@ts-ignore
         // TODO: Set test type from execution
-        await logJSONresults(path.join(process.cwd(), `reports`), `WDIO Template`, new Date().toUTCString(), process.argv[process.argv.length - 1])
+        await logJSONresults(path.join(process.cwd(), `reports`), `CommonServices`, new Date().toUTCString(), process.argv[process.argv.length - 1])
             .then(() => { console.log(`Splunk logs sent`) })
             .catch((err) => console.log(`Splunk logs were not sent: ${err.message}`));
 
