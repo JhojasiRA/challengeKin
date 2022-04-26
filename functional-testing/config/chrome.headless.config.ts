@@ -15,18 +15,27 @@ const ChromeOptions: WebdriverIO.Config = {
 
 
 const ChromeConfig = {
-    
     capabilities: [
         {
             // Set maxInstances to 1 if screen recordings are enabled:
             maxInstances: 1,
-            browserName  : 'chrome',
+            browserName: 'chrome',
+            acceptInsecureCerts : true,
             'goog:chromeOptions': {
                 excludeSwitches: ['enable-logging'],
-                args: ['--start-maximized']
+                args: [
+                '--no-sandbox',
+                '--disable-infobars',
+                '--headless',
+                '--disable-gpu',
+                'start-maximized',
+                '--window-size=1920,1080',
+                '--disable-dev-shm-usage',
+                ]
             }
         }
-    ],
+    ]
+    
 };
 const config = Object.assign({}, BaseConfig,ChromeOptions,ChromeConfig);
 export  {config, ChromeOptions, ChromeConfig} ;
