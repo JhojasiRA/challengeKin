@@ -34,7 +34,7 @@ var logIntoSplunk = async (result:string, name:string, duration:number,feature, 
     var payload = {
         message: finalMessage,
         metadata: {
-            source: "protractorframework",
+            source: "webdriverioframework",
             sourcetype: "httpevent",
             host: hostname,  
         },
