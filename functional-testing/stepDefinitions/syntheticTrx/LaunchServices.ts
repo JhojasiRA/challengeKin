@@ -31,5 +31,5 @@ When('the user launch the FTRA card', async() => {
 });
 Then('the user does not have access to the FTRA service', async() => {
   await browser.pause(3000);
-  await question.assertElementNotClickable((homePage.getFtraCard()));
+  await question.assertElementPresent((homePage.getFTRACard()));
 });
