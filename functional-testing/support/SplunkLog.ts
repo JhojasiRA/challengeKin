@@ -6,7 +6,7 @@ var logIntoSplunk = async (result:string, name:string, duration:number,feature, 
     var splunkLogger = splunkLogging.Logger;
     var typeOfTest: string = suite;
     var testType: string;
-    if(typeOfTest==='syntheticTrx'){testType='Synthetic transaction'}else{testType='api test'}
+    if(typeOfTest.includes('@SyntheticTrx')){testType='Synthetic transaction'}else{testType='api test'}
     var config = {
         token: process.env.SPLUNK_TOKEN,
         url: process.env.SPLUNK_HOST,
