@@ -30,6 +30,39 @@ When('the user launch the FTRA card', async() => {
   await homePage.launchFTRA();
 });
 Then('the user does not have access to the FTRA service', async() => {
-  await browser.pause(3000);
   await question.assertElementPresent((homePage.getFTRACard()));
 });
+
+When('the user launch the Fiix card', async() => {
+  await homePage.launchFiix();
+});
+
+Then('the user see page with the title {string}', async(title:string) => {
+  await question.assertTexts(await browser.getTitle(), title)
+});
+
+When('the user launch the Foo card', async() => {
+  await homePage.launchFoo();
+});
+
+Then('the user does not have access to the Foo service', async() => {
+  await question.assertElementPresent((homePage.lockFooIcon));
+});
+
+When('the user launch the UNIQO card', async() => {
+  await homePage.launchUniqo();
+});
+
+Then('the user does not have access to the UNIQO service', async() => {
+  await question.assertElementPresent((homePage.lockUniqoIcon));
+});
+
+When('the user launch the EaaS card', async() => {
+  await homePage.launchEaas();
+});
+
+Then('the user does not have access to the EaaS service', async() => {
+  await question.assertElementPresent((homePage.lockEaasIcon));
+});
+
+

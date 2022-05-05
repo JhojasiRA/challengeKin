@@ -7,7 +7,13 @@ export class HomePage extends Action {
     get homePage() { return $(`//*[@class="xng-breadcrumb-root"]//*[ contains (text(), "Home")]`) }
     get rubikIcon() { return $('#rubick-menu-btn') }
     get lockFTRAIcon() {return $(`//*[@id="card-SecureRemoteAccess"]//*[@class= "fav-lock-icon lock-icon"]`)}
-
+    get lockFooIcon() {return $(`//*[@id="card-FooService"]//*[@class= "fav-lock-icon lock-icon"]`)}
+    get lockUniqoIcon() {return $(`//*[@id="card-Vista"]//*[@class= "fav-lock-icon lock-icon"]`)}
+    get lockEaasIcon() {return $(`//*[@id="card-EaaS"]//*[@class= "fav-lock-icon lock-icon"]`)}
+    get fiixCard() { return $(`#card-Fiix`)}
+    get fooCard() { return $(`#card-FooService`)}
+    get uniqoCard() { return $(`#card-Vista`)}
+    get eaasCard() { return $(`#card-EaaS`)}
 
     async dashboard(): Promise<void> {
         await browser.pause(3000);
@@ -15,16 +21,36 @@ export class HomePage extends Action {
     }
 
     async launchVault(): Promise<void> {
-        // global.lastError = 'vault card was not located'
         await this.click(this.vaultCard);
         let handles = await browser.getWindowHandles()
         await browser.switchToWindow(handles[1])
     }
 
+    async launchFiix(): Promise<void> {
+        await this.click(this.fiixCard);
+        let handles = await browser.getWindowHandles()
+        await browser.switchToWindow(handles[1])
+    }
+
     async launchFTRA(): Promise<void> {
-        //global.lastError = 'FTRA card was not located'
         await this.click(this.FTRACard);
     }
+
+    async launchFoo(): Promise<void> {
+        await this.click(this.fooCard);   
+    }
+    
+    async launchUniqo(): Promise<void> {
+        await this.click(this.uniqoCard)
+        let handles = await browser.getWindowHandles()
+        await browser.switchToWindow(handles[1])
+    }
+
+    async launchEaas(): Promise<void> {
+        await this.click(this.eaasCard)
+    }
+
+    
 
     public async newBrowser(): Promise<void> {
         await browser.pause(3000);
@@ -35,17 +61,14 @@ export class HomePage extends Action {
 
 
     public getVaultView(): WebdriverIO.Element {
-        //global.lastError = 'vault page is not visible'
         return this.vaultView;
     }
 
     public getFtraCard(): WebdriverIO.Element {
-        //global.lastError = 'FTRA card is clickable'
         return this.FTRACard;
     }
 
     public getFTRACard(): WebdriverIO.Element {
-        //global.lastError = 'FTRA card is clickable'
         return this.lockFTRAIcon;
     }
 
