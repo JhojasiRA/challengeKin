@@ -49,8 +49,7 @@ export class Question {
     }
 
     public async assertElementNotClickable(element: WebdriverIO.Element ): Promise<void>{
-  //      await element.waitForClickable({timeout: global.intElementsTimeout, reverse: true});
-      expect(await element.isEnabled()).to.be.false
+      expect(await element.isClickable()).to.be.false
     }
 
     public async assertElementClickable(element: WebdriverIO.Element): Promise<void>{
