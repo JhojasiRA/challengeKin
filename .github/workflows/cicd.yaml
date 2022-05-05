@@ -38,6 +38,37 @@ env:
   HELM_TIMEOUT: 600s
 
 jobs:
+  config:
+    if: | 
+      (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]') ||
+      (github.event_name == 'push' && github.actor != 'dependabot[bot]')
+    runs-on:
+      - self-hosted
+    outputs:
+      deployment_environment: ${{ env.DEPLOYMENT_ENVIRONMENT }}
+      release_suffix: ${{ env.RELEASE_SUFFIX }}
+      application_pqdn: ${{ env.APPLICATION_PQDN }}
+      helm_chart_relative_location: ${{ env.HELM_CHART_RELATIVE_LOCATION }}
+      kubernetes_app_name: ${{ env.KUBERNETES_APP_NAME }}
+      kubernetes_namespace: ${{ env.KUBERNETES_NAMESPACE }}
+    steps:
+      - name: Set Sandbox values
+        if: github.ref == 'refs/heads/develop'
+        run: |
+          echo "DEPLOYMENT_ENVIRONMENT=sandbox" >> $GITHUB_ENV
+          echo "RELEASE_SUFFIX=development" >> $GITHUB_ENV
+      - name: Set Non-Prod values
+        if: startsWith(github.ref, 'refs/heads/hotfix/') ||
+            startsWith(github.ref, 'refs/heads/release')
+        run: |
+          echo "DEPLOYMENT_ENVIRONMENT=nonprod" >> $GITHUB_ENV
+          echo "RELEASE_SUFFIX=prerelease" >> $GITHUB_ENV
+      - name: Set Production values
+        if: github.ref == 'refs/heads/main'
+        run: |
+          echo "DEPLOYMENT_ENVIRONMENT=production" >> $GITHUB_ENV
+          echo "RELEASE_SUFFIX=release" >> $GITHUB_ENV
+
   build:
     if: |
       (github.event_name == 'pull_request' && github.actor == 'dependabot[bot]') ||
@@ -90,12 +121,10 @@ jobs:
           RELEASE_BRANCHES: master
           # RELEASE_BRANCHES: main
           PRERELEASE_SUFFIX: prerelease
-          DRY_RUN: true
+          DRY_RUN: false
 
       - name: Determine next tag
-        if: github.ref != 'refs/heads/master' && 
-            github.ref != 'refs/heads/main' && 
-            github.ref != 'refs/heads/release'
+        if: steps.next_tag.outcome == 'skipped'
         id: next_tag_dev
         uses: anothrNick/github-tag-action@1.36.0
         env:
@@ -104,7 +133,7 @@ jobs:
           RELEASE_BRANCHES: master
           # RELEASE_BRANCHES: main
           PRERELEASE_SUFFIX: development
-          DRY_RUN: true
+          DRY_RUN: ${{ github.ref != 'refs/heads/develop' }}
 
       - name: Docker Login to GitHub Container Registry
         run: |
@@ -286,59 +315,13 @@ jobs:
           status: ${{ job.status }}
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
 
-  create-devprerelease:
-    if: ${{ github.ref == 'refs/heads/develop' && github.event_name == 'push' }}
-    needs: sandbox-application-deployment
-    timeout-minutes: 10
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download all workflow artifacts
-        uses: actions/download-artifact@v2
-        with:
-          path: ${{ env.HELM_CHART_RELATIVE_LOCATION }}
-
-      - name: Create Release Artifact
-        run: |
-          zip -r ../${{ env.KUBERNETES_APP_NAME }}.zip ${{ env.HELM_CHART_RELATIVE_LOCATION }}
-
-      - name: Checkout repository with entire history
-        uses: actions/checkout@v2
-        with:
-          # Fetches entire history, so we can analyze commits since last tag.
-          fetch-depth: 0
-
-      - name: Bump version and push tag
-        id: create_tag
-        uses: anothrNick/github-tag-action@1.36.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEFAULT_BUMP: patch
-          RELEASE_BRANCHES: master
-          PRERELEASE_SUFFIX: development
-          DRY_RUN: false
-
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ steps.create_tag.outputs.new_tag || github.event.inputs.tags }}
-          release_name: Release ${{ steps.create_tag.outputs.new_tag || github.event.inputs.tags }}
-          body: Change logs temporarily disabled.
-          draft: false
-          prerelease: false
-
-      - name: Upload Release Asset
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ../${{ env.KUBERNETES_APP_NAME }}.zip
-          asset_name: ${{ env.KUBERNETES_APP_NAME }}.zip
-          asset_content_type: application/zip
+  create-sandbox-release:
+    needs: [config, sandbox-application-deployment]
+    uses: Rockwell-Automation-Inc/workflows/.github/workflows/workflow_call_create_release.yaml@main
+    with:
+      release_suffix: ${{ needs.config.outputs.release_suffix }}
+    secrets:
+      token: ${{ secrets.READ_GITHUB_ACTIONS_PAT }}
 
   nonprod-application-deployment:
     if: ${{ github.ref == 'refs/heads/release' && github.event_name == 'push' }}
@@ -466,59 +449,13 @@ jobs:
           status: ${{ job.status }}
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
 
-  create-prerelease:
-    if: ${{ github.ref == 'refs/heads/release' && github.event_name == 'push' }}
-    needs: nonprod-application-deployment
-    timeout-minutes: 10
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download all workflow artifacts
-        uses: actions/download-artifact@v2
-        with:
-          path: ${{ env.HELM_CHART_RELATIVE_LOCATION }}
-
-      - name: Create Release Artifact
-        run: |
-          zip -r ../${{ env.KUBERNETES_APP_NAME }}.zip ${{ env.HELM_CHART_RELATIVE_LOCATION }}
-
-      - name: Checkout repository with entire history
-        uses: actions/checkout@v2
-        with:
-          # Fetches entire history, so we can analyze commits since last tag.
-          fetch-depth: 0
-
-      - name: Bump version and push tag
-        id: create_tag
-        uses: anothrNick/github-tag-action@1.36.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEFAULT_BUMP: patch
-          RELEASE_BRANCHES: master
-          PRERELEASE_SUFFIX: prerelease
-          DRY_RUN: false
-
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ steps.create_tag.outputs.new_tag || github.event.inputs.tags }}
-          release_name: Release ${{ steps.create_tag.outputs.new_tag || github.event.inputs.tags }}
-          body: Change logs temporarily disabled.
-          draft: false
-          prerelease: false
-
-      - name: Upload Release Asset
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ../${{ env.KUBERNETES_APP_NAME }}.zip
-          asset_name: ${{ env.KUBERNETES_APP_NAME }}.zip
-          asset_content_type: application/zip
+  create-nonprod-release:
+    needs: [config, nonprod-application-deployment]
+    uses: Rockwell-Automation-Inc/workflows/.github/workflows/workflow_call_create_release.yaml@main
+    with:
+      release_suffix: ${{ needs.config.outputs.release_suffix }}
+    secrets:
+      token: ${{ secrets.READ_GITHUB_ACTIONS_PAT }}
 
   production-application-deployment:
     if: ${{ github.ref == 'refs/heads/master' && github.event_name == 'push' }}
@@ -645,56 +582,10 @@ jobs:
           status: ${{ job.status }}
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
 
-  create-release:
-    if: ${{ github.ref == 'refs/heads/master' && github.event_name == 'push' }}
-    needs: production-application-deployment
-    timeout-minutes: 10
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download all workflow artifacts
-        uses: actions/download-artifact@v2
-        with:
-          path: ${{ env.HELM_CHART_RELATIVE_LOCATION }}
-
-      - name: Create Release Artifact
-        run: |
-          zip -r ../${{ env.KUBERNETES_APP_NAME }}.zip ${{ env.HELM_CHART_RELATIVE_LOCATION }}
-
-      - name: Checkout repository with entire history
-        uses: actions/checkout@v2
-        with:
-          # Fetches entire history, so we can analyze commits since last tag.
-          fetch-depth: 0
-
-      - name: Bump version and push tag
-        id: create_tag
-        uses: anothrNick/github-tag-action@1.36.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEFAULT_BUMP: patch
-          RELEASE_BRANCHES: master
-          PRERELEASE_SUFFIX: prerelease
-          DRY_RUN: false
-
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ steps.create_tag.outputs.new_tag || github.event.inputs.tags }}
-          release_name: Release ${{ steps.create_tag.outputs.new_tag || github.event.inputs.tags }}
-          body: Change logs temporarily disabled.
-          draft: false
-          prerelease: false
-
-      - name: Upload Release Asset
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ../${{ env.KUBERNETES_APP_NAME }}.zip
-          asset_name: ${{ env.KUBERNETES_APP_NAME }}.zip
-          asset_content_type: application/zip
+  create-production-release:
+    needs: [config, production-application-deployment]
+    uses: Rockwell-Automation-Inc/workflows/.github/workflows/workflow_call_create_release.yaml@main
+    with:
+      release_suffix: ${{ needs.config.outputs.release_suffix }}
+    secrets:
+      token: ${{ secrets.READ_GITHUB_ACTIONS_PAT }}
