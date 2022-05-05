@@ -1,4 +1,5 @@
 import { getAllInvitations } from '../../services/Invitations';
+import { question } from '../../support/Hooks';
 
 var chai = require('chai');
 var expect = chai.expect;
@@ -48,7 +49,8 @@ export class Question {
     }
 
     public async assertElementNotClickable(element: WebdriverIO.Element ): Promise<void>{
-        await element.waitForClickable({timeout: global.intElementsTimeout, reverse: true});
+  //      await element.waitForClickable({timeout: global.intElementsTimeout, reverse: true});
+      expect(await element.isEnabled()).to.be.false
     }
 
     public async assertElementClickable(element: WebdriverIO.Element): Promise<void>{
@@ -57,7 +59,7 @@ export class Question {
 
     public async assertElementNotPresent(element: WebdriverIO.Element):Promise<void>{
         await element.waitForExist({timeout: global.intElementsTimeout, reverse: true});
-        await expect(element.isExisting()).to.be.eventually.false
+        await expect(await element.isExisting()).to.be.eventually.false
     }
 
     public async assertElementContainsText(element, text: string): Promise<void>{

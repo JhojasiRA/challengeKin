@@ -22,6 +22,7 @@ export class Eula extends Action {
             global.lastError = 'Eula accept button is not present. Either the EULA has already been accepted or there is an error with the EULA feature'
             throw new Error(global.lastError)
         }
+        await browser.pause(1000)
         if (await this.skipButton.isExisting()) await this.click(this.skipButton)
     }
 
