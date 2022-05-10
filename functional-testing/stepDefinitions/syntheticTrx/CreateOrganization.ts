@@ -11,6 +11,9 @@ When('the user go inside to create organization option', async() => {
 When('the user submit the form with its information', async() => {
     await organization.newOrganization();
 });  
+When('the user upload a profile image', async() => {
+  
+});  
   Then('the user should see the message {string}', async(message) => {
       await question.assertElementText(organization.getMessageCreateOrganization(),message);
       await organization.ok();

@@ -7,6 +7,7 @@ Background:  Be on the Le Mans portal
 Scenario: Create Organization Sucessfully
     When the user go inside to create organization option
     And the user submit the form with its information
+    And the user upload a profile image
     Then the user should see the message "You have created the organization successfully!"
 @cancel @SyntheticTrx
 Scenario: Cancel user creation
