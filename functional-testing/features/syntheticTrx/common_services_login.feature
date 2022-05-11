@@ -5,7 +5,7 @@ Background:  Be on the Le Mans portal
 @login @SyntheticTrx
 Scenario: Login into Le Mans portal
     When the user submit the form with its credentials 
-    And the user accept the EULA testing eula "false"
+    And the user accept the EULA testing eula "true"
     Then the user should see the "Home" page
 @login @SyntheticTrx
 Scenario: Login SAML flow

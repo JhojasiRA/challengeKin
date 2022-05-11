@@ -8,12 +8,10 @@ setDefaultTimeout(60 * 1000);
 When('the user go inside to create organization option', async() => {
     await menuhomepage.createOrganizationOption();
   });
-When('the user submit the form with its information', async() => {
+When('the user submit the form with its information and add an organization logo', async() => {
     await organization.newOrganization();
 });  
-When('the user upload a profile image', async() => {
-  
-});  
+
   Then('the user should see the message {string}', async(message) => {
       await question.assertElementText(organization.getMessageCreateOrganization(),message);
       await organization.ok();
@@ -31,7 +29,7 @@ When('the user submit the form with its name', async() => {
 When('the user go inside to edit organization option', async() => {
   await menuhomepage.editOrganizationOption();
   }); 
-When('the user submit the form with new information', async() => {
+When('the user submit the form with new information and add a new organization logo', async() => {
     await organization.editOrganization();
 }); 
   Then('the user will see the message {string}', async(message) => {

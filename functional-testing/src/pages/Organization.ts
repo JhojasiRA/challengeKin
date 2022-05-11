@@ -1,4 +1,5 @@
 import { Action } from '../globalTasks/Action';
+import * as path from "path";
 
 export class Organization extends Action {
     get nameOrganizationField() { return browser.$('//*[@formcontrolname="tenantName"]'); }
@@ -10,7 +11,7 @@ export class Organization extends Action {
     get messageSuccessfully() { return browser.$('//*[ contains (text(), "You have created the organization successfully!")]'); }
     get successMessage() { return browser.$('//*[ contains (text(), "You have edited the organization successfully!")]'); }
     get discardChangesMessage() { return browser.$('//*[ contains (text(), "Changes will not be saved. Do you want to proceed?")]'); }
-    get OK() { return browser.$('(//*[ contains (text(), "OK")])[2]'); }
+    get OK() { return browser.$('(//*[ contains (text(), "OK")])[1]'); }
     get continueDiscardChanges() { return browser.$('(//*[@class = "primary-mat-button"])[2]'); }
     get joinUsingInviCode() { return browser.$('//*[contains(text(),"here")]'); }
     get searchInput() { return browser.$('//*[@name = "searchInput"]'); }
@@ -19,10 +20,16 @@ export class Organization extends Action {
     get newCodeButton() { return browser.$('//*[ contains (text(), "New Code") ]'); }
     get copyInviteCodeBtn() { return browser.$('//button[contains(text(), "Copy Invite Code")]'); }
     get closeMessageInviteCodeCopied() { return browser.$('//mat-icon[text()=" close "]'); }
+    get addOrganizationLogo(){ return 'create-org-logo'}
+    get addLogo(){ return browser.$(`#${this.addOrganizationLogo}`)}
 
     public async newOrganization(): Promise<void> {
         await this.enterText(this.nameOrganizationField, "Organization automation");
         await this.enterText(this.descriptionField, "TEST");
+        let filePath = path.resolve(process.cwd() + '/functional-testing/support/testLogos/Rockwell_Automation_Logo.jpeg');
+        await browser.execute('document.getElementById("' + this.addOrganizationLogo + '").removeAttribute("hidden")');
+        let remoteFilePath = await browser.uploadFile(filePath);
+        await this.addLogo.setValue(remoteFilePath);
         await this.click(this.createButton);
     }
 
@@ -36,6 +43,7 @@ export class Organization extends Action {
         await browser.pause(1000);
         let newTextName = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(3, 8);
         await this.enterText(this.nameOrganizationField, newTextName);
+        //new line code
         await browser.pause(1000);
         await this.click(this.saveButton);
     }

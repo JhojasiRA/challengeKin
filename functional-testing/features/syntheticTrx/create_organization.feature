@@ -6,8 +6,7 @@ Background:  Be on the Le Mans portal
 @create @SyntheticTrx
 Scenario: Create Organization Sucessfully
     When the user go inside to create organization option
-    And the user submit the form with its information
-    And the user upload a profile image
+    And the user submit the form with its information and add an organization logo
     Then the user should see the message "You have created the organization successfully!"
 @cancel @SyntheticTrx
 Scenario: Cancel user creation
@@ -18,7 +17,7 @@ Scenario: Cancel user creation
 @edit @afterEditOrganization @SyntheticTrx
 Scenario: Edit Organization info successfuly
     When the user go inside to edit organization option
-    And the user submit the form with new information
+    And the user submit the form with new information and add a new organization logo
     Then the user will see the message "You have edited the organization successfully!"
 @cancelEdit @SyntheticTrx
 Scenario: Cancel edit organization info
