@@ -30,6 +30,8 @@ export let inviteUsersPage: InviteUsers;
 export let invitationManagementPage: InvitationManagement
 
 Before(async (scenario) => {
+    //@ts-ignore
+    cucumberJson.attach({"testStartedAt": new Date()}, 'application/json')
     console.log("\n" + scenario.pickle.name + ": ")
     accesManagement = new AccesManagement();
     approveUser = new ApproveUser();
@@ -52,6 +54,8 @@ Before('@Test', async()=>{
 })
 
 After(async(scenario) => {
+    //@ts-ignore
+    cucumberJson.attach({"testFinalizedAt": new Date()}, 'application/json')
     if(scenario.result.status == 'PASSED'){
         return;
     }
