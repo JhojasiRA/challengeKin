@@ -22,13 +22,16 @@ export class Organization extends Action {
     get closeMessageInviteCodeCopied() { return browser.$('//mat-icon[text()=" close "]'); }
     get addOrganizationLogo(){ return 'create-org-logo'}
     get addLogo(){ return browser.$(`#${this.addOrganizationLogo}`)}
+    get editOrganizationLogo(){ return 'edit-org-logo'}
+    get editLogo(){ return browser.$(`#${this.editOrganizationLogo}`)}
+
 
     public async newOrganization(): Promise<void> {
         await this.enterText(this.nameOrganizationField, "Organization automation");
         await this.enterText(this.descriptionField, "TEST");
-        let filePath = path.resolve(process.cwd() + '/functional-testing/support/testLogos/Rockwell_Automation_Logo.jpeg');
+        const filePath = path.resolve(process.cwd() + '/functional-testing/support/testLogos/Rockwell_Automation_Logo.jpeg');
         await browser.execute('document.getElementById("' + this.addOrganizationLogo + '").removeAttribute("hidden")');
-        let remoteFilePath = await browser.uploadFile(filePath);
+        const remoteFilePath = await browser.uploadFile(filePath);
         await this.addLogo.setValue(remoteFilePath);
         await this.click(this.createButton);
     }
@@ -41,9 +44,12 @@ export class Organization extends Action {
 
     public async editOrganization(): Promise<void> {
         await browser.pause(1000);
-        let newTextName = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(3, 8);
+        let newTextName = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(4, 8);
         await this.enterText(this.nameOrganizationField, newTextName);
-        //new line code
+        const filePath = path.resolve(process.cwd() + '/functional-testing/support/testLogos/RA.jpeg');
+        await browser.execute('document.getElementById("' + this.editOrganizationLogo + '").removeAttribute("hidden")');
+        const remoteFilePath = await browser.uploadFile(filePath);
+        await this.editLogo.setValue(remoteFilePath);
         await browser.pause(1000);
         await this.click(this.saveButton);
     }
