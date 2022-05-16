@@ -26,6 +26,9 @@ export class Organization extends Action {
     get editLogo(){ return browser.$(`#${this.editOrganizationLogo}`)}
 
 
+    get imageLogo() { return browser.$('//*[@alt="Image"]'); }
+
+
     public async newOrganization(): Promise<void> {
         await this.enterText(this.nameOrganizationField, "Organization automation");
         await this.enterText(this.descriptionField, "TEST");
@@ -46,6 +49,9 @@ export class Organization extends Action {
         await browser.pause(1000);
         let newTextName = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(4, 8);
         await this.enterText(this.nameOrganizationField, newTextName);
+        await browser.execute('document.getElementById("' + this.imageLogo + '").setAttribute("style", "display: none")');
+        console.log("funciono el set attribute")
+        await browser.pause(10000);
         const filePath = path.resolve(process.cwd() + '/functional-testing/support/testLogos/RA.jpeg');
         await browser.execute('document.getElementById("' + this.editOrganizationLogo + '").removeAttribute("hidden")');
         const remoteFilePath = await browser.uploadFile(filePath);
