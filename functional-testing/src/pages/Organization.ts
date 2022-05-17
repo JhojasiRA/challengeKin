@@ -11,7 +11,7 @@ export class Organization extends Action {
     get messageSuccessfully() { return browser.$('//*[ contains (text(), "You have created the organization successfully!")]'); }
     get successMessage() { return browser.$('//*[ contains (text(), "You have edited the organization successfully!")]'); }
     get discardChangesMessage() { return browser.$('//*[ contains (text(), "Changes will not be saved. Do you want to proceed?")]'); }
-    get OK() { return browser.$('(//*[ contains (text(), "OK")])[2]'); }
+    get OK() { return browser.$('(//*[ contains (text(), "OK")])[1]'); }
     get continueDiscardChanges() { return browser.$('(//*[@class = "primary-mat-button"])[2]'); }
     get joinUsingInviCode() { return browser.$('//*[contains(text(),"here")]'); }
     get searchInput() { return browser.$('//*[@name = "searchInput"]'); }
@@ -24,9 +24,17 @@ export class Organization extends Action {
     get addLogo(){ return browser.$(`#${this.addOrganizationLogo}`)}
     get editOrganizationLogo(){ return 'edit-org-logo'}
     get editLogo(){ return browser.$(`#${this.editOrganizationLogo}`)}
+    get imageLogo() { return browser.$('//*[@alt="Image"]'); }
+
+    
 
 
     public async newOrganization(): Promise<void> {
+        await this.enterText(this.nameOrganizationField, "Organization automation");
+        await this.enterText(this.descriptionField, "TEST");
+        await this.click(this.createButton);
+    }
+    public async newOrganizationWithLogo(): Promise<void> {
         await this.enterText(this.nameOrganizationField, "Organization automation");
         await this.enterText(this.descriptionField, "TEST");
         const filePath = path.resolve(process.cwd() + '/functional-testing/support/testLogos/Rockwell_Automation_Logo.jpeg');
@@ -47,9 +55,22 @@ export class Organization extends Action {
         let newTextName = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(4, 8);
         await this.enterText(this.nameOrganizationField, newTextName);
         await browser.pause(1000);
+        await this.click(this.saveButton);
+    }
+    public async editLogoOrganization(): Promise<void> {
+        await browser.pause(1000);
         await  browser.execute("document.querySelector(\"img[id='edit-org-logo-img']\").setAttribute(\"hidden\",\"true\");"); 
         await browser.pause(1000);
         const filePath = path.resolve(process.cwd() + '/functional-testing/support/testLogos/RA.jpeg');
+        await browser.execute('document.getElementById("' + this.editOrganizationLogo + '").removeAttribute("hidden")');
+        const remoteFilePath = await browser.uploadFile(filePath);
+        await this.editLogo.setValue(remoteFilePath);
+        await browser.pause(1000);
+        await this.click(this.saveButton);
+    }
+    public async addNewLogoOrganization(): Promise<void> {
+        await browser.pause(1000);
+        const filePath = path.resolve(process.cwd() + '/functional-testing/support/testLogos/FTH.jpeg');
         await browser.execute('document.getElementById("' + this.editOrganizationLogo + '").removeAttribute("hidden")');
         const remoteFilePath = await browser.uploadFile(filePath);
         await this.editLogo.setValue(remoteFilePath);
