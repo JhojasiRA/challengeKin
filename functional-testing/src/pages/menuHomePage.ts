@@ -1,7 +1,7 @@
 import {Action} from '../globalTasks/Action';
 
 export class MenuHomePage extends Action {
-    get menuIcon() { return browser.$('//*[text()="apps"]');}
+    get menuIcon() { return browser.$('//*[@class="ra-icon-ide-sm-bars ra-common-icon"]');}
     get approveUser() { return browser.$('//*[@class="mat-list-item-content"]//*[ contains (text(), "Approve Users")]');}
     get createOrganization() { return browser.$('//*[ contains (text(), "Create Organization")]');}
     get editOrganization() { return browser.$('//*[ contains (text(), "Edit Organization")]');}
