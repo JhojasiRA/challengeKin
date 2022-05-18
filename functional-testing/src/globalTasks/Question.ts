@@ -1,11 +1,11 @@
 import { getAllInvitations } from '../../services/Invitations';
-
+import { apps } from '../../constant.json'
 var chai = require('chai');
 var expect = chai.expect;
 var chaiAsPromised = require("chai-as-promised");
 chai.use(chaiAsPromised);
 chai.use(require('chai-like'));
-chai.use(require('chai-things')); 
+chai.use(require('chai-things'));
 var jp = require('jsonpath')
 
 var intElementsTimeoutDefault = 30000;
@@ -14,58 +14,58 @@ global.intElementsTimeout = isNaN(global.intElementsTimeout) ? intElementsTimeou
 
 export class Question {
 
-    public async assertTexts(firstText: string, secondText: string): Promise<void>{
+    public async assertTexts(firstText: string, secondText: string): Promise<void> {
         await expect(firstText).to.equal(secondText);
     }
 
-    public async assertElementText(element, text: string): Promise<void>{
-        await element.waitForExist({timeout: global.intElementsTimeout})
+    public async assertElementText(element, text: string): Promise<void> {
+        await element.waitForExist({ timeout: global.intElementsTimeout })
         console.log('loggin: ' + await element.getText());
         await expect(await element.getText()).to.equal(text);
     }
 
-    public async assertElementNotExist(element: WebdriverIO.Element): Promise<void>{
-        await element.waitForExist({ timeout: global.intElementsTimeout , reverse: true});
-        await expect(element.isExisting()).to.be.eventually.false 
+    public async assertElementNotExist(element: WebdriverIO.Element): Promise<void> {
+        await element.waitForExist({ timeout: global.intElementsTimeout, reverse: true });
+        await expect(element.isExisting()).to.be.eventually.false
     }
 
-    public async assertElementExist(element: WebdriverIO.Element): Promise<void>{
+    public async assertElementExist(element: WebdriverIO.Element): Promise<void> {
         await element.waitForExist({ timeout: global.intElementsTimeout })
-        await expect(element.isExisting()).to.be.eventually.true 
+        await expect(element.isExisting()).to.be.eventually.true
     }
 
-    public async assertElementPresent(element: WebdriverIO.Element): Promise<void>{
-        await element.waitForDisplayed({timeout: global.intElementsTimeout})
+    public async assertElementPresent(element: WebdriverIO.Element): Promise<void> {
+        await element.waitForDisplayed({ timeout: global.intElementsTimeout })
         await expect(element.isDisplayed()).to.be.eventually.true
     }
 
-    public async assertTwoTextsAreDifferent(oldValue: string, newValue: string): Promise<void>{
+    public async assertTwoTextsAreDifferent(oldValue: string, newValue: string): Promise<void> {
         await expect(oldValue).to.not.equal(newValue);
     }
 
-    public async assertTwoTextsAreEqual(oldValue: string, newValue: string): Promise<void>{
+    public async assertTwoTextsAreEqual(oldValue: string, newValue: string): Promise<void> {
         await expect(oldValue).to.equal(newValue);
     }
 
-    public async assertElementNotClickable(element: WebdriverIO.Element ): Promise<void>{
-      expect(await element.isClickable()).to.be.false
+    public async assertElementNotClickable(element: WebdriverIO.Element): Promise<void> {
+        expect(await element.isClickable()).to.be.false
     }
 
-    public async assertElementClickable(element: WebdriverIO.Element): Promise<void>{
-        await element.waitForClickable({timeout: global.intElementsTimeout});
+    public async assertElementClickable(element: WebdriverIO.Element): Promise<void> {
+        await element.waitForClickable({ timeout: global.intElementsTimeout });
     }
 
-    public async assertElementNotPresent(element: WebdriverIO.Element):Promise<void>{
-        await element.waitForExist({timeout: global.intElementsTimeout, reverse: true});
+    public async assertElementNotPresent(element: WebdriverIO.Element): Promise<void> {
+        await element.waitForExist({ timeout: global.intElementsTimeout, reverse: true });
         await expect(await element.isExisting()).to.be.eventually.false
     }
 
-    public async assertElementContainsText(element, text: string): Promise<void>{
-        await element.waitForExist({timeout: global.intElementsTimeout});
+    public async assertElementContainsText(element, text: string): Promise<void> {
+        await element.waitForExist({ timeout: global.intElementsTimeout });
         await expect(await element.getText()).to.contain(text)
     }
 
-    public async assertTextContains(firstText: string, secondText: string): Promise<void>{
+    public async assertTextContains(firstText: string, secondText: string): Promise<void> {
         await expect(firstText).contains(secondText);
     }
 
@@ -79,15 +79,15 @@ export class Question {
         await expect(array).to.be.an('array').that.not.contains.something.like(object);
     }
 
-    public async assertTrue(expectedResult:boolean): Promise<void> {
+    public async assertTrue(expectedResult: boolean): Promise<void> {
         await expect(expectedResult).to.be.eventually.true
     }
 
-    public async assertElementIsEnabled(element): Promise<void>{
+    public async assertElementIsEnabled(element): Promise<void> {
         await expect(await element.isEnabled()).to.be.true
     }
 
-    public async assertElementIsDisabled(element): Promise<void>{
+    public async assertElementIsDisabled(element): Promise<void> {
         await expect(await element.isEnabled()).to.be.false
     }
     public async assertElementAttributeContains(element: WebdriverIO.Element, attribute: string, text: string): Promise<void>{
@@ -96,4 +96,31 @@ export class Question {
         
     }
 
+    public async checkServicesVisible(root: string): Promise<void> {
+        let servicesToCheck = new Array<string>()
+        let map = new Map<string, string>()
+        for (var value in apps) {
+            map.set(value, apps[value])
+        }
+        map.forEach((app, key) => {
+            let appMap = new Map(Object.entries(app))
+            if (root === "apps") {
+                appMap.forEach(value => {
+                    servicesToCheck.push(value)
+                })
+            }else if(root === key){
+                appMap.forEach(value => {
+                    servicesToCheck.push(value)
+                })
+            }
+        })
+        for (const service of servicesToCheck) {
+            try {
+                await expect(await $(service).isDisplayed()).to.be.true
+            } catch (error) {
+                throw new Error("Expected to see service card with id: " + service + ' but could not find it')
+            }
+        }
+
+    }
 }
