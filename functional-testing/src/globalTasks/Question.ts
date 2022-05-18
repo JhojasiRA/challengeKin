@@ -1,7 +1,5 @@
 import { getAllInvitations } from '../../services/Invitations';
 import { apps } from '../../constant.json'
-import { homePage } from '../../support/Hooks';
-
 var chai = require('chai');
 var expect = chai.expect;
 var chaiAsPromised = require("chai-as-promised");
@@ -77,8 +75,7 @@ export class Question {
         expect(await status).to.be.an('array').that.include('Active')
     }
 
-
-    public async assertArrayDoesNotContainObject(array: any, object: any): Promise<void> {
+    public async assertArrayDoesNotContainObject(array: any, object: any): Promise<void>{
         await expect(array).to.be.an('array').that.not.contains.something.like(object);
     }
 
@@ -92,6 +89,11 @@ export class Question {
 
     public async assertElementIsDisabled(element): Promise<void> {
         await expect(await element.isEnabled()).to.be.false
+    }
+    public async assertElementAttributeContains(element: WebdriverIO.Element, attribute: string, text: string): Promise<void>{
+        let attributeValue = await element.getAttribute(attribute);
+        await expect(attributeValue.includes(text)).to.be.true;
+        
     }
 
     public async checkServicesVisible(root: string): Promise<void> {
