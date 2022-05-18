@@ -13,5 +13,27 @@
         "description": "org exclusively for automation purposes",
         "visibility": "Private"
 
+    },
+
+    "apps": {
+        "designHub": {
+            "Vault": "#card-Vault",
+            "Uniqo": "#card-Vista",
+            "LogixDesigner": "#card-Studio5000LogixDesigner",
+            "Emulate3D": "#card-Emulate3D",
+            "Arena": "#card-Arena", 
+            "EPlan": "#card-EPlan"
+        },
+        "operationsHub": {
+            "FTRA": "#card-SecureRemoteAccess",
+            "Eaas": "#card-EaaS",
+            "Plex": "#card-Plex"
+        },
+        "maintenanceHub": {
+            "Fiix": "#card-Fiix",
+            "Foo": "#card-FooService"
+        }
+
     }
+
 }

@@ -10,9 +10,9 @@ export class Eula extends Action {
 
     public async acceptEula(testingEula: string): Promise<void> {
         let eulaTest = testingEula.toLowerCase() == 'true'
+        await browser.pause(5000) 
         if (await this.acceptButton.isExisting()) {
             await this.eulaContent.waitForDisplayed({ timeout: global.intElementsTimeout })
-           // browser.pause(2000)
             await this.click(this.closeMessage)
             await this.lastPartOfEula.scrollIntoView({ behavior: 'smooth', block:'end'})
             await browser.pause(2000)

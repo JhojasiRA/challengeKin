@@ -6,14 +6,18 @@ export class HomePage extends Action {
     get FTRACard() { return $(`#card-SecureRemoteAccess`) }
     get homePage() { return $(`//*[@class="xng-breadcrumb-root"]//*[ contains (text(), "Home")]`) }
     get rubikIcon() { return $('#rubick-menu-btn') }
-    get lockFTRAIcon() {return $(`//*[@id="card-SecureRemoteAccess"]//*[@class= "fav-lock-icon lock-icon"]`)}
-    get lockFooIcon() {return $(`//*[@id="card-FooService"]//*[@class= "fav-lock-icon lock-icon"]`)}
-    get lockUniqoIcon() {return $(`//*[@id="card-Vista"]//*[@class= "fav-lock-icon lock-icon"]`)}
-    get lockEaasIcon() {return $(`//*[@id="card-EaaS"]//*[@class= "fav-lock-icon lock-icon"]`)}
-    get fiixCard() { return $(`#card-Fiix`)}
-    get fooCard() { return $(`#card-FooService`)}
-    get uniqoCard() { return $(`#card-Vista`)}
-    get eaasCard() { return $(`#card-EaaS`)}
+    get lockFTRAIcon() { return $(`//*[@id="card-SecureRemoteAccess"]//*[@class= "fav-lock-icon lock-icon"]`) }
+    get lockFooIcon() { return $(`//*[@id="card-FooService"]//*[@class= "fav-lock-icon lock-icon"]`) }
+    get lockUniqoIcon() { return $(`//*[@id="card-Vista"]//*[@class= "fav-lock-icon lock-icon"]`) }
+    get lockEaasIcon() { return $(`//*[@id="card-EaaS"]//*[@class= "fav-lock-icon lock-icon"]`) }
+    get fiixCard() { return $(`#card-Fiix`) }
+    get fooCard() { return $(`#card-FooService`) }
+    get uniqoCard() { return $(`#card-Vista`) }
+    get eaasCard() { return $(`#card-EaaS`) }
+    get allAppsTab() { return $('#mat-tab-label-0-0') }
+    get designHubTab() { return $('#mat-tab-label-0-1') }
+    get operationsHubTab() { return $('#mat-tab-label-0-2') }
+    get maintenanceHubTab() { return $('#mat-tab-label-0-3') }
 
     async dashboard(): Promise<void> {
         await browser.pause(3000);
@@ -37,9 +41,9 @@ export class HomePage extends Action {
     }
 
     async launchFoo(): Promise<void> {
-        await this.click(this.fooCard);   
+        await this.click(this.fooCard);
     }
-    
+
     async launchUniqo(): Promise<void> {
         await this.click(this.uniqoCard)
         let handles = await browser.getWindowHandles()
@@ -49,8 +53,6 @@ export class HomePage extends Action {
     async launchEaas(): Promise<void> {
         await this.click(this.eaasCard)
     }
-
-    
 
     public async newBrowser(): Promise<void> {
         await browser.pause(3000);
@@ -74,6 +76,20 @@ export class HomePage extends Action {
 
     public getMessageHome(): WebdriverIO.Element {
         return this.homePage;
+    }
+
+    async clickAllAppsTab(): Promise<void> {
+        await this.click(this.allAppsTab)
+    }
+
+    async clickDesignHubTab(): Promise<void> {
+        await this.click(this.designHubTab)
+    }
+    async clickOperationsHubTab(): Promise<void> {
+        await this.click(this.operationsHubTab)
+    }
+    async clickMaintenanceHubTab(): Promise<void> {
+        await this.click(this.maintenanceHubTab)
     }
 }
 
