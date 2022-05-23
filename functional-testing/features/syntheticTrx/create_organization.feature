@@ -8,6 +8,16 @@ Scenario: Create Organization Sucessfully
     When the user go inside to create organization option
     And the user submit the form with its information
     Then the user should see the message "You have created the organization successfully!"
+@addNewLogo @SyntheticTrx
+Scenario: Add a new organization Logo
+    When the user go inside to edit organization option
+    And the user add a new logo organization
+    Then the user will see a new "image/png" logo organization
+@createWithLogo @SyntheticTrx
+Scenario: Create Organization with logo organization Sucessfully
+    When the user go inside to create organization option
+    And the user submit the form with its information and add an organization logo
+    Then the user will see an organization with "image/png" logo
 @cancel @SyntheticTrx
 Scenario: Cancel user creation
     When the user go inside to create organization option
@@ -19,6 +29,11 @@ Scenario: Edit Organization info successfuly
     When the user go inside to edit organization option
     And the user submit the form with new information
     Then the user will see the message "You have edited the organization successfully!"
+@editLogo @SyntheticTrx
+Scenario: Edit Organization logo successfuly
+    When the user go inside to edit organization option
+    And the user edits the logo organization
+    Then the user will see a new "iVBORw" logo
 @cancelEdit @SyntheticTrx
 Scenario: Cancel edit organization info
     When the user go inside to edit organization option
