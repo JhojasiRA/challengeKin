@@ -11,7 +11,6 @@ export class TopBar extends Action {
     get enhancementType() {return browser.$('//*[ contains (text(),"Enhancement Request")]');}
     get issueType() {return browser.$('//*[ contains (text(), " Report an Issue ")]');}
     get provideFeedbackText() {return browser.$('//div[@class="headline-6"]');}
-    
     get feedbackRequiredMessage() {return browser.$('//*[ contains (text(), "Feedback is required")]');}
     get sendButton() { return browser.$('//button[@class="primary-mat-button"]');}
     get cancelButton() { return browser.$('//*[ contains (text(), "CANCEL")]');}
