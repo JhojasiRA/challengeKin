@@ -2,7 +2,8 @@ import { When, Then } from '@cucumber/cucumber';
 import { topBar, indexPage, question } from '../../support/Hooks';
 
 
-When('the user go inside on the help icon', async () => {
+
+When('the user goes inside on the help icon', async () => {
     await topBar.helpIconTool();
 });
 
@@ -22,11 +23,7 @@ Then('the user should see {string} page tittle', async (pageTittle) => {
     await question.assertElementText(topBar.pageTitle, pageTittle);
 });
 
-When('the user go inside on provide feedback option', async () => {
-    await topBar.provideFeedbackTool();
-});
-
-When('the user go inside on Release Notes', async () => {
+When('the user goes inside on Release Notes', async () => {
     await topBar.releaseNotesTool();
 });
 Then('the user should see page with title {string}', async (pageTittle) => {
@@ -45,3 +42,41 @@ When('the user click on its profile', async () => {
 Then('the user should see the login page', async () => {
     await question.assertElementExist(indexPage.signInButton)
 });
+
+When('the user goes inside on provide feedback option', async () => {
+    await topBar.provideFeedback();
+});
+
+When('the user submits de form with feedback information', async () => {
+    await topBar.provideFeedbackInfo();
+});
+Then('user should not see the feedback modal', async () => {
+    await browser.pause(3000);
+    await question.assertElementNotExist(topBar.feedbackElement);
+});
+
+
+When('the user submits de form with enhancement request information', async () => {
+    await topBar.EnhancementInfo();
+});
+
+When('the user submits de form with issue information', async () => {
+    await topBar.issueInfo();
+});
+
+When('the user does not submit the form with text info', async () => {
+    await topBar.FeedbackInfo();
+    
+});
+
+Then('user should see a message {string}', async (feedRequiredMessage) => {
+    await question.assertElementContainsText(topBar.getMessage(), feedRequiredMessage);
+    await browser.pause(3000);
+});
+
+
+
+
+
+
+

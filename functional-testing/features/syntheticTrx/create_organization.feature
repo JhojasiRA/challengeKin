@@ -3,7 +3,7 @@ Feature: As an user, I want to create a new organization into Le Mans portal
 Background:  Be on the Le Mans portal
     Given the user open the Le Mans portal
     When the user submit the form with its credentials
-@create @SyntheticTrx
+@create @SyntheticTrx 
 Scenario: Create Organization Sucessfully
     When the user go inside to create organization option
     And the user submit the form with its information
