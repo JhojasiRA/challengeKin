@@ -101,7 +101,6 @@ export class TopBar extends Action {
         await this.switchToNewTab(currentTab);
       }
 
-    
       public getMessageGettingStarted(): WebdriverIO.Element{
         return this.messageGettingStarted;
       }
