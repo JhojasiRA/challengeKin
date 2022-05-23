@@ -7,7 +7,7 @@ When('the user goes inside on the help icon', async () => {
     await topBar.helpIconTool();
 });
 
-When('the user go inside on Online help option', async () => {
+When('the user goes inside on Online help option', async () => {
     await topBar.onlineHelpTool();
 });
 Then('the user should see the page {string}', async (pageTittle) => {
@@ -15,7 +15,7 @@ Then('the user should see the page {string}', async (pageTittle) => {
     await question.assertElementContainsText(topBar.pageTitle, pageTittle)
 });
 
-When('the user go inside on getting started option', async () => {
+When('the user goes inside on getting started option', async () => {
     await topBar.gettingStartedTool();
 });
 Then('the user should see {string} page tittle', async (pageTittle) => {
@@ -31,11 +31,11 @@ Then('the user should see page with title {string}', async (pageTittle) => {
     await question.assertElementContainsText(topBar.pageTitle, pageTittle);
 });
 
-When('the user click on about option', async () => {
+When('the user clicks on about option', async () => {
     await topBar.aboutTool();
 });
 
-When('the user click on its profile', async () => {
+When('the user clicks on its profile', async () => {
     await topBar.signOutOption();
 });
 

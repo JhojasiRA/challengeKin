@@ -2,19 +2,19 @@ import { When, Then } from '@cucumber/cucumber'
 import { homePage, question } from '../../support/Hooks';
 
 
-When('the user filter by all cards', async() =>  {
+When('the user filters by all cards', async() =>  {
   await homePage.clickAllAppsTab()
 });
 
-When('the user filter by design hub cards', async() =>  {
+When('the user filters by design hub cards', async() =>  {
     await homePage.clickDesignHubTab()
 });
 
-When('the user filter by operation hub cards', async() =>  {
+When('the user filters by operation hub cards', async() =>  {
     await homePage.clickOperationsHubTab()
 });
 
-When('the user filter by maintenance hub cards', async() =>  {
+When('the user filters by maintenance hub cards', async() =>  {
     await homePage.clickMaintenanceHubTab()
 });
 
