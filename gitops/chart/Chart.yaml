@@ -1,5 +1,5 @@
 apiVersion: v2
-name: ta-commonservices
+name: testing-automation-cs
 description: Deploys cron jobs that run periodic health checks
 
 # A chart can be either an 'application' or a 'library' chart.
