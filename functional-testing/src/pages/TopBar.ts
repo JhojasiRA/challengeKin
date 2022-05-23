@@ -7,7 +7,7 @@ export class TopBar extends Action {
     get gettingStartedComponent() { return browser.$('//*[ contains (text(), "Getting Started")]');}
     get provideFeedbackComponent() { return browser.$('//*[ contains (text(), "Provide Feedback")]');}
     get feedbackText() {return browser.$('//textarea[@name="feedbackText"]');}
-    get feedbackTypeField() {return browser.$('//textarea[@name="feedbackText"]');}
+    get feedbackType() {return browser.$('//span[ contains (text(),"Provide Feedback")]');}
     get enhancementType() {return browser.$('//*[ contains (text(),"Enhancement Request")]');}
     get issueType() {return browser.$('//*[ contains (text(), " Report an Issue ")]');}
     get provideFeedbackText() {return browser.$('//div[@class="headline-6"]');}
@@ -33,7 +33,6 @@ export class TopBar extends Action {
     
 
       public async helpIconTool(): Promise<void> {
-        await browser.pause(1000);
         await this.click(this.helpIcon);
         await browser.pause(1000);
       }
@@ -59,7 +58,7 @@ export class TopBar extends Action {
       public async provideFeedbackTool(): Promise<void> {
         await browser.pause(1000);
         await this.click(this.provideFeedbackComponent)
-        await this.click(this.feedbackTypeField);
+        await this.click(this.feedbackText);
         await browser.pause(1000);
         await this.click(this.cancelButton);
       }
@@ -128,10 +127,10 @@ export class TopBar extends Action {
 
       public async provideFeedback(): Promise<void> {
           await this.click(this.provideFeedbackComponent);
-          }
+      }
 
       public async provideFeedbackInfo(): Promise<void> {
-          await browser.keys('Enter');
+          await topBar.click(this.feedbackType);
           await this.enterText(this.feedbackText, "Provide feedback testing automation");   
           await this.click(this.sendButton);         
       }
@@ -140,19 +139,18 @@ export class TopBar extends Action {
         await this.click(this.enhancementType);
         await this.enterText(this.feedbackText, "Enhancement info testing automation");   
         await this.click(this.sendButton);     
-       }
+      }
 
       public async issueInfo(): Promise<void> {
         await this.click(this.issueType);
         await this.enterText(this.feedbackText, "Issue info testing automation");   
-        await this.click(this.sendButton);
-        
+        await this.click(this.sendButton);      
       }
 
-      public async FeedbackInfo(): Promise<void> {
-        await browser.keys('Enter');
-        await topBar.click(this.feedbackTypeField);
-        await topBar.click(this.provideFeedbackText)
+      public async NotFeedbackInfo(): Promise<void> {
+        await topBar.click(this.feedbackType);
+        await topBar.click(this.feedbackText);
+        await topBar.click(this.provideFeedbackText);
       }
     }
       

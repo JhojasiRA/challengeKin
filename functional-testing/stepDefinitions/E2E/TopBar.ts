@@ -47,7 +47,7 @@ When('the user goes inside on provide feedback option', async () => {
     await topBar.provideFeedback();
 });
 
-When('the user submits de form with feedback information', async () => {
+When('the user submits the form with feedback information', async () => {
     await topBar.provideFeedbackInfo();
 });
 Then('user should not see the feedback modal', async () => {
@@ -56,16 +56,16 @@ Then('user should not see the feedback modal', async () => {
 });
 
 
-When('the user submits de form with enhancement request information', async () => {
+When('the user submits the form with enhancement request information', async () => {
     await topBar.EnhancementInfo();
 });
 
-When('the user submits de form with issue information', async () => {
+When('the user submits the form with issue information', async () => {
     await topBar.issueInfo();
 });
 
 When('the user does not submit the form with text info', async () => {
-    await topBar.FeedbackInfo();
+    await topBar.NotFeedbackInfo();
     
 });
 

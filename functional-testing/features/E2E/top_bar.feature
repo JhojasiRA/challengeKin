@@ -34,28 +34,28 @@ Feature: As a user, I want to navigate into the top bar of homePage
         And the user click on its profile
         Then the user should see the login page
 
-    @TopbarFeedback
+    @Test2
     Scenario: navigate into top bar providing feedback 
         When the user goes inside on the help icon
         And the user goes inside on provide feedback option 
-        And the user submits de form with feedback information
+        And the user submits the form with feedback information
         Then user should not see the feedback modal
 
-    @TopbarEnhancementRequest
+    @Test2
     Scenario: navigate into top bar enhancement request
         When the user goes inside on the help icon
         And the user goes inside on provide feedback option 
-        And the user submits de form with enhancement request information
+        And the user submits the form with enhancement request information
         Then user should not see the feedback modal
 
-    @Test1
+    @Test2
     Scenario: navigate into top bar reporting an issue
         When the user goes inside on the help icon
         And the user goes inside on provide feedback option 
-        And the user submits de form with issue information
+        And the user submits the form with issue information
         Then user should not see the feedback modal
 
-    @Test1
+    @Test2
     Scenario: navigate into top bar reporting a feedback without text
         When the user goes inside on the help icon
         And the user goes inside on provide feedback option 
