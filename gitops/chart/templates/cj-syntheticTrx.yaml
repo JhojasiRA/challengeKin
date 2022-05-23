@@ -65,7 +65,21 @@ spec:
                 secretKeyRef:
                   name: common-services-rockwell-username
                   key: rockwell-username
-{{- end }}               
+{{- end }}
+{{- if .Values.keyVault.enabled }}              
+            - name: RA_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: common-services-ra-username
+                  key: ra-username
+{{- end }}
+{{- if .Values.keyVault.enabled }}              
+            - name: RA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: common-services-ra-password
+                  key: ra-password
+{{- end }}                
 {{- if .Values.keyVault.enabled }}
             volumeMounts:
             - name: secrets-store-inline
