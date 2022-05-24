@@ -11,6 +11,7 @@ export const BaseConfig: WebdriverIO.Config = {
         [
             'functional-testing/features/syntheticTrx/*.feature',
             'functional-testing/features/API/*.feature',
+            'functional-testing/features/E2E/*.feature'
         ]
 
     ],

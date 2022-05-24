@@ -27,8 +27,6 @@ export class Organization extends Action {
     get imageLogo() { return browser.$('//*[@alt="Image"]'); }
 
     
-
-
     public async newOrganization(): Promise<void> {
         await this.enterText(this.nameOrganizationField, "Organization automation");
         await this.enterText(this.descriptionField, "TEST");

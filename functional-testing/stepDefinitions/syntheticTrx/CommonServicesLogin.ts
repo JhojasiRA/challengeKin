@@ -1,16 +1,16 @@
 import { Given, When, Then } from '@cucumber/cucumber'
 import { indexPage,eula,homePage,question,externalAccount } from '../../support/Hooks';
  
-Given('the user open the Le Mans portal', async() => {
+Given('the user opens the Le Mans portal', async() => {
   await indexPage.open('')
 });
 
-When('the user submit the form with its credentials', async() => {
+When('the user submits the form with its credentials', async() => {
   await indexPage.goToSignIn();
   await externalAccount.submitForm(process.env.USERNAME,process.env.PASSWORD);
 });
 
-When('the user accept the EULA testing eula {string}', async(testingEula:string) => {
+When('the user accepts the EULA testing eula {string}', async(testingEula:string) => {
   await browser.pause(5000);
   await eula.acceptEula(testingEula);
 });
