@@ -1,7 +1,9 @@
 import {When, Then } from '@cucumber/cucumber'
 import { notification,question } from '../../support/Hooks';
+import {createMultipleNotification} from '../../services/NotificationService'
 
 When('the user goes to the notification option', async() => {
+    await createMultipleNotification();
     await notification.icon();
 });
 When('the user removes a notification from the panel', async() => {

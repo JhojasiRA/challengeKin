@@ -11,7 +11,7 @@ splunkIndex: lemans_sandbox
 IS_URL: https://factorytalkhub.us.auth0.com/oauth/token
 API_CS: https://common.lemans-sandbox.rockwellautomation.com
 PORTAL_URL: https://home.lemans-sandbox.rockwellautomation.com
-#URL_NOTIF: https://api-notifications.lemans-sandbox.rockwellautomation.com
+URL_NOTIF: https://api-notifications.lemans-sandbox.rockwellautomation.com
 
 
 image:
