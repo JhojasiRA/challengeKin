@@ -20,8 +20,19 @@ export class Question {
 
     public async assertElementText(element, text: string): Promise<void> {
         await element.waitForExist({ timeout: global.intElementsTimeout })
-        console.log('loggin: ' + await element.getText());
         await expect(await element.getText()).to.equal(text);
+    }
+
+    public async getValue(element) {
+        await element.waitForExist({ timeout: global.intElementsTimeout })
+        const initialValue = await element.getText();
+        const intValue = parseInt(initialValue);
+        return intValue;
+        
+    }
+
+    public async compareInts(oldValue,newValue): Promise<void> {
+        await expect(await oldValue).to.equal(await newValue);
     }
 
     public async assertElementNotExist(element: WebdriverIO.Element): Promise<void> {

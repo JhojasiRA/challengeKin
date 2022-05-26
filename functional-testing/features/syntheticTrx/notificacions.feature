@@ -10,17 +10,17 @@ Scenario: Delete a notification from the panel
     When the user goes to the notification option
     And the user removes a notification from the panel
     Then the user will see one notification less on his NavBar
-@Notifications
+@Notifications @testNotif
 Scenario: Delete a notification from the VIEW ALL page
     When the user goes to the notification option
     And the user clears one notification on the view all page
     Then the user will see one notification less on his NavBar
-@Notifications @testNotif
+@Notifications
 Scenario: Delete all notification from the VIEW ALL page
     When the user goes to the notification option
     And the user clears all notifications on the view all page
     Then The user will see an empty page
-@Notifications @testNotif
+@Notifications
 Scenario: Delete all notification from the panel
     When the user goes to the notification option
     And the user clears all notifications on the panel notification

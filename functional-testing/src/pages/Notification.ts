@@ -10,6 +10,8 @@ export class Notification extends Action {
     get clearButton() { return browser.$('//*[contains(text(), "CLEAR")]');}
     get trashIcon() { return browser.$('(//*[@class="ra-icon-ide-sm-delete close-notification"])[1]');}
     get allClearMessage() { return browser.$('//*[contains(text(), "All Clear")]');}
+    get counterIcon() { return browser.$('//*[@class="icon-badge ng-star-inserted"]');}
+    
 
     public async icon(): Promise<void> {
         await browser.pause(1000);
@@ -45,6 +47,10 @@ export class Notification extends Action {
     public getAllClearMessage(): WebdriverIO.Element {
         return this.allClearMessage;
     }  
+
+    public getCounterNotifications(): WebdriverIO.Element {
+      return this.counterIcon;
+  }  
     }
 
 
