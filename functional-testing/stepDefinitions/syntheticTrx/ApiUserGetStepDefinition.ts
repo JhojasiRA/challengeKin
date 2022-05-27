@@ -4,7 +4,7 @@ import {assert} from 'chai';
 import {getUserId, createUser,getEula, getUser,getUserWithOtherToken,getEffectiveRoles, createUser2,createOrgTenant,editTenantInfo,getEntitlements} from '../../services/Users';
 
 //------------------create new users-------------
-When('it send a POST {string}', async(endpoint) => {
+When('it sends a POST {string}', async(endpoint) => {
         await getEula();
         console.log(endpoint)
         });
@@ -27,7 +27,7 @@ Then('create a user exist response should be: status {string} useralreadyexist',
         });
 
 //------------get a user by Id------------------
-When('it send a GET {string}', async(endpoint) => {
+When('it sends a GET {string}', async(endpoint) => {
             await getUserId();
             console.log(endpoint);
             });

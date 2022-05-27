@@ -10,7 +10,7 @@ splunkIndex: lemans_nonprod
 IS_URL: https://factorytalkhub.us.auth0.com/oauth/token
 API_CS: https://common.cloud-dev.rockwellautomation.com
 PORTAL_URL: https://home.cloud-dev.rockwellautomation.com
-#URL_NOTIF: https://api-notifications.lemans-sandbox.rockwellautomation.com
+URL_NOTIF: https://api-notifications.lemans-sandbox.rockwellautomation.com
 
 image:
   repository: ghcr.io/rockwell-automation-inc/lemans-commonservices-ta

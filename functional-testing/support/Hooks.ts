@@ -12,6 +12,7 @@ import {Question} from '../src/globalTasks/Question';
 import {Action} from '../src/globalTasks/Action';
 import { InviteUsers } from '../src/pages/InviteUsers';
 import { InvitationManagement } from '../src/pages/InvitationManagement';
+import { Notification } from '../src/pages/Notification';
 
 import cucumberJson from 'wdio-cucumberjs-json-reporter';
 
@@ -27,7 +28,8 @@ export let topBar: TopBar;
 export let question: Question;
 export let action: Action;
 export let inviteUsersPage: InviteUsers;
-export let invitationManagementPage: InvitationManagement
+export let invitationManagementPage: InvitationManagement;
+export let notification: Notification;
 
 Before(async (scenario) => {
     //@ts-ignore
@@ -46,6 +48,7 @@ Before(async (scenario) => {
     question = new Question();
     inviteUsersPage = new InviteUsers();
     invitationManagementPage = new InvitationManagement();
+    notification = new Notification();
 
 })
 

@@ -1,7 +1,7 @@
 import {When, Then } from '@cucumber/cucumber'
 import { indexPage,homePage,question,topBar } from '../../support/Hooks';
 
-When('the user launch the vault card', async() => {
+When('the user launches the vault card', async() => {
   await homePage.launchVault();
 });
 
@@ -9,7 +9,7 @@ Then('the user should see the {string} page of controller project', async(messag
     await question.assertElementText(homePage.getVaultView(),message);
   });
 
-When('the user sign out the home page', async() => {
+When('the user signs out the home page', async() => {
   await browser.pause(3000);
   await homePage.newBrowser();
   await browser.pause(3000);
@@ -25,7 +25,7 @@ Then('the user should see logout page', async() => {
   await question.assertElementExist(indexPage.signInButton);
 });
 
-When('the user launch the FTRA card', async() => {
+When('the user launches the FTRA card', async() => {
   await browser.pause(3000);
   await homePage.launchFTRA();
 });
@@ -33,15 +33,15 @@ Then('the user does not have access to the FTRA service', async() => {
   await question.assertElementPresent((homePage.getFTRACard()));
 });
 
-When('the user launch the Fiix card', async() => {
+When('the user launches the Fiix card', async() => {
   await homePage.launchFiix();
 });
 
-Then('the user see page with the title {string}', async(title:string) => {
+Then('the user sees page with the title {string}', async(title:string) => {
   await question.assertTexts(await browser.getTitle(), title)
 });
 
-When('the user launch the Foo card', async() => {
+When('the user launches the Foo card', async() => {
   await homePage.launchFoo();
 });
 
@@ -49,7 +49,7 @@ Then('the user does not have access to the Foo service', async() => {
   await question.assertElementPresent((homePage.lockFooIcon));
 });
 
-When('the user launch the UNIQO card', async() => {
+When('the user launches the UNIQO card', async() => {
   await homePage.launchUniqo();
 });
 
@@ -57,7 +57,7 @@ Then('the user does not have access to the UNIQO service', async() => {
   await question.assertElementPresent((homePage.lockUniqoIcon));
 });
 
-When('the user launch the EaaS card', async() => {
+When('the user launches the EaaS card', async() => {
   await homePage.launchEaas();
 });
 

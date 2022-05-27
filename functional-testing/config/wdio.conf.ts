@@ -11,6 +11,7 @@ export const BaseConfig: WebdriverIO.Config = {
         [
             'functional-testing/features/syntheticTrx/*.feature',
             'functional-testing/features/API/*.feature',
+            'functional-testing/features/E2E/*.feature'
         ]
 
     ],
@@ -70,7 +71,9 @@ export const BaseConfig: WebdriverIO.Config = {
         const path = require('path')
         //@ts-ignore
         // TODO: Set test type from execution
-        await logJSONresults(path.join(process.cwd(), `reports`), `CommonServices`, new Date().toUTCString(), process.argv[process.argv.length - 1])
+        const argv = require("yargs").argv;
+        let tagExecuted = argv.cucumberOpts.tagExpression != undefined ? argv.cucumberOpts.tagExpression : 'Not defined'
+        await logJSONresults(path.join(process.cwd(), `reports`), `CommonServices`, new Date().toUTCString(), tagExecuted)
             .then(() => { console.log(`Splunk logs sent`) })
             .catch((err) => console.log(`Splunk logs were not sent: ${err.message}`));
 

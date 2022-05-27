@@ -27,9 +27,6 @@ var os = require("os");
     testStartedAt: string,
     testFinalizedAt: string) => {
         var splunkLogger = splunkLogging.Logger;
-        var typeOfTest: string = suite;
-        var testType: string;
-        if(typeOfTest.includes('@SyntheticTrx')){testType='Synthetic transaction'}else{testType='api test'}
         var config = {
             token: process.env.SPLUNK_TOKEN,
             url: process.env.SPLUNK_HOST,
@@ -39,7 +36,7 @@ var os = require("os");
         var sev = 'info'
         var finalMessage
         finalMessage = {
-            suite: testType,
+            suite: suite,
             app: app,
             timeStamp: timeStamp,
             feature: feature,

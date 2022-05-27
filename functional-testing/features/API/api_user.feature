@@ -1,15 +1,15 @@
 Feature: As an admin, I want to create, update and delete users
 @ApiUser @APITest
 Scenario: Create a new user
-    When it send a POST "/api/users"
+    When it sends a POST "/api/users"
     Then Response should be: status "201" ok
 @ApiUser @APITest
 Scenario: user already exist
-    When it send a POST "/api/users"
+    When it sends a POST "/api/users"
     Then create a user exist response should be: status "200" useralreadyexist
 @ApiUser @APITest
 Scenario: get a user by Id
-    When it send a GET "/api/users/userId"
+    When it sends a GET "/api/users/userId"
     Then Should be: status "200" ok
 @ApiUser @APITest
 Scenario: Create an org tenant
@@ -44,11 +44,11 @@ Scenario: User Entitlements
     Then the response of the user entitlements should be: "200" ok
 @ApiUser
 Scenario: create another user :user2
-    When it send a POST "/api/users"
+    When it sends a POST "/api/users"
     Then Response new user2 should be: status "201" ok
 @ApiUser @APITest
 Scenario: Not allows users access to other users profiles
-    When it send a GET "/api/users/userId"
+    When it sends a GET "/api/users/userId"
     Then user access to other users profile should be status: "403" Forbidden
 @ApiUser @APITest
 Scenario: get a tenant by resource roles
