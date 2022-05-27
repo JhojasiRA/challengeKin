@@ -28,7 +28,6 @@ export class Question {
         const initialValue = await element.getText();
         const intValue = parseInt(initialValue);
         return intValue;
-        
     }
 
     public async compareInts(oldValue,newValue): Promise<void> {
