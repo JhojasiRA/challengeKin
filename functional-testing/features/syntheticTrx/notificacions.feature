@@ -1,9 +1,9 @@
 Feature: As a user, I want to delete, manage and view the notification on the Nagivation Bar
 
     Background:  Be on the Le Mans portal
-        Given the user open the Le Mans portal
-        When the user submit the form with its credentials
-        And the user accept the EULA testing eula "false"
+        Given the user opens the Le Mans portal
+        When the user submits the form with its credentials
+        And the user accepts the EULA testing eula "false"
         
     @Notifications @SyntheticTrx 
     Scenario: Delete a notification from the panel
