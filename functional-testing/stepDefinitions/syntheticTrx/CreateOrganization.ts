@@ -5,21 +5,21 @@ import { menuhomepage,organization,question } from '../../support/Hooks';
 import {defaultOrg} from '../../constant.json'
 
 setDefaultTimeout(60 * 1000);
-When('the user go inside to create organization option', async() => {
+When('the user goes inside to create organization option', async() => {
     await menuhomepage.createOrganizationOption();
   });
 
-When('the user submit the form with its information', async() => {
+When('the user submits the form with its information', async() => {
     await organization.newOrganization();
 });  
-When('the user add a new logo organization', async() => {
+When('the user adds a new logo organization', async() => {
     await organization.addNewLogoOrganization();
 });
 Then('the user will see a new {string} logo organization', async(src) => {
   await organization.ok();
   await question.assertElementAttributeContains(organization.imageLogo, 'src', src);
 }); 
-When('the user submit the form with its information and add an organization logo', async() => {
+When('the user submits the form with its information and add an organization logo', async() => {
     await organization.newOrganizationWithLogo();
 });  
 
@@ -28,7 +28,7 @@ When('the user submit the form with its information and add an organization logo
       await organization.ok();
     });
 
-When('the user submit the form with its name', async() => {
+When('the user submits the form with its name', async() => {
       await organization.cancelCreation();
   });  
    Then('User should see a message pop up: {string}', async(DiscardChangemessage) => {
@@ -37,10 +37,10 @@ When('the user submit the form with its name', async() => {
       });
 
 
-When('the user go inside to edit organization option', async() => {
+When('the user goes inside to edit organization option', async() => {
   await menuhomepage.editOrganizationOption();
   }); 
-When('the user submit the form with new information', async() => {
+When('the user submits the form with new information', async() => {
     await organization.editOrganization();
 Then('the user will see the message {string}', async(message) => {
     await question.assertElementText(organization.getMessageEditOrganization(),message);
@@ -60,7 +60,7 @@ When('the user changes the description but then cancel the edition', async() => 
   await organization.canceleditOrganization();
 }); 
 
-When('User generate a new invide code', async() => {
+When('User generates a new invide code', async() => {
   await organization.newInviteCode();
 }); 
 Then('User will see a success message and will be able to close it', async() => {

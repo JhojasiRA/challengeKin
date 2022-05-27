@@ -4,7 +4,7 @@ import {assert} from 'chai';
 import {createOrgTenant,createAccesRequest,getAccesRequestById,getAccesRequestByTenant,deleteAccesRequestById,approveAccesRequest} from '../../services/AccesRequest';
 
 //-----------------create a new access request-----------
-When('it send an access request POST {string}', async(endpoint) => {
+When('it sends an access request POST {string}', async(endpoint) => {
     console.log(endpoint)
     });
 
@@ -14,7 +14,7 @@ Then('creates a new access request response should be: status {string} ok', asyn
           assert.equal(status,newAccessReques.status);
       });
 //-----------------Delete an access request-----------
-      When('it send a request to revoke the currently access request {string}', async(endpoint) => {
+      When('it sends a request to revoke the currently access request {string}', async(endpoint) => {
         console.log(endpoint)
         });
     
@@ -23,7 +23,7 @@ Then('creates a new access request response should be: status {string} ok', asyn
               assert.equal(status,deleteAccessReques);
           });
 //-----------------access request id not found-----------
-When('it send an access request GET {string}', async(endpoint) => {
+When('it sends an access request GET {string}', async(endpoint) => {
     console.log(endpoint)
     });
 
@@ -44,7 +44,7 @@ Then('the access request status should be: {string}', async (status) => {
         assert.equal(status,accessRequestById.condition);
           });
 //-----------------Gets access requests in the current tenant-----------
-When('it send an GET access request {string}', async(endpoint) => {
+When('it sends an GET access request {string}', async(endpoint) => {
     console.log(endpoint)
     });
 
@@ -53,7 +53,7 @@ Then('the GET access request response should be: {string} ok', async (status) =>
     assert.equal(status,accessRequestByTenant);
       });
 //-----------------Approve an access request-----------
-When('it send an access requests POST to approve {string}', async(endpoint) => {
+When('it sends an access requests POST to approve {string}', async(endpoint) => {
     console.log(endpoint)
     });
 

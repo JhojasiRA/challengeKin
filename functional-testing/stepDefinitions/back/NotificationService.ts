@@ -3,7 +3,7 @@ import {assert} from 'chai';
 import {createUserNotification,createTenantNotification,getAllNotifications,getMessageByUserId,getMessageByTenantId,patchReadProperty,patchAllProperties,deleteByMessageId} from '../../services/NotificationService';
 
 
-    When('it send a POST request to create a user notification {string}', async(endpoint) => {
+    When('it sends a POST request to create a user notification {string}', async(endpoint) => {
         console.log(endpoint);
     });
   
@@ -12,7 +12,7 @@ import {createUserNotification,createTenantNotification,getAllNotifications,getM
         assert.equal(status,statusUser.status);
     });
   
-    When('it send a POST request to create a tenant notification {string}', async(endpoint) => {
+    When('it sends a POST request to create a tenant notification {string}', async(endpoint) => {
         console.log(endpoint);
     });
   
@@ -21,7 +21,7 @@ import {createUserNotification,createTenantNotification,getAllNotifications,getM
         assert.equal(status,statusTenant.status);
     });
 //------------------Notifications access request and invitations-------------------------
-    When('It send a GET request to get all user messages {string}', async(endpoint) => {
+    When('It sends a GET request to get all user messages {string}', async(endpoint) => {
         console.log(endpoint);
     });
   
@@ -34,7 +34,7 @@ import {createUserNotification,createTenantNotification,getAllNotifications,getM
         assert.equal(notificationMessage,notifications.Message);
     });
 //------------------------------------------------------------------------ -----------
-    When('it send a GET request to get a specific user message {string}', async(endpoint) => {
+    When('it sends a GET request to get a specific user message {string}', async(endpoint) => {
         console.log(endpoint);
     });
   
@@ -43,7 +43,7 @@ import {createUserNotification,createTenantNotification,getAllNotifications,getM
         assert.equal(status,statusNotifications);
     });
  
-    When('it send a GET request to get a specific tenant message {string}', async(endpoint) => {
+    When('it sends a GET request to get a specific tenant message {string}', async(endpoint) => {
         console.log(endpoint);
     });
   
