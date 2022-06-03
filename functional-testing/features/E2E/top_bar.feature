@@ -3,7 +3,7 @@ Feature: As a user, I want to navigate into the top bar of homePage
     Background: Be on the Le Mans portal
         Given the user opens the Le Mans portal
         When the user submits the form with its credentials
-        And the user accept the EULA testing eula "false"
+        And the user accepts the EULA testing eula "false"
 
     @Topbar
     Scenario: navigate into top bar help collection

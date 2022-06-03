@@ -1,5 +1,6 @@
 import {Given, When, Then } from '@cucumber/cucumber'
 import { joinRequest } from '../../services/JoinTenant';
+import { AccesManagement } from '../../src/pages/AccessManagement';
 import { menuhomepage, organization, question, approveUser ,topBar,indexPage,externalAccount,accesManagement } from '../../support/Hooks';
 
 When('User1 copies a new invite code', {timeout: 2 * 5000}, async() => {
@@ -36,7 +37,7 @@ When('User1 goes to approve user option', async() => {
   await browser.pause(3000);
   await menuhomepage.approveUserOption();
 });
-When('User1 dismiss the user2 request to join to the organization', async() => {
+When('User1 dismisses the user2 request to join to the organization', async() => {
   await browser.pause(3000);
   await approveUser.Dismiss();
 });
@@ -73,8 +74,10 @@ Then('the user should see that the access has been granted', async() => {
   await question.assertElementPresent(approveUser.userApprovedMessage)
 })
 
-Then('the user should see that {string} has access to to the approved resourced with the role {string}', async(user: string, role: string) => {
+Then('the user should see that {string} has access to to the approved resource with the role {string}', async(user: string, role: string) => {
   await menuhomepage.accessManagementOption()
   const USER_IN_TABLE = (user:string, role:string) => `//*[@col-id='userEmail' and contains(text(),'${user}')]/following-sibling::*[@col-id='resourceTypeForUI' and text()='Organization']/following-sibling::*[@col-id='role' and text()='${role}']`
   await question.assertElementPresent($(USER_IN_TABLE(user,role)))
+  AccesManagement.setUserToRevoke(user)
+  AccesManagement.setAsset('Organization')
 })
