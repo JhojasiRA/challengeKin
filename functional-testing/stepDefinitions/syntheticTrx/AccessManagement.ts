@@ -49,7 +49,6 @@ When(/^the owner removes access to the user "([^"]*)" to the resource "([^"]*)" 
 
 After('@TearDownAddAccess',async() =>{
   let tokenUserToRevoke = await getToken5(AccesManagement.getUserToRevoke(), process.env.PASSWORD)
-  console.log(AccesManagement.getUserToRevoke())
   let userIdToRevoke = await getUserId(tokenUserToRevoke)
   let tokenMainUser = await getToken5(process.env.USERNAME, process.env.PASSWORD)
   let userId =  await getUserId(tokenMainUser)
