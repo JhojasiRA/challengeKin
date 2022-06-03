@@ -23,9 +23,9 @@ Scenario: Dismiss join request
     Then the user1 will see a message pop up: "User request to join your organization will be dismissed."
 @joinrequest @SyntheticTrx 
 Scenario: Send a join request with an outdate invite code
-    When the user go inside to edit organization option
-    And User1 copy a new invite code
-    And User generate a new invide code
+    When the user goes inside to edit organization option
+    And User1 copies a new invite code
+    And User generates a new invide code
     And User1 accepts the successfully message
     And User2 goes inside to the option join request
     And User2 tries to send a join request with a outdate invite code
