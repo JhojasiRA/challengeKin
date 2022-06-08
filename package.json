@@ -7,9 +7,9 @@
     "chrome": "npx wdio functional-testing/config/chrome.config.ts",
     "headless:syntheticTrx": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@SyntheticTrx\"",
     "headless:api": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@APITest\"",
-    "testing": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@testNotif\"",
+    "testing": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@1\"",
     "local:syntheticTrx": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@SyntheticTrx\"",
-    "local:api": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@APITest\""   
+    "local:api": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@APITest\""
   },
   "author": "JorgeZapataC, JhojasiRA",
   "license": "ISC",
@@ -32,7 +32,7 @@
     "@wdio/selenium-standalone-service": "^7.18.0",
     "@wdio/spec-reporter": "^7.18.0",
     "chai-datetime": "^1.8.0",
-    "chromedriver": "^100.0.0",
+    "chromedriver": "^101.0.0",
     "eslint": "8.1.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-import": "2.25.2",
