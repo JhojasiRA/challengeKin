@@ -45,7 +45,13 @@ export class TopBar extends Action {
       await menuhomepage.createOrganizationOption();
       await organization.newOrg(newOrgName);
       await this.click(this.orgNameOption);
-    //  await this.click(this.selectOrg);
+      await this.click(this.selectOrg);
+      await browser.$(chooseOrganization(orgName)).click();
+      await browser.pause(1000);
+      await this.click(this.changeOrgButton);
+    }
+    public async setAnOrganization(orgName): Promise<void> {
+      await this.click(this.selectOrg);
       await browser.$(chooseOrganization(orgName)).click();
       await browser.pause(1000);
       await this.click(this.changeOrgButton);
