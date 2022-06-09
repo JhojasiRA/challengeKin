@@ -2,13 +2,13 @@ import {Action} from '../globalTasks/Action';
 
 export class MenuHomePage extends Action {
     get menuIcon() { return browser.$('//*[@class="ra-icon-ide-sm-bars ra-common-icon"]');}
-    get approveUser() { return browser.$('//*[@class="mat-list-item-content"]//*[ contains (text(), "Approve Users")]');}
+    get approveUser() { return browser.$('//*[@role="navigation"]//*[ contains (text(), "Approve Users")]');}
     get createOrganization() { return browser.$('//*[ contains (text(), "Create Organization")]');}
     get editOrganization() { return browser.$('//*[ contains (text(), "Edit Organization")]');}
     get joinOrganization() { return browser.$('//*[ contains (text(), "Join")]');}
     get inviteUsers() { return browser.$('//*[contains(text(), "Invite Users")]');}
     get invitationManagement() { return browser.$('//*[@class="mat-list-item-content"]/child::span[contains(text(), "Invitation Management")]');}
-    get accessManagement() { return browser.$('//span[contains(text(),"Access Management")]');}
+    get accessManagement() { return browser.$('//*[contains(text(),"Access Management")]');}
 
     public async approveUserOption():Promise<void>{
         //global.lastError = 'menu icon was not located'

@@ -29,3 +29,9 @@ Feature: As a user, I want to invite new users to my tenant and services
         And an invitation has been made to the user "testuser6@rockwellautomation.com" with the role "Contributor" to the resource "Vault" 
         When the user tries to cancel the active invitation
         Then the user should see that the invitation gets canceled successfully
+
+    @invitationManagement @SyntheticTrx
+    Scenario: Invite a user to a service with role billing admin
+        Given the user submits the form with its credentials
+        When the user invites "testuser6@rockwellautomation.com" to the resource "Service: FactoryTalk Vault" with role "Billing Admin"
+        Then user should see the invitation is carried out successfully

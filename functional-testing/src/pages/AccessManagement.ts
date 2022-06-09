@@ -18,7 +18,8 @@ export class AccesManagement extends Action {
     get removeOption () { return $("//*[@id='cdk-overlay-0']/descendant::button[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), 'remove')]")}
     get accessRemovedMsg () { return $("//*[contains(text(), 'Access has been removed successfully')]")}
     get cancelOption () { return $("//*[@id='cdk-overlay-0']/descendant::button[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), 'cancel')]")}
-    
+    static userToRevoke: string ='';
+    static _asset: string = '';
 
     public async addAccessHome(user):Promise<void>{
         var handles = await browser.getWindowHandles();
@@ -50,7 +51,6 @@ export class AccesManagement extends Action {
     }
 
     public async removeAccess(usermail: string, resource: string, role: string): Promise<void> {
-       // global.lastError = 'Error while removing access to user ' + usermail;
         const removeAccessBtn = await $(REMOVE_ACCESS_BTN(usermail, resource))
         await this.click(removeAccessBtn)
         await this.click(this.removeOption)
@@ -58,7 +58,6 @@ export class AccesManagement extends Action {
     }
 
     public async cancelRemoveAccess(usermail: string, resource: string): Promise<void> {
-       // global.lastError = 'Error while removing access to user ' + usermail;
         const removeAccessBtn = await $(REMOVE_ACCESS_BTN(usermail, resource))
         await this.click(removeAccessBtn)
         await this.click(this.cancelOption)
@@ -72,6 +71,22 @@ export class AccesManagement extends Action {
         await this.selectFromDropdown(this.selectRole, role)
         await this.click(this.addButton)
         await this.click(this.saveButton)
+    }
+
+    public static getUserToRevoke(): string{
+        return this.userToRevoke
+    }
+
+    public static setUserToRevoke(user: string){
+        this.userToRevoke = user
+    }
+
+    public static getAsset(): string{
+        return this._asset
+    }
+
+    public static setAsset(asset: string){
+        this._asset = asset
     }
 
 }
