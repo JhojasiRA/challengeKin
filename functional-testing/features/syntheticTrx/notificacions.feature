@@ -25,7 +25,3 @@ Feature: As a user, I want to delete, manage and view the notification on the Na
         When the user goes to the notification option
         And the user clears all notifications on the panel notification
         Then The user will see an "All Clear" panel
-
-
-
-#generar una nueva notificacion
