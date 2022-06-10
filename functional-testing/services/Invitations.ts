@@ -19,7 +19,6 @@ export class Invitation {
     createdBy: string
     sentDate: string
     tenantId: string
-    tenantName: string
     resourceId: string
     resourceType: string
     resourceName: string
@@ -36,7 +35,6 @@ export class Invitation {
         this.createdBy = ""
         this.sentDate = ""
         this.tenantId = ""
-        this.tenantName = ""
         this.resourceId = ""
         this.resourceType = ""
         this.resourceName = ""
@@ -57,7 +55,6 @@ var invitation = new Invitation();
 
 //------------Create invitation----------
 export var createInvitation = async (target: string, role: string, resource: string) => {
-    await browser.pause(1000);
     let tenantId = await getLastAccessedTenantId();
     let tenant = await getTenantById(tenantId);
     let resourceId = resource == "Vault" ? jp.query(tenant, "$.services[?(@.kind=='Vault')].serviceId")[0] : resource == "FTRA" ? jp.query(tenant, "$.services[?(@.kind=='SecureRemoteAccess')].serviceId")[0] : resource == "Machine Monitoring" ? jp.query(tenant, "$.services[?(@.kind=='MachineMonitoring')].serviceId")[0] : tenantId
@@ -88,7 +85,6 @@ export var createInvitation = async (target: string, role: string, resource: str
         invitation.createdBy = response.data.createdBy
         invitation.sentDate = response.data.sentDate
         invitation.tenantId = response.data.tenantId
-        invitation.tenantName = response.data.tenantName
         invitation.resourceId = response.data.resourceId
         invitation.resourceType = response.data.resourceType
         invitation.resourceName = response.data.resourceName
@@ -224,7 +220,6 @@ export var getInvitationById = async () => {
         invitation.createdBy = response.data.createdBy
         invitation.sentDate = response.data.sentDate
         invitation.tenantId = response.data.tenantId
-        invitation.tenantName = response.data.tenantName
         invitation.resourceId = response.data.resourceId
         invitation.resourceType = response.data.resourceType
         invitation.resourceName = response.data.resourceName
