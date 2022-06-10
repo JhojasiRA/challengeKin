@@ -12,7 +12,7 @@ Scenario: Login SAML flow
     When the user logs in with MyRockwell-SAML 
     And the user accepts the EULA testing eula "false"
     Then the user should see the "Home" page
-@login @SyntheticTrx 
+@login @SyntheticTrx
 Scenario: Logout SAML flow
     Given the user logs in with MyRockwell-SAML
     And the user accepts the EULA testing eula "false" 

@@ -1,5 +1,13 @@
-import {When, Then } from '@cucumber/cucumber'
+import {Given, When, Then } from '@cucumber/cucumber'
 import { indexPage,homePage,question,topBar } from '../../support/Hooks';
+
+
+
+Given(/^the user has allocated a new FTRA entitlement$/, () => {
+  
+	return true;
+});
+
 
 When('the user launches the vault card', async() => {
   await homePage.launchVault();
