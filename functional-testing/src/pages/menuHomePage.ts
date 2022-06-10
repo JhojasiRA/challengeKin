@@ -7,7 +7,7 @@ export class MenuHomePage extends Action {
     get editOrganization() { return browser.$('//*[ contains (text(), "Edit Organization")]');}
     get joinOrganization() { return browser.$('//*[ contains (text(), "Join")]');}
     get inviteUsers() { return browser.$('//*[contains(text(), "Invite Users")]');}
-    get invitationManagement() { return browser.$('//*[@class="mat-list-item-content"]/child::span[contains(text(), "Invitation Management")]');}
+    get invitationManagement() { return browser.$('//*[contains(text(), "Invitation Management")]');}
     get accessManagement() { return browser.$('//*[contains(text(),"Access Management")]');}
 
     public async approveUserOption():Promise<void>{
