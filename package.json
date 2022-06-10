@@ -7,7 +7,7 @@
     "chrome": "npx wdio functional-testing/config/chrome.config.ts",
     "headless:syntheticTrx": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@SyntheticTrx\"",
     "headless:api": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@APITest\"",
-    "testing": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@testNotif\"",
+    "testing": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@1\"",
     "local:syntheticTrx": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@SyntheticTrx\"",
     "local:api": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@APITest\""
   },

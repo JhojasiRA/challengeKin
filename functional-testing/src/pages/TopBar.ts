@@ -1,5 +1,7 @@
 import {Action} from '../globalTasks/Action';
-import { topBar } from '../../support/Hooks';
+import { topBar,organization,menuhomepage } from '../../support/Hooks';
+
+const chooseOrganization = (orgName:string)=>`(//span[@class='mat-option-text' and text()=' ${orgName} '])[1]`
 
 export class TopBar extends Action {
     get helpIcon() { return browser.$('//i[@class="ra-icon-ide-sm-help ra-common-icon"]');}
@@ -30,7 +32,33 @@ export class TopBar extends Action {
     get pageTitle() { return $("//h1")}
     get feedbackElement() {return browser.$('//mat-dialog-container[@id="mat-dialog-0"]'); }
     get modal() {return browser.$('//mat-dialog-actions[@class="mat-dialog-actions feedback-modal-action-container"]'); }
-    
+
+    get orgNameOption() {return browser.$('//*[@id= "ft-hub-org-name"]'); }
+    get changeOrgModal() {return browser.$('//*[@role= "dialog"]'); }
+    get selectOrg() {return browser.$('//*[@role= "combobox"]'); }
+    get org1() {return browser.$('//*[contains(text(),"organization automation")]'); }
+    get changeOrgButton() {return browser.$('//*[contains(text()," Change")]'); }
+    get cancelChangeOrgButton() {return browser.$('//*[contains(text()," Cancel")]'); }
+
+
+    public async switchOrganization(newOrgName,orgName): Promise<void> {
+      await menuhomepage.createOrganizationOption();
+      await organization.newOrg(newOrgName);
+      await this.click(this.orgNameOption);
+      await this.click(this.selectOrg);
+      await browser.$(chooseOrganization(orgName)).click();
+      await browser.pause(1000);
+      await this.click(this.changeOrgButton);
+    }
+    public async setAnOrganization(orgName): Promise<void> {
+      await this.click(this.selectOrg);
+      await browser.$(chooseOrganization(orgName)).click();
+      await browser.pause(1000);
+      await this.click(this.changeOrgButton);
+    }
+    public getOrganizationName(): WebdriverIO.Element {
+      return this.org1;
+  }
 
       public async helpIconTool(): Promise<void> {
         await this.click(this.helpIcon);
