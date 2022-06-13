@@ -36,7 +36,7 @@ export class TopBar extends Action {
     get orgNameOption() {return browser.$('//*[@id= "ft-hub-org-name"]'); }
     get changeOrgModal() {return browser.$('//*[@role= "dialog"]'); }
     get selectOrg() {return browser.$('//*[@role= "combobox"]'); }
-    get org1() {return browser.$('//*[contains(text(),"organization automation")]'); }
+    get org1() {return browser.$('//*[contains(text(),"Organization automation")]'); }
     get changeOrgButton() {return browser.$('//*[contains(text()," Change")]'); }
     get cancelChangeOrgButton() {return browser.$('//*[contains(text()," Cancel")]'); }
 
