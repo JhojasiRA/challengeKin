@@ -50,6 +50,7 @@ export class TopBar extends Action {
       await browser.pause(1000);
       await this.click(this.changeOrgButton);
     }
+
     public async setAnOrganization(orgName): Promise<void> {
       await this.click(this.selectOrg);
       await browser.$(chooseOrganization(orgName)).click();
