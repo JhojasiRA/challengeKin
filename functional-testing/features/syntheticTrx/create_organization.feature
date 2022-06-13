@@ -3,7 +3,7 @@ Feature: As an user, I want to create a new organization into Le Mans portal
 Background:  Be on the Le Mans portal
     Given the user opens the Le Mans portal
     When the user submits the form with its credentials
-@create @SyntheticTrx 
+@create @SyntheticTrx
 Scenario: Create Organization Sucessfully
     When the user goes inside to create organization option
     And the user submits the form with its information
@@ -45,3 +45,24 @@ Scenario: Generate a new invite code
     When the user goes inside to edit organization option
     And User generates a new invide code
     Then User will see a success message and will be able to close it
+
+    @privateOrganization 
+Scenario: Create private organization
+    When the user goes inside to create organization option
+    And the user submits the form with its information
+    Then the user should see the message "You have created the organization successfully!"
+    And user cant see the name in join organization option
+
+    @publicOrganization 
+Scenario: Create public organization
+    When the user goes inside to create organization option
+    And the user submits the form with public organization information
+    Then the user should see the message "You have created the organization successfully!"
+    And user can see the "Organization test" in join organization option
+
+    @editPublicOrganization 
+Scenario: Edit public organization
+    When the user goes inside to edit organization option
+    And the user edits the form 
+    Then the user will see the message "You have edited the organization successfully!"
+    And user can see the "Organization test" in join organization option

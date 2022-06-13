@@ -36,7 +36,6 @@ When('the user submits the form with its name', async() => {
         await organization.continue();
       });
 
-
 When('the user goes inside to edit organization option', async() => {
   await menuhomepage.editOrganizationOption();
   }); 
@@ -71,3 +70,33 @@ After('@afterEditOrganization', async() =>{
   global.lastError = "Error while doing the test teardown editing organization name"
   await editTenantInfoWithParams(defaultOrg.name, defaultOrg.location, defaultOrg.description, defaultOrg.visibility);
 });
+
+Then('user cant see the name in join organization option', async() => {
+  await organization.OkOptionOrganization();
+  await menuhomepage.joinOrganizationOption(); 
+  await question.assertElementNotExist(organization.organizationName);
+});
+
+When('the user submits the form with public organization information', async() => {
+  await organization.publicOrganizationCreation();
+});
+
+Then('user can see the {string} in join organization option', async(organizationName) => {
+  await organization.OkOptionOrganization();
+  await menuhomepage.joinOrganizationOption(); 
+  await question.assertElementText(organization.getMessageOrganizationName(),organizationName);
+});
+
+When('the user edits the form', async() => {
+  await browser.pause(1000);
+  await organization.selectPrivateOrganizationEdit();
+  await browser.pause(1000);
+}); 
+
+
+
+
+
+
+
+

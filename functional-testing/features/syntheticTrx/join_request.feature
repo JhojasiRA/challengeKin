@@ -16,7 +16,7 @@ Scenario: Send a join request successfuly
     And User2 sends a join request
     Then the user2 will see a message pop up: "You will be notified once the owner of the organization approves your request"
 
-@joinrequest @SyntheticTrx
+@joinrequest @SyntheticTrx @test5
 Scenario: Dismiss join request
     When User1 goes to approve user option
     And User1 dismiss the user2 request to join to the organization

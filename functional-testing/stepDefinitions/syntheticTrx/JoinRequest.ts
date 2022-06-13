@@ -16,7 +16,6 @@ When('User2 signs in on his account', async() => {
    //  await homePage.dashboard();
 });
 
-
 When('User2 goes inside to the option join request', async() => {
     await menuhomepage.joinOrganizationOption();
 });
@@ -31,15 +30,16 @@ Then('the user2 will see a message pop up: {string}', async(MessageSentRequest) 
   await organization.ok();
 });
 
-
 When('User1 goes to approve user option', async() => {
   await browser.pause(3000);
   await menuhomepage.approveUserOption();
 });
+
 When('User1 dismiss the user2 request to join to the organization', async() => {
   await browser.pause(3000);
   await approveUser.Dismiss();
 });
+
 Then('the user1 will see a message pop up: {string}', async(MessageDismissRequest) => {
   await browser.pause(3000);
   await question.assertElementText(approveUser.getMessageDismissRequest(),MessageDismissRequest);
