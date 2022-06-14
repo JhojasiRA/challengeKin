@@ -47,6 +47,13 @@ export class Organization extends Action {
         await this.click(this.createButton);      
     }
 
+    public async newOrg(newOrgName:string): Promise<void> {
+        await this.enterText(this.nameOrganizationField, newOrgName);
+        await this.click(this.createButton);
+        await this.click(this.OK);
+        await browser.pause(1000);
+    }
+    
     public async newOrganizationWithLogo(): Promise<void> {
         await this.enterText(this.nameOrganizationField, "Organization automation");
         await this.enterText(this.descriptionField, "TEST");
@@ -106,7 +113,6 @@ export class Organization extends Action {
 
     public async ok(): Promise<void> {
         await browser.pause(1000);
-        // await browser.waitForAngularEnabled(false);
         await this.click(this.OK);
     }
 
@@ -116,21 +122,17 @@ export class Organization extends Action {
 
     public async inviteCode(): Promise<void> {
         await browser.pause(2000);
-        // await browser.waitForAngularEnabled(false);
         await this.click(this.copyInviteCodeBtn);
         await this.click(this.closeMessageInviteCodeCopied);
     }
 
     public async newInviteCode(): Promise<void> {
         await browser.pause(1000);
-        //await browser.waitForAngularEnabled(false);
         await this.click(this.newCodeButton);
-        //await browser.waitForAngularEnabled(true)
     }
 
     public async joinRequest(): Promise<void> {
         await this.joinUsingInviCode.click();
-        //await this.searchInput.keys(['CTRL', 'V']);
         await this.click(this.searchInput)
         await this.searchInput.keys(["\uE009", "V"]);
         await browser.pause(1000);

@@ -34,6 +34,13 @@
             "Foo": "#card-FooService"
         }
 
+    },
+
+    "catalogNumberEntitlements": {
+        "FTRA": {
+            "catalogNumber": "9545C-FTRAT11-SALES",
+            "serviceKind": "SecureRemoteAccess"
+        }
     }
 
 }

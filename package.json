@@ -9,7 +9,7 @@
     "headless:api": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@APITest\"",
     "testing": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@Organization\"",
     "local:syntheticTrx": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@SyntheticTrx\"",
-    "local:api": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@APITest\""   
+    "local:api": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@APITest\""
   },
   "author": "JorgeZapataC, JhojasiRA",
   "license": "ISC",
@@ -31,7 +31,11 @@
     "@wdio/local-runner": "^7.18.1",
     "@wdio/selenium-standalone-service": "^7.18.0",
     "@wdio/spec-reporter": "^7.18.0",
+    "chai": "^4.3.4",
+    "chai-as-promised": "^7.1.1",
     "chai-datetime": "^1.8.0",
+    "chai-like": "^1.1.1",
+    "chai-things": "^0.2.0",
     "chromedriver": "^101.0.0",
     "eslint": "8.1.0",
     "eslint-config-prettier": "8.3.0",
@@ -40,6 +44,7 @@
     "eslint-plugin-react": "^7.29.2",
     "fs-extra": "^10.0.1",
     "geckodriver": "^3.0.1",
+    "jsonpath": "^1.1.1",
     "multiple-cucumber-html-reporter": "^1.19.0",
     "prettier": "2.4.1", 
     "selenium-standalone": "^8.0.10",
@@ -51,11 +56,6 @@
     "wdio-cucumberjs-json-reporter": "^4.4.0",
     "wdio-docker-service": "^3.2.0",
     "wdio-eslinter-service": "0.0.4",
-    "wdio-geckodriver-service": "^2.1.0",
-    "jsonpath": "^1.1.1",
-    "chai": "^4.3.4",
-    "chai-as-promised": "^7.1.1",
-    "chai-like": "^1.1.1",
-    "chai-things": "^0.2.0"
+    "wdio-geckodriver-service": "^2.1.0"
   }
 }

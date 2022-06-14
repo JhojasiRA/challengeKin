@@ -96,7 +96,6 @@ export var getUserIdWithParam = async(token: string) => {
         }
     }
      const response = await axios.get(url,config);
-     global.lastError = "Error getting userId from user"
      ownerId = {id:response.data.owner}
      return ownerId.id;
     } catch (error) {

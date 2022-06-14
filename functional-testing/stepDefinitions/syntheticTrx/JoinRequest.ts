@@ -1,5 +1,7 @@
-import {When, Then } from '@cucumber/cucumber'
-import { menuhomepage, organization, question, approveUser ,topBar,indexPage,externalAccount } from '../../support/Hooks';
+import {Given, When, Then } from '@cucumber/cucumber'
+import { joinRequest } from '../../services/JoinTenant';
+import { AccesManagement } from '../../src/pages/AccessManagement';
+import { menuhomepage, organization, question, approveUser ,topBar,indexPage,externalAccount,accesManagement } from '../../support/Hooks';
 
 When('User1 copies a new invite code', {timeout: 2 * 5000}, async() => {
     await organization.inviteCode();
@@ -13,7 +15,6 @@ When('User2 signs in on his account', async() => {
      await browser.url(process.env.PORTAL_URL);
      await indexPage.goToSignIn();
      await externalAccount.submitForm("testuser21", process.env.PASSWORD);
-   //  await homePage.dashboard();
 });
 
 When('User2 goes inside to the option join request', async() => {
@@ -34,8 +35,7 @@ When('User1 goes to approve user option', async() => {
   await browser.pause(3000);
   await menuhomepage.approveUserOption();
 });
-
-When('User1 dismiss the user2 request to join to the organization', async() => {
+When('User1 dismisses the user2 request to join to the organization', async() => {
   await browser.pause(3000);
   await approveUser.Dismiss();
 });
@@ -59,3 +59,24 @@ Then('User2 will see the continue button disabled', async() => {
   await browser.pause(3000);
   await question.assertElementNotClickable((organization.ContinueButton()));
   });
+
+Given('user {string} has applied a join request to the last accessed organization of current user', async(user:string) => {
+  await joinRequest(user)
+})
+
+When('the user tries to approve the join request with role {string}', async(role: string) => {
+  await menuhomepage.approveUserOption();
+  await approveUser.approveJoinRequest(role)
+})
+
+Then('the user should see that the access has been granted', async() => {
+  await question.assertElementPresent(approveUser.userApprovedMessage)
+})
+
+Then('the user should see that {string} has access to to the approved resource with the role {string}', async(user: string, role: string) => {
+  await menuhomepage.accessManagementOption()
+  const USER_IN_TABLE = (user:string, role:string) => `//*[@col-id='userEmail' and contains(text(),'${user}')]/following-sibling::*[@col-id='resourceTypeForUI' and text()='Organization']/following-sibling::*[@col-id='role' and text()='${role}']`
+  await question.assertElementPresent($(USER_IN_TABLE(user,role)))
+  AccesManagement.setUserToRevoke(user)
+  AccesManagement.setAsset('Organization')
+})
