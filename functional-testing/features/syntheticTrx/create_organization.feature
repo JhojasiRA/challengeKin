@@ -40,29 +40,37 @@ Scenario: Cancel edit organization info
     And the user changes the description but then cancel the edition
     Then User should see a message pop up: "Changes will not be saved. Do you want to proceed?"
     And the user should see the "Home" page
+
 @newInviteCode @SyntheticTrx
 Scenario: Generate a new invite code
     When the user goes inside to edit organization option
     And User generates a new invide code
     Then User will see a success message and will be able to close it
 
-    @privateOrganization 
+@Organization
 Scenario: Create private organization
     When the user goes inside to create organization option
     And the user submits the form with its information
     Then the user should see the message "You have created the organization successfully!"
     And user cant see the name in join organization option
 
-    @publicOrganization 
+@Organization @after
 Scenario: Create public organization
     When the user goes inside to create organization option
     And the user submits the form with public organization information
     Then the user should see the message "You have created the organization successfully!"
-    And user can see the "Organization test" in join organization option
+    And user can see the "org11" in join organization option
 
-    @editPublicOrganization 
-Scenario: Edit public organization
+@Organization    
+Scenario: Edit private organization
     When the user goes inside to edit organization option
     And the user edits the form 
     Then the user will see the message "You have edited the organization successfully!"
-    And user can see the "Organization test" in join organization option
+    And user can see the "org11" in join organization option
+ 
+@Organization
+Scenario: Edit public organization
+    When the user goes inside to edit organization option
+    And the user edits the info of the form 
+    Then the user will see the message "You have edited the organization successfully!"
+    And user cant see the name in join organization option 
