@@ -76,7 +76,6 @@ export class Organization extends Action {
         await this.click(this.orgVisibilityOffEdit);
         await this.click(this.saveButton);
     }
-
     public async editLogoOrganization(): Promise<void> {
         await browser.pause(1000);
         await  browser.execute("document.querySelector(\"img[id='edit-org-logo-img']\").setAttribute(\"hidden\",\"true\");"); 
@@ -88,7 +87,6 @@ export class Organization extends Action {
         await browser.pause(1000);
         await this.click(this.saveButton);
     }
-    
     public async addNewLogoOrganization(): Promise<void> {
         await browser.pause(1000);
         const filePath = path.resolve(process.cwd() + '/functional-testing/support/testLogos/FTH.jpeg');
@@ -182,6 +180,7 @@ export class Organization extends Action {
         return this.successMessage;
     }
 
+
     public getMessageJoinRequest(): WebdriverIO.Element {
         return this.requestSentMessage;
     }
@@ -195,4 +194,5 @@ export class Organization extends Action {
     }
 
    
+
 }
