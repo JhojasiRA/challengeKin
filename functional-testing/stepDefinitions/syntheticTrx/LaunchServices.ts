@@ -1,7 +1,7 @@
 import {Given, When, Then } from '@cucumber/cucumber'
 import { indexPage,homePage,question,topBar } from '../../support/Hooks';
 
-
+let currentURL = "";
 
 Given(/^the user has allocated a new FTRA entitlement$/, () => {
   
@@ -26,11 +26,13 @@ When('the user signs out the home page', async() => {
 
 When('the user logs out', async() => {
   await topBar.signOutOption();
+  currentURL =await browser.getUrl();
 });
 
 Then('the user should see logout page', async() => {
   await browser.pause(3000);
   await question.assertElementExist(indexPage.signInButton);
+  await question.assertTextContains(currentURL, process.env.PORTAL_URL);
 });
 
 When('the user launches the FTRA card', async() => {
