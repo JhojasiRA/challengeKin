@@ -30,18 +30,18 @@ export class Organization extends Action {
     get imageLogo() { return browser.$('//*[@alt="Image"]'); }
     get orgVisibilityOnCreate() {return browser.$('//mat-radio-button[@id="mat-radio-2"]');}
     get orgVisibilityOffEdit() {return browser.$('//*[ contains (text(), "Visibility OFF")]');}
-    get organizationName() {return browser.$('//div[ contains (text(),"org11")]');}
+    get organizationName() {return browser.$('//div[ contains (text(),"test OrgRockwell")]');}
     get orgVisibilityOnEdit() {return browser.$('//*[ contains (text(), "Visibility ON")]');}
     
     public async newOrganization(): Promise<void> {
-        await this.enterText(this.nameOrganizationField,"org11");
+        await this.enterText(this.nameOrganizationField,"test OrgRockwell");
         await this.enterText(this.descriptionField, "TEST"); 
         await this.click(this.createButton);
         
     }
 
     public async publicOrganizationCreation( ): Promise<void> { 
-        await this.enterText(this.nameOrganizationField,"org11" );
+        await this.enterText(this.nameOrganizationField,"test OrgRockwell" );
         await this.enterText(this.descriptionField, "TEST");
         await this.click(this.orgVisibilityOnCreate);
         await this.click(this.createButton);      

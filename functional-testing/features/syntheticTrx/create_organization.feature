@@ -59,14 +59,14 @@ Scenario: Create public organization
     When the user goes inside to create organization option
     And the user submits the form with public organization information
     Then the user should see the message "You have created the organization successfully!"
-    And user can see the "org11" in join organization option
+    And user can see the "test OrgRockwell" in join organization option
 
 @Organization    
 Scenario: Edit private organization
     When the user goes inside to edit organization option
     And the user edits the form 
     Then the user will see the message "You have edited the organization successfully!"
-    And user can see the "org11" in join organization option
+    And user can see the "test OrgRockwell" in join organization option
  
 @Organization
 Scenario: Edit public organization
