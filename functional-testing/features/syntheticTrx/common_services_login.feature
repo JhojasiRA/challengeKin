@@ -15,6 +15,6 @@ Scenario: Login SAML flow
 @login @SyntheticTrx
 Scenario: Logout SAML flow
     Given the user logs in with MyRockwell-SAML
-    And the user accepts the EULA testing eula "false" 
+    And the user accepts the EULA testing eula "false"
     When the user logs out
     Then the user should see logout page
