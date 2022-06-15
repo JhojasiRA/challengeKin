@@ -1,6 +1,9 @@
 import { Action } from '../globalTasks/Action';
 import * as path from "path";
 
+const organizationName = (orgName:string)=>`//*[ contains (text(), "${orgName}")]`;
+
+
 export class Organization extends Action {
     get nameOrganizationField() { return browser.$('//*[@formcontrolname="tenantName"]'); }
     get createButton() { return browser.$('//button[contains(text(), "create")]'); }
@@ -11,7 +14,7 @@ export class Organization extends Action {
     get messageSuccessfully() { return browser.$('//*[ contains (text(), "You have created the organization successfully!")]'); }
     get successMessage() { return browser.$('//*[ contains (text(), "You have edited the organization successfully!")]'); }
     get discardChangesMessage() { return browser.$('//*[ contains (text(), "Changes will not be saved. Do you want to proceed?")]'); }
-    get OK() { return browser.$('(//*[ contains (text(), "OK")])[1]'); }
+    get OK() { return browser.$('//button[contains(text(), "OK")]'); }
     get continueDiscardChanges() { return browser.$('(//*[@class = "primary-mat-button"])[2]'); }
     get joinUsingInviCode() { return browser.$('//*[contains(text(),"here")]'); }
     get searchInput() { return browser.$('//*[@name = "searchInput"]'); }
@@ -25,19 +28,32 @@ export class Organization extends Action {
     get editOrganizationLogo(){ return 'edit-org-logo'}
     get editLogo(){ return browser.$(`#${this.editOrganizationLogo}`)}
     get imageLogo() { return browser.$('//*[@alt="Image"]'); }
-
+    get orgVisibilityOnCreate() {return browser.$('//mat-radio-button[@id="mat-radio-2"]');}
+    get orgVisibilityOffEdit() {return browser.$('//*[ contains (text(), "Visibility OFF")]');}
+    get organizationName() {return browser.$('//div[ contains (text(),"test OrgRockwell")]');}
+    get orgVisibilityOnEdit() {return browser.$('//*[ contains (text(), "Visibility ON")]');}
     
     public async newOrganization(): Promise<void> {
-        await this.enterText(this.nameOrganizationField, "Organization automation");
-        await this.enterText(this.descriptionField, "TEST");
+        await this.enterText(this.nameOrganizationField,"test OrgRockwell");
+        await this.enterText(this.descriptionField, "TEST"); 
         await this.click(this.createButton);
+        
     }
+
+    public async publicOrganizationCreation( ): Promise<void> { 
+        await this.enterText(this.nameOrganizationField,"test OrgRockwell" );
+        await this.enterText(this.descriptionField, "TEST");
+        await this.click(this.orgVisibilityOnCreate);
+        await this.click(this.createButton);      
+    }
+
     public async newOrg(newOrgName:string): Promise<void> {
         await this.enterText(this.nameOrganizationField, newOrgName);
         await this.click(this.createButton);
         await this.click(this.OK);
         await browser.pause(1000);
     }
+    
     public async newOrganizationWithLogo(): Promise<void> {
         await this.enterText(this.nameOrganizationField, "Organization automation");
         await this.enterText(this.descriptionField, "TEST");
@@ -59,6 +75,12 @@ export class Organization extends Action {
         let newTextName = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(4, 8);
         await this.enterText(this.nameOrganizationField, newTextName);
         await browser.pause(1000);
+        await this.click(this.saveButton);
+    }
+
+    public async editPublicOrganization(): Promise<void> {
+        await browser.pause(1000);
+        await this.click(this.orgVisibilityOffEdit);
         await this.click(this.saveButton);
     }
     public async editLogoOrganization(): Promise<void> {
@@ -125,6 +147,29 @@ export class Organization extends Action {
         await browser.pause(1000);
     }
 
+    public async selectPublicOrganizationEdit(): Promise<void> {
+       await this.enterText(this.descriptionField, "Testing");
+       await this.click(this.orgVisibilityOnEdit);
+       await browser.pause(1000);  
+       await this.click(this.saveButton);
+    }
+
+    public async selectPrivateOrganizationEdit(): Promise<void> {
+        await this.enterText(this.descriptionField, "Testing");
+        await this.click(this.orgVisibilityOffEdit);
+        await browser.pause(1000);  
+        await this.click(this.saveButton);
+     }
+
+    public async selectPublicOrganization(): Promise<void> {
+        await this.click(this.orgVisibilityOnEdit);
+     }
+
+    public async searchOrganization(): Promise<void> {
+        await browser.pause(1000);
+        await this.click(this.OK);
+    }
+
     public getMessageCreateOrganization(): WebdriverIO.Element {
         return this.messageSuccessfully;
     }
@@ -137,6 +182,7 @@ export class Organization extends Action {
         return this.successMessage;
     }
 
+
     public getMessageJoinRequest(): WebdriverIO.Element {
         return this.requestSentMessage;
     }
@@ -144,4 +190,11 @@ export class Organization extends Action {
     public ContinueButton(): WebdriverIO.Element {
         return this.continueButtonRequest;
     }
+
+    public getMessageOrganizationName(): WebdriverIO.Element {
+        return this.organizationName;
+    }
+
+   
+
 }
