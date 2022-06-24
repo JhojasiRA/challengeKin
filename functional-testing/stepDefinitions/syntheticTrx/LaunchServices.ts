@@ -7,7 +7,7 @@ Given(/^the user has allocated a new FTRA entitlement with email "([^"]*)" and v
   let effectiveDate = new Date()
   //@ts-ignore
   await browser.setupInterceptor()
-  await await menuhomepage.entitlementsOption()
+  await menuhomepage.entitlementsOption()
   await browser.pause(2000)
   //@ts-ignore
   let requests = await browser.getRequests(false, false)
