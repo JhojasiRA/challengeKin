@@ -1,18 +1,19 @@
 import 'regenerator-runtime/runtime';
 const axios = require('axios');
-import { getToken, getToken2 } from '../Token';
+import {creds} from '../constant.json';
+import { getToken5 } from '../Token';
 
 let requestId = {id:"", status:""};
 let tenantId = "";
 //------------Create acces request
 export var createAccesRequest = async() =>{
     await browser.pause(2000);
-    let token = await getToken();
+    let tokenUser = await getToken5(creds.user,process.env.PASSWORD)
     try {
     let url  = `${process.env.API_CS}/api/accessrequests`
     let config = {
         headers: {
-            'Authorization': 'Bearer ' + token,
+            'Authorization': 'Bearer ' + tokenUser,
             'Content-Type':'application/json'
         }
     }
@@ -51,12 +52,13 @@ export var accessRequest = async(tenantId:string, resourceId:string, token:strin
 
 //------------get acces request by id
 export var getAccesRequestById = async() =>{
+    let tokenUser2 = await getToken5(creds.user2,process.env.PASSWORD)
     await browser.pause(2000);
     try {
     let url  = `${process.env.API_CS}/api/accessrequests/${requestId.id}`
     let config = {
         headers: {
-            'Authorization': 'Bearer ' + global.accessToken2,
+            'Authorization': 'Bearer ' + tokenUser2,
             'Content-Type':'application/json',
             'tenantId': `${tenantId}`
         }
@@ -70,11 +72,12 @@ export var getAccesRequestById = async() =>{
 }
 //------------get acces request by tenantId
 export var getAccesRequestByTenant = async() =>{
+    let tokenUser2 = await getToken5(creds.user2,process.env.PASSWORD)
     try {
     let url  = `${process.env.API_CS}/api/accessrequests`
     let config = {
         headers: {
-            'Authorization': 'Bearer ' + global.accessToken2,
+            'Authorization': 'Bearer ' + tokenUser2,
             'Content-Type':'application/json',
             'tenantId': `${tenantId}`
         }
@@ -88,11 +91,12 @@ export var getAccesRequestByTenant = async() =>{
 
 //------------delete acces request by id
 export var deleteAccesRequestById = async() =>{
+    let tokenUser2 = await getToken5(creds.user2,process.env.PASSWORD)
     try {
     let url  = `${process.env.API_CS}/api/accessrequests/${requestId.id}`
     let config = {
         headers: {
-            'Authorization': 'Bearer ' + global.accessToken2,
+            'Authorization': 'Bearer ' + tokenUser2,
             'Content-Type':'application/json',
             'tenantId': `${tenantId}`
         }
@@ -106,11 +110,12 @@ export var deleteAccesRequestById = async() =>{
 
 //------------Aprrove an acces request
 export var approveAccesRequest = async() =>{
+    let tokenUser2 = await getToken5(creds.user2,process.env.PASSWORD)
     try {
     let url  = `${process.env.API_CS}/api/accessrequests/${requestId.id}/approve`
     let config = {
         headers: {
-            'Authorization': 'Bearer ' + global.accessToken2,
+            'Authorization': 'Bearer ' + tokenUser2,
             'Content-Type':'application/json',
             'tenantId': `${tenantId}`
         }
@@ -125,6 +130,7 @@ export var approveAccesRequest = async() =>{
 }
 
 export var approveAccessRequest = async(tenantId:string, token:string, role:string) =>{
+    
     try {
     let url  = `${process.env.API_CS}/api/accessrequests/${requestId.id}/approve`
     let config = {
@@ -145,12 +151,12 @@ export var approveAccessRequest = async(tenantId:string, token:string, role:stri
 
 //----------------Create org tenant
 export var createOrgTenant = async() =>{
-    let token2 = await getToken2();
+    let tokenUser2 = await getToken5(creds.user2,process.env.PASSWORD)
     try {
     let url  = `${process.env.API_CS}/api/tenants`
     let config = {
         headers: {
-            'Authorization': 'Bearer ' + token2,
+            'Authorization': 'Bearer ' + tokenUser2,
             'Content-Type':'application/json'
         }
     }

@@ -97,7 +97,7 @@ Then('the response of the user entitlements should be: {string} ok', async (stat
     });
 
 //---------Not allows users access to other users profiles
-Then('user access to other users profile should be status: {string} Forbidden', async(status) => {
+Then('user access to other users profile should be status: {string} Unauthorized', async(status) => {
         let userStatus = await getUserWithOtherToken();
         assert.equal(status,userStatus); 
 });

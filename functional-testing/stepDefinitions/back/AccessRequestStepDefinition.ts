@@ -58,6 +58,7 @@ When('it sends an access requests POST to approve {string}', async(endpoint) => 
     });
 
 Then('the access request approve response should be: {string} ok', async (status) => {
+    await browser.pause(2000);
     let approveRequest= await approveAccesRequest();
     assert.equal(status,approveRequest);
       });
