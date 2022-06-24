@@ -9,7 +9,6 @@ Scenario: Gets an invitation by id
     When it send an invitation GET "/api/invitations/{id}"
     Then the invitations should be: "200" ok
     And the invitation status should be: "Active"
-    And the resourceType invitation should be: "Tenant"
 @ApiInvitation @APITest
 Scenario: Accept an invitation
     When it send an invitation POST to accept "/api/invitations/{id}/accept"

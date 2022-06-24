@@ -3,8 +3,8 @@
     "creds": {
         "clientId": "aaBfPCIAl15xFjeRLXIFSFryVWP5j63M",
         "rockwell_user": "testuser20",
-        "user": "cs.test01",
-        "user2": "cs.test02"
+        "user": "tester2",
+        "user2": "tester3"
     },
 
     "defaultOrg": {

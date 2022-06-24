@@ -235,6 +235,40 @@ export var getInvitationById = async () => {
     }
 }
 
+export var getInvitationByItsId = async () => {
+    await browser.pause(1000);
+    let token = await getToken5(process.env.USERNAME, process.env.PASSWORD);
+    let tenantId = await getLastAccessedTenantId();
+    try {
+        let url = `${process.env.API_CS}/api/invitations/${invitationId.id}`
+        let config = {
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json',
+                'tenantid': tenantId,
+            }
+        }
+        const response = await axios.get(url, config);
+        await browser.pause(2000);
+        invitation.id = response.data.id
+        invitation.toEmail = response.data.toEmail
+        invitation.createdBy = response.data.createdBy
+        invitation.sentDate = response.data.sentDate
+        invitation.tenantId = response.data.tenantId
+        invitation.resourceId = response.data.resourceId
+        invitation.resourceType = response.data.resourceType
+        invitation.resourceName = response.data.resourceName
+        invitation.role = response.data.role
+        invitation.status = response.data.status
+        invitation.expiry = response.data.expiry
+        invitation.acceptedByUserName = response.data.acceptedByUserName
+        invitation.acceptedByUser = response.data.acceptedByUser
+        invitation.apiStatus = response.status
+        return invitation;
+    } catch (error) {
+        return error.response.status;
+    }
+}
 //------------get all invitations
 export var getAllInvitations = async (username: string, password: string) => {
     let token = await getToken5(username, password);
