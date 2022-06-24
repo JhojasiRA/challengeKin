@@ -1,4 +1,5 @@
 import {BaseConfig} from "./wdio.conf";
+
 /*
 *   Notes:
 *      driver is installed by chromedriver in lib/chromedriver of module folder.
@@ -8,12 +9,10 @@ import {BaseConfig} from "./wdio.conf";
 const ChromeOptions: WebdriverIO.Config = {
     path: '/',
     port: 9515, // default for ChromeDriver
-    services: ['chromedriver'],
+    services: ['chromedriver','intercept'],
     //@ts-ignore
     chromeDriverLogs: './logs'
 };
-
-
 
 const ChromeConfig = {
     capabilities: [
@@ -29,5 +28,6 @@ const ChromeConfig = {
     ],
 
 };
+
 const config = Object.assign({}, BaseConfig,ChromeOptions,ChromeConfig);
 export  {config, ChromeOptions, ChromeConfig} ;

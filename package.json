@@ -56,6 +56,7 @@
     "wdio-cucumberjs-json-reporter": "^4.4.0",
     "wdio-docker-service": "^3.2.0",
     "wdio-eslinter-service": "0.0.4",
-    "wdio-geckodriver-service": "^2.1.0"
+    "wdio-geckodriver-service": "^2.1.0",
+    "wdio-intercept-service": "^4.2.2"
   }
 }

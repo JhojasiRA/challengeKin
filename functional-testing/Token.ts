@@ -1,5 +1,5 @@
 import 'regenerator-runtime/runtime';
-import { creds } from './constant.json';;
+import { creds } from './constant.json';
 const axios = require('axios');
 
 export var getToken = async () => {
@@ -104,26 +104,6 @@ export var getToken4 = async () => {
         } catch (error) {
         }
     }
-
     export var getTokenFromStorage = async (): Promise<string> => {
         return await browser.executeScript(`return JSON.parse(sessionStorage["oidc.user:${process.env.AUTH0_URL}:pDcl3IpDhGCbYSHGr3YTT0BLH6aetTmh"])["access_token"];`, []);
     }
-
-    export var getTokenFromNetwork = async (): Promise<string> => {
-
-        return await browser.executeScript('',[])
-    }
-
-   /* function captureNetworkRequest(e) {
-        var capture_network_request = [];
-        var capture_resource = performance.getEntriesByType("resource");
-        for (var i = 0; i < capture_resource.length; i++) {
-            if (capture_resource[i].initiatorType == "xmlhttprequest" || capture_resource[i].initiatorType == "script" || capture_resource[i].initiatorType == "img") {
-                if (capture_resource[i].name.indexOf('www.demo.com OR YOUR URL') > -1) {
-                    capture_network_request.push(capture_resource[i].name)
-                }
-            }
-        }
-        return capture_network_request;
-    }
-*/

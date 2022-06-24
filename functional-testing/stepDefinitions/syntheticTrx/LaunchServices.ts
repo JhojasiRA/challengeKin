@@ -1,11 +1,32 @@
-import {Given, When, Then } from '@cucumber/cucumber'
-import { indexPage,homePage,question,topBar } from '../../support/Hooks';
+import {Given, When, Then, After } from '@cucumber/cucumber'
+import { activateEntitlement, deactivateEntitlement } from '../../services/Entitlements';
+import { indexPage,homePage,question,topBar, menuhomepage, entitlements, inviteUsersPage } from '../../support/Hooks';
+import { catalogNumberEntitlements } from '../../constant.json'
 
+Given(/^the user has allocated a new FTRA entitlement with email "([^"]*)" and valid for "([^"]*)" days$/, async(email,validForDays) => {
+  let effectiveDate = new Date()
+  //@ts-ignore
+  await browser.setupInterceptor()
+  await await menuhomepage.entitlementsOption()
+  await browser.pause(2000)
+  //@ts-ignore
+  let requests = await browser.getRequests(false, false)
+  let requestEntitlements = requests.filter(request => request.url.startsWith(process.env.API_CS))[0]
+  let token = requestEntitlements.headers.authorization
+  if(typeof token === 'string'){
+    token = token.split(' ')[1]
+  }else{
+    throw new Error("Service intercepted does not have a token header param: "+requestEntitlements.url)
+  }
+  await activateEntitlement(email,effectiveDate.toDateString(),validForDays, catalogNumberEntitlements.FTRA.catalogNumber, catalogNumberEntitlements.FTRA.serviceKind, token)
+  await browser.refresh()
+  await entitlements.allocateEntitlement(catalogNumberEntitlements.FTRA.catalogNumber)
+  await browser.pause(1000)
+  await inviteUsersPage.closeInvitation()
+});
 
-
-Given(/^the user has allocated a new FTRA entitlement$/, () => {
-  
-	return true;
+After('@teardownAddEntitlement',async() =>{
+  await deactivateEntitlement()
 });
 
 
@@ -34,7 +55,6 @@ Then('the user should see logout page', async() => {
 });
 
 When('the user launches the FTRA card', async() => {
-  await browser.pause(3000);
   await homePage.launchFTRA();
 });
 Then('the user does not have access to the FTRA service', async() => {
@@ -46,6 +66,9 @@ When('the user launches the Fiix card', async() => {
 });
 
 Then('the user sees page with the title {string}', async(title:string) => {
+  let handles = await browser.getWindowHandles()
+  if(handles.length > 1)
+        await browser.switchToWindow(handles[1])
   await question.assertTexts(await browser.getTitle(), title)
 });
 
@@ -69,8 +92,5 @@ When('the user launches the EaaS card', async() => {
   await homePage.launchEaas();
 });
 
-Then('the user does not have access to the EaaS service', async() => {
-  await question.assertElementPresent((homePage.lockEaasIcon));
-});
 
 

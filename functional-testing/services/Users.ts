@@ -171,7 +171,6 @@ export var createOrgTenant = async() =>{
         description:'org tenant automation',
         visibility: "Private"
     },config);
-    global.lastError = 'Error creating tenant'
     tenantInfo = {id:response.data.tenantId,status:response.status}
     return tenantInfo;
     } catch (error) {
