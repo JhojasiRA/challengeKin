@@ -9,6 +9,7 @@ export class MenuHomePage extends Action {
     get inviteUsers() { return browser.$('//*[contains(text(), "Invite Users")]');}
     get invitationManagement() { return browser.$('//*[contains(text(), "Invitation Management")]');}
     get accessManagement() { return browser.$('//*[contains(text(),"Access Management")]');}
+    get entitlements() { return browser.$('//*[@role="navigation"]//*[contains(text(), "Entitlements")]')}
 
     public async approveUserOption():Promise<void>{
         //global.lastError = 'menu icon was not located'
@@ -48,6 +49,11 @@ export class MenuHomePage extends Action {
       public async accessManagementOption():Promise<void>{
         await this.click(this.menuIcon);
         await this.click(this.accessManagement)
+      }
+
+      public async entitlementsOption():Promise<void>{
+        await this.click(this.menuIcon);
+        await this.click(this.entitlements)
       }
 
 }

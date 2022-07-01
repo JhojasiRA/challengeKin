@@ -6,10 +6,10 @@ export class HomePage extends Action {
     get FTRACard() { return $(`#card-SecureRemoteAccess`) }
     get homePage() { return $(`//*[@class="xng-breadcrumb-root"]//*[ contains (text(), "Home")]`) }
     get rubikIcon() { return $('#rubick-menu-btn') }
-    get lockFTRAIcon() { return $(`//*[@id="card-SecureRemoteAccess"]//*[@class= "fav-lock-icon lock-icon"]`) }
-    get lockFooIcon() { return $(`//*[@id="card-FooService"]//*[@class= "fav-lock-icon lock-icon"]`) }
-    get lockUniqoIcon() { return $(`//*[@id="card-Vista"]//*[@class= "fav-lock-icon lock-icon"]`) }
-    get lockEaasIcon() { return $(`//*[@id="card-EaaS"]//*[@class= "fav-lock-icon lock-icon"]`) }
+    get lockFTRAIcon() { return $(`//*[@id="card-SecureRemoteAccess"]//*[contains (@class, "fav-lock-icon")]`) }
+    get lockFooIcon() { return $(`//*[@id="card-FooService"]//*[contains (@class, "fav-lock-icon")]`) }
+    get lockUniqoIcon() { return $(`//*[@id="card-Vista"]//*[contains (@class, "fav-lock-icon")]`) }
+    get lockEaasIcon() { return $(`//*[@id="card-EaaS"]//*[contains (@class, "fav-lock-icon")]`) }
     get fiixCard() { return $(`#card-Fiix`) }
     get fooCard() { return $(`#card-FooService`) }
     get uniqoCard() { return $(`#card-Vista`) }
