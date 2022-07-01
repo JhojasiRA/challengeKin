@@ -1,4 +1,4 @@
-import {setDefaultTimeout, When, Then, After} from '@cucumber/cucumber';
+import {setDefaultTimeout, Given, When, Then, After} from '@cucumber/cucumber';
 import 'regenerator-runtime/runtime';
 import { editTenantInfoWithParams } from '../../services/Tenants';
 import { menuhomepage,organization,question } from '../../support/Hooks';
@@ -70,4 +70,10 @@ Then('User will see a success message and will be able to close it', async() => 
 After('@afterEditOrganization', async() =>{
   global.lastError = "Error while doing the test teardown editing organization name"
   await editTenantInfoWithParams(defaultOrg.name, defaultOrg.location, defaultOrg.description, defaultOrg.visibility);
+});
+
+Given(/^the user has created a new organization with name "([^"]*)"$/, async(orgName:string) => {
+	await menuhomepage.createOrganizationOption();
+  let date = new Date();
+  await organization.newOrg(orgName+"_"+date.getTime());
 });

@@ -20,10 +20,10 @@ Feature: As a user, I want to launch vault into Le Mans portal
         When the user launches the FTRA card
         Then the user does not have access to the FTRA service
 
-    #TODO: Given the user has created a new organization (through API)
     @LaunchServices @SyntheticTrx @teardownAddEntitlement
     Scenario: Launch FTRA service with entitlement
-        Given the user has allocated a new FTRA entitlement with email "rasynthetictest@rockwellautomation.com" and valid for "365" days
+        Given the user has created a new organization with name "FTRA_entitlement_test"
+        And the user has allocated a new FTRA entitlement with email "rasynthetictest@rockwellautomation.com" and valid for "5" days
         When the user launches the FTRA card
         Then the user sees page with the title "Operation Hub"
 
