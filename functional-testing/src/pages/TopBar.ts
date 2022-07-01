@@ -36,7 +36,7 @@ export class TopBar extends Action {
     get orgNameOption() {return browser.$('//*[@id= "ft-hub-org-name"]'); }
     get changeOrgModal() {return browser.$('//*[@role= "dialog"]'); }
     get selectOrg() {return browser.$('//*[@role= "combobox"]'); }
-    get org1() {return browser.$('//*[contains(text(),"organization automation")]'); }
+    get org1() {return browser.$('//*[contains(text(),"Organization automation")]'); }
     get changeOrgButton() {return browser.$('//*[contains(text()," Change")]'); }
     get cancelChangeOrgButton() {return browser.$('//*[contains(text()," Cancel")]'); }
 
@@ -50,6 +50,7 @@ export class TopBar extends Action {
       await browser.pause(1000);
       await this.click(this.changeOrgButton);
     }
+
     public async setAnOrganization(orgName): Promise<void> {
       await this.click(this.selectOrg);
       await browser.$(chooseOrganization(orgName)).click();

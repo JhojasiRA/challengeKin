@@ -33,6 +33,8 @@ spec:
               value: "{{ .Values.PORTAL_URL }}"
             - name: API_CS
               value: "{{ .Values.API_CS }}"
+            - name: URL_NOTIF
+              value: "{{ .Values.URL_NOTIF }}"
             - name: IS_URL
               value: "{{ .Values.IS_URL }}"
             - name: SPLUNK_HOST

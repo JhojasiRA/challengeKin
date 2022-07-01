@@ -6,8 +6,9 @@ Feature: As a User, I want to switch between organizations using the navBar
 
     @SyntheticTrx
     Scenario: Switch between organizations
-        When the user switchs from "org1" to "organization automation"
-        Then the user should see "organization automation" profile on the navBar
-
+        When the user switchs from "org1" to "Organization automation"
+        Then the user should see "Organization automation" profile on the navBar
+    
+    @SyntheticTrx
     Scenario: last Organization switched
-        Then the user should see "organization automation" profile on the navBar
+        Then the user should see "Organization automation" profile on the navBar

@@ -2,7 +2,6 @@ import { When, Then } from '@cucumber/cucumber';
 import { topBar, indexPage, question } from '../../support/Hooks';
 
 
-
 When('the user goes inside on the help icon', async () => {
     await topBar.helpIconTool();
 });
