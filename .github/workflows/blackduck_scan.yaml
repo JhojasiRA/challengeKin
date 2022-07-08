@@ -1,0 +1,29 @@
+name: Black Duck Scan
+
+on:
+  push:
+    branches:
+      - develop
+      - release/**
+      - hotfix/**
+      - main
+      - master
+  pull_request:
+    branches:
+      - develop
+      - main
+      - master
+      - release/**
+      - hotfix/**
+    types:
+      - synchronize
+      - opened
+      - reopened
+      - unlocked
+  workflow_dispatch:
+
+jobs:
+  blackduck-scan:
+    uses: Rockwell-Automation-Inc/workflows/.github/workflows/workflow_call_blackduck_scan_int.yaml@main
+    secrets:
+      token: ${{ secrets.READ_GITHUB_ACTIONS_PAT }}
