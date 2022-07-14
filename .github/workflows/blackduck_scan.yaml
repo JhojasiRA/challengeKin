@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - develop
+      - release
       - release/**
       - hotfix/**
       - main
@@ -13,6 +14,7 @@ on:
       - develop
       - main
       - master
+      - release
       - release/**
       - hotfix/**
     types:
