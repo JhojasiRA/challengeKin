@@ -32,10 +32,12 @@ export class Organization extends Action {
     get orgVisibilityOffEdit() {return browser.$('//*[ contains (text(), "Visibility OFF")]');}
     get organizationName() {return browser.$('//div[ contains (text(),"test OrgRockwell")]');}
     get orgVisibilityOnEdit() {return browser.$('//*[ contains (text(), "Visibility ON")]');}
+    get nextButton(){return browser.$('//button[contains(text(), "next")]')}
     
     public async newOrganization(): Promise<void> {
         await this.enterText(this.nameOrganizationField,"test OrgRockwell");
         await this.enterText(this.descriptionField, "TEST"); 
+        await this.click(this.nextButton);
         await this.click(this.createButton);
         
     }
@@ -44,11 +46,13 @@ export class Organization extends Action {
         await this.enterText(this.nameOrganizationField,"test OrgRockwell" );
         await this.enterText(this.descriptionField, "TEST");
         await this.click(this.orgVisibilityOnCreate);
+        await this.click(this.nextButton);
         await this.click(this.createButton);      
     }
 
     public async newOrg(newOrgName:string): Promise<void> {
         await this.enterText(this.nameOrganizationField, newOrgName);
+        await this.click(this.nextButton);
         await this.click(this.createButton);
         await this.click(this.OK);
         await browser.pause(1000);
@@ -61,6 +65,7 @@ export class Organization extends Action {
         await browser.execute('document.getElementById("' + this.addOrganizationLogo + '").removeAttribute("hidden")');
         const remoteFilePath = await browser.uploadFile(filePath);
         await this.addLogo.setValue(remoteFilePath);
+        await this.click(this.nextButton);
         await this.click(this.createButton);
     }
 
