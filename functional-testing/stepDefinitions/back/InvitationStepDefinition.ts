@@ -27,14 +27,10 @@ When('it send an invitation GET {string}', async(endpoint) => {
   console.log(endpoint)
   });
   Then('the invitations should be: {string} ok', async (status) => {
-    invitation= await getInvitationById();
-    assert.equal(status,invitation.apiStatus);
+        assert.equal(status,invitation.apiStatus);
       });
 Then('the invitation status should be: {string}', async (status) => {
         assert.equal(status,invitation.status);
-        });
-Then('the resourceType invitation should be: {string}', async (resourcType) => {
-        assert.equal(resourcType,invitation.resourceType);
         });
 
 //-----------------Approve invitations-----------

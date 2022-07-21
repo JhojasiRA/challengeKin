@@ -1,4 +1,4 @@
-import {setDefaultTimeout, When, Then, After, Before} from '@cucumber/cucumber';
+import {setDefaultTimeout, Given, When, Then, After} from '@cucumber/cucumber';
 import 'regenerator-runtime/runtime';
 import { editTenantInfoWithParams } from '../../services/Tenants';
 import { menuhomepage, organization, question } from '../../support/Hooks';
@@ -86,6 +86,11 @@ Then('user cant see the name in join organization option', async() => {
    await question.assertElementNotExist(organization.organizationName);
 });
 
+Given(/^the user has created a new organization with name "([^"]*)"$/, async(orgName:string) => {
+	await menuhomepage.createOrganizationOption();
+  let date = new Date();
+  await organization.newOrg(orgName+"_"+date.getTime());
+});
 When('the user submits the form with public organization information', async() => {
    await organization.publicOrganizationCreation();
 });
@@ -107,12 +112,3 @@ After('@after', async() =>{
 When('the user edits the info of the form', async() => {
    await organization.selectPrivateOrganizationEdit();  
 }); 
-
-
-
-
-
-
-
-
-

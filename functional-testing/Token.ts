@@ -1,5 +1,5 @@
 import 'regenerator-runtime/runtime';
-import { creds } from './constant.json';;
+import { creds } from './constant.json';
 const axios = require('axios');
 
 export var getToken = async () => {
@@ -54,32 +54,6 @@ export var getToken2 = async () => {
     }
 }
 
-export var getToken4 = async () => {
-    try {
-        let url = `${process.env.IS_URL}`
-        let config = {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'No-cache': 'no-cache'
-            }
-        }
-        let params;
-        params = new URLSearchParams();
-        params.append("client_id", "aaBfPCIAl15xFjeRLXIFSFryVWP5j63M");
-        params.append("client_secret", process.env.CLIENT_SECRET);
-        params.append("scope", "openid profile email phone address my_rockwell");
-        params.append("grant_type", "password");
-        params.append("audience", "https://lemans.common");
-        params.append("username", "testuser8@rockwellautomation.com");
-        params.append("password", process.env.PASSWORD);
-        const response = await axios.post(url, params, config);
-        global.accessToken = response.data.access_token;
-        var token = response.data.access_token;
-        return token;
-    } catch (error) {
-    }
-}
-
     export var getToken5 = async (user: string, password:string) => {
         try {
             let url = `${process.env.IS_URL}`
@@ -104,26 +78,6 @@ export var getToken4 = async () => {
         } catch (error) {
         }
     }
-
     export var getTokenFromStorage = async (): Promise<string> => {
         return await browser.executeScript(`return JSON.parse(sessionStorage["oidc.user:${process.env.AUTH0_URL}:pDcl3IpDhGCbYSHGr3YTT0BLH6aetTmh"])["access_token"];`, []);
     }
-
-    export var getTokenFromNetwork = async (): Promise<string> => {
-
-        return await browser.executeScript('',[])
-    }
-
-   /* function captureNetworkRequest(e) {
-        var capture_network_request = [];
-        var capture_resource = performance.getEntriesByType("resource");
-        for (var i = 0; i < capture_resource.length; i++) {
-            if (capture_resource[i].initiatorType == "xmlhttprequest" || capture_resource[i].initiatorType == "script" || capture_resource[i].initiatorType == "img") {
-                if (capture_resource[i].name.indexOf('www.demo.com OR YOUR URL') > -1) {
-                    capture_network_request.push(capture_resource[i].name)
-                }
-            }
-        }
-        return capture_network_request;
-    }
-*/

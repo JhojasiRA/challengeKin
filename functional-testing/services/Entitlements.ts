@@ -1,10 +1,10 @@
 const axios = require('axios');
-import { getToken5 } from '../Token';
-import { getLastAccessedTenantId } from './Tenants';
-
-export var activateEntitlement = async(email:string, effectiveDate: string, validForDays: number, catalogNumber: string, serviceKind: string) => {
-    let token = await getToken5(process.env.USERNAME, process.env.PASSWORD);
-    let tenantId = await getLastAccessedTenantId()
+import { getLastAccessedTenantIdWithToken } from './Tenants';
+var entitlementId: string
+var _token: string
+export var activateEntitlement = async(email:string, effectiveDate: string, validForDays: number, catalogNumber: string, serviceKind: string, token: string) => {
+    let tenantId = await getLastAccessedTenantIdWithToken(token)
+    _token = token
     try {
         let url = `${process.env.API_CS}/api/users/entitlements`;
         let config = {
@@ -17,13 +17,29 @@ export var activateEntitlement = async(email:string, effectiveDate: string, vali
         let body = {
             email: email,
             effectiveDate: effectiveDate,
-            validForDays: validForDays,
+            validForDays: Number(validForDays),
             value: 1,
             catalogNumber: catalogNumber,
             serviceKind: serviceKind
         }
         let response = await axios.post(url, body, config);
-        let entitlementId = '' 
+        console.log(response)
+        entitlementId = response.data 
+    } catch (error) {
+        console.log(error);
+        return error.response.status;
+    }
+}
+
+export var deactivateEntitlement = async() => {
+    try {
+        let url = `${process.env.API_CS}/api/users/entitlements/${entitlementId}?action=Cancelled`;
+        let config = {
+            headers: {
+                'Authorization': 'Bearer ' + _token
+            }
+        }
+       await axios.delete(url, config); 
     } catch (error) {
         console.log(error);
         return error.response.status;

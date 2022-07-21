@@ -238,3 +238,9 @@ export var getLastAccessedTenantId = async () => {
     let preferences = await getPreferences(userId, token);
     return await jp.query(preferences, '$..preferences.lastAccessedTenantId')[0];
 }
+
+export var getLastAccessedTenantIdWithToken = async (token: string) => {
+    let userId = await getUserIdWithParam(token);
+    let preferences = await getPreferences(userId, token);
+    return await jp.query(preferences, '$..preferences.lastAccessedTenantId')[0];
+}

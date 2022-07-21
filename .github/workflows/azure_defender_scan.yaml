@@ -3,6 +3,7 @@ name: Azure Defender Scan
 on:
   push:
     branches:
+      - release
       - release/**
       - hotfix/**
       - main

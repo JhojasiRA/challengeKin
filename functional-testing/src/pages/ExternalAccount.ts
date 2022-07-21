@@ -27,7 +27,6 @@ export class ExternalAccount extends Action {
     await this.enterText(this.userNameField, username);
     await this.enterText(this.passwordField, password);
     await browser.keys("\uE007")
-
   }
 }
 

@@ -49,7 +49,7 @@ Scenario: create another user :user2
 @ApiUser @APITest
 Scenario: Not allows users access to other users profiles
     When it sends a GET "/api/users/userId"
-    Then user access to other users profile should be status: "403" Forbidden
+    Then user access to other users profile should be status: "401" Unauthorized
 @ApiUser @APITest
 Scenario: get a tenant by resource roles
     When the tenant send a request GET "/api/tenant/resourceroles"
