@@ -1,1 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><testsuite errors="0" failures="0" name="As a Customer when I search for Alexa, I want to see if the third option on the second page is available for" skipped="0" tests="1" time="12.88" timestamp="2021-11-18 11:29:02"><testcase name="purchase an available item"/></testsuite>
+<?xml version="1.0" encoding="UTF-8"?><testsuite errors="1" failures="0" name="As a Customer when I search for Alexa, I want to see if the third option on the second page is available for" skipped="0" tests="1" time="4.19" timestamp="2022-03-12 04:02:58"><testcase name="purchase an available item"><error message="Could not instantiate class org.openqa.selenium.chrome.ChromeDriver" type="net.thucydides.core.webdriver.DriverConfigurationError">Could not instantiate class org.openqa.selenium.chrome.ChromeDriver</error><system-err>Could not instantiate class org.openqa.selenium.chrome.ChromeDriver&#13;
+stepdefinitions.PurchaseItemStepDefinitions.theUserNavigatesOnTheWebPage(PurchaseItemStepDefinitions.java:34)&#13;
+cucumber.runner.Runner.runPickle(Runner.java:80)&#13;
+</system-err></testcase></testsuite>
