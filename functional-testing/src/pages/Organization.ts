@@ -1,5 +1,6 @@
 import { Action } from '../globalTasks/Action';
 import * as path from "path";
+import { getMessageByTenantId } from '../../services/NotificationService';
 
 const organizationName = (orgName:string)=>`//*[ contains (text(), "${orgName}")]`;
 
@@ -10,9 +11,10 @@ export class Organization extends Action {
     get cancelCreationButton() { return browser.$('//*[@class = "secondary-mat-button"]'); }
     get cancelEditInfo() { return browser.$('//button[ contains (text(), "cancel")] |//span[ contains (text(), "cancel")]'); }
     get saveButton() { return browser.$('//*[ contains (text(), "save")]'); }
+    get confirmationButton() { return browser.$('//*[ contains (text(), " Continue ")]'); }
     get descriptionField() { return browser.$('//*[@formcontrolname="tenantDescription"]'); }
-    get messageSuccessfully() { return browser.$('//*[ contains (text(), "You have created the organization successfully!")]'); }
-    get successMessage() { return browser.$('//*[ contains (text(), "You have edited the organization successfully!")]'); }
+    get messageSuccessfully() { return browser.$('//*[ contains (text(), "Congratulations! You have created the organization test OrgRockwellAut successfully!")]'); }
+    get successMessage() { return browser.$('//*[ contains (text(), "Organization updated successfully.")]'); }
     get discardChangesMessage() { return browser.$('//*[ contains (text(), "Changes will not be saved. Do you want to proceed?")]'); }
     get OK() { return browser.$('//button[contains(text(), "OK")]'); }
     get continueDiscardChanges() { return browser.$('(//*[@class = "primary-mat-button"])[2]'); }
@@ -30,12 +32,12 @@ export class Organization extends Action {
     get imageLogo() { return browser.$('//*[@alt="Image"]'); }
     get orgVisibilityOnCreate() {return browser.$('//mat-radio-button[@id="mat-radio-2"]');}
     get orgVisibilityOffEdit() {return browser.$('//*[ contains (text(), "Visibility OFF")]');}
-    get organizationName() {return browser.$('//div[ contains (text(),"test OrgRockwell")]');}
+    get organizationName() {return browser.$('//div[ contains (text(),"test OrgRockwellAut")]');}
     get orgVisibilityOnEdit() {return browser.$('//*[ contains (text(), "Visibility ON")]');}
     get nextButton(){return browser.$('//button[contains(text(), "next")]')}
     
     public async newOrganization(): Promise<void> {
-        await this.enterText(this.nameOrganizationField,"test OrgRockwell");
+        await this.enterText(this.nameOrganizationField,"test OrgRockwellAut");
         await this.enterText(this.descriptionField, "TEST"); 
         await this.click(this.nextButton);
         await this.click(this.createButton);
@@ -43,7 +45,7 @@ export class Organization extends Action {
     }
 
     public async publicOrganizationCreation( ): Promise<void> { 
-        await this.enterText(this.nameOrganizationField,"test OrgRockwell" );
+        await this.enterText(this.nameOrganizationField,"test OrgRockwellAut" );
         await this.enterText(this.descriptionField, "TEST");
         await this.click(this.orgVisibilityOnCreate);
         await this.click(this.nextButton);
@@ -153,17 +155,17 @@ export class Organization extends Action {
     }
 
     public async selectPublicOrganizationEdit(): Promise<void> {
-       await this.enterText(this.descriptionField, "Testing");
-       await this.click(this.orgVisibilityOnEdit);
-       await browser.pause(1000);  
+       await this.enterText(this.descriptionField, "Testing"); 
+       await this.click(this.orgVisibilityOnEdit);  
        await this.click(this.saveButton);
+       await this.click(this.confirmationButton);
     }
 
     public async selectPrivateOrganizationEdit(): Promise<void> {
         await this.enterText(this.descriptionField, "Testing");
-        await this.click(this.orgVisibilityOffEdit);
-        await browser.pause(1000);  
+        await this.click(this.orgVisibilityOffEdit);  
         await this.click(this.saveButton);
+        await this.click(this.confirmationButton);
      }
 
     public async selectPublicOrganization(): Promise<void> {

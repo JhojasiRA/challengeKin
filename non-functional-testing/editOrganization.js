@@ -45,7 +45,7 @@ export default function getList(data) {
     let tenant = organization.json('tenantId');
     console.log(tenant);
 
-    let raw2 = {
+    let modifyRaw = {
       "name": "TestingAutomation",
       "location": "AUS",
       "description": "org ",
@@ -53,7 +53,7 @@ export default function getList(data) {
   }
     const config = {'Authorization': auth, 'Content-Type': "application/json",'tenantId': tenant };
     sleep(2000);
-    let organizationEdit= http.put(__ENV.API_CS_URL+ '/api/tenant',JSON.stringify(raw2), {headers: config});
+    let organizationEdit= http.put(__ENV.API_CS_URL+ '/api/tenant',JSON.stringify(modifyRaw), {headers: config});
          
 }
 
