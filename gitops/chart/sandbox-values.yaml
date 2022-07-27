@@ -4,7 +4,7 @@
 
 cronScheduleSynthetictrx: "5 */2 * * *"
 cronScheduleapi: "0 */2 * * *"
-# cronScheduleLogin: "0 */1 * * *"
+cronScheduleLogin: "0 */1 * * *"
 
 
 splunkHost: http-inputs-ra.splunkcloud.com
