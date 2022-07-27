@@ -41,11 +41,23 @@ export default function getList(data) {
     };
 
     let organization = http.post(__ENV.API_CS_URL+'/api/tenants',JSON.stringify(raw),options);  
+    let org = organization.json();
     let tenant = organization.json('tenantId');
-    const config = {'Authorization': auth, 'tenantId': tenant };
     sleep(2000);
-    let organizationGet= http.get(__ENV.API_CS_URL+ '/api/tenant', {headers: config});
-         
+
+    let raw2 = { 
+        "tenantId": `${tenant}`,
+        "resourceId": `${tenant}`,
+        "toEmail": "rasynthetictest@rockwellautomation.com",
+        "role": "Admin"
+    }
+
+    const config = {'Authorization': auth, 'Content-Type': "application/json", 'tenantId': tenant };
+    console.log(auth);
+    let invitation= http.post(__ENV.API_CS_URL+ '/api/invitations', JSON.stringify(raw2),{headers:config});
+    console.log(invitation.status);
+
+  
 }
 
 export function  getAccessToken (user,password) {    
