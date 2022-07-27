@@ -28,7 +28,6 @@ When('the user submits the form with its information and add an organization log
 
 Then('the user should see the message {string}', async(message) => {
    await question.assertElementText(organization.getMessageCreateOrganization(),message);
-   await organization.ok();
     });
 
 When('the user submits the form with its name', async() => {
@@ -51,7 +50,6 @@ When('the user submits the form with new information', async() => {
 
 Then('the user will see the message {string}', async(message) => {
     await question.assertElementText(organization.getMessageEditOrganization(),message);
-    await organization.ok();
   }); 
  
 When('the user edits the logo organization', async() => {

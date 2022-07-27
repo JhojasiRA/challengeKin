@@ -7,7 +7,7 @@
     "chrome": "npx wdio functional-testing/config/chrome.config.ts",
     "headless:syntheticTrx": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@SyntheticTrx\"",
     "headless:api": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@APITest\"",
-    "testing": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@ApiInvitation\"",
+    "testing": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@TestingOrg\"",
     "local:syntheticTrx": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@SyntheticTrx\"",
     "local:api": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@APITest\""
   },
@@ -46,7 +46,7 @@
     "geckodriver": "^3.0.1",
     "jsonpath": "^1.1.1",
     "multiple-cucumber-html-reporter": "^1.19.0",
-    "prettier": "2.4.1", 
+    "prettier": "2.4.1",
     "selenium-standalone": "^8.0.10",
     "splunk-logging": "^0.11.1",
     "to-uuid": "^0.1.3",
