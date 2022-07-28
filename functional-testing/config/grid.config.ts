@@ -8,7 +8,7 @@ import {BaseConfig} from "./wdio.conf";
 const ChromeOptions: WebdriverIO.Config = {
     hostname: process.env.HOSTNAME,
     port: parseInt(process.env.PORT), // default for ChromeDriver
-    services: ['chromedriver'],
+    //services: ['chromedriver'],
     //@ts-ignore
     chromeDriverLogs: './logs'
 };
@@ -26,7 +26,6 @@ const ChromeConfig = {
                 args: [
                 '--no-sandbox',
                 '--disable-infobars',
-                '--headless',
                 '--disable-gpu',
                 'start-maximized',
                 '--window-size=1920,1080',
