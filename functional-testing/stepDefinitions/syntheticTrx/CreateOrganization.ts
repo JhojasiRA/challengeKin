@@ -110,3 +110,6 @@ After('@after', async() =>{
 When('the user edits the info of the form', async() => {
    await organization.selectPrivateOrganizationEdit();  
 }); 
+When('the user edits the form selecting vault service', async() => {
+   await organization.selectVaultService();  
+});
