@@ -2,8 +2,9 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-cronScheduleSynthetictrx: "0 0/8 * * *"
-cronScheduleapi: "* 0 1 1 *"
+# cronScheduleSynthetictrx: "5 */2 * * *"
+# cronScheduleapi: "0 */2 * * *"
+cronScheduleLogin: "0 */1 * * *"
 
 splunkHost: http-inputs-ra.splunkcloud.com
 splunkIndex: lemans
