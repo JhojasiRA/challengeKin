@@ -9,7 +9,7 @@ import {createNotification,getAllNotifications,getMessageById,deleteAllMessages}
   
     Then('The POST request user notification should be: status {string} ok', async(status) => {
         let statusUser = await createNotification(); 
-        assert.equal(status,statusUser.status);
+        assert.equal(status,statusUser);
     });
   
 //------------------Notifications access request and invitations-------------------------
@@ -19,12 +19,9 @@ import {createNotification,getAllNotifications,getMessageById,deleteAllMessages}
   
     Then('The GET request all user notifications should be: status {string} ok', async(status) => {
         let notifications = await getAllNotifications(); 
-        assert.equal(status,notifications.status);
+        assert.equal(status,notifications);
     });
-    Then('The user should be into the notifications {string}', async(notificationMessage) => {
-        let notifications = await getAllNotifications(); 
-        assert.equal(notificationMessage,notifications.Message);
-    });
+   
 //------------------------------------------------------------------------ -----------
     When('it sends a GET request to get a specific user message {string}', async(endpoint) => {
         console.log(endpoint);

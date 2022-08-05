@@ -21,7 +21,7 @@ export var createNotification = async() =>{
     response = await axios.post(url,{
     body: "Testing Automation Purpose",
     isEphemeral: false },config);
-
+    return response.status;
     } catch (error) {
         console.log(error);
         return error.response.data;
@@ -88,11 +88,12 @@ export var getMessageById = async() =>{
 }
 
 export var deleteAllMessages = async() =>{
+    let token = await getToken5(creds.user, process.env.PASSWORD);
     try {
     let url  = `${process.env.URL_NOTIF}/api/messages`
     let config = {
         headers: {
-            'Authorization': 'Bearer ' + global.accessToken,
+            'Authorization': 'Bearer ' + token,
         }
     }
     const response = await axios.delete(url,config);
