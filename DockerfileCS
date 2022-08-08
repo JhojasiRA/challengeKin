@@ -1,0 +1,2 @@
+FROM ghcr.io/rockwell-automation-inc/lemans-common-services:4.0.2-development.163
+CMD dotnet $ENTRYPOINT_DLL || true
