@@ -6,6 +6,7 @@ on:
 env:
   DOCKER_FILE: "DockerfileCS"
   KUBERNETES_APP_NAME: "common-services-ta"
+  CONTAINER_REGISTRY_NAME: ghcr.io
 
 jobs:
   build:
