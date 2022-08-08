@@ -14,6 +14,10 @@ image_cs:
   # Overrides the image tag whose default is the chart appVersion.
   tag: 0.0.1-prerelease.2
 
+cosmos:
+  database: lemans
+  container: common
+  
 cleanup_tool:
   syntheticTestUserIds: "117be408cb875e8dab69612595822770,6e29b89de7355e5280fb644b203c4a11,56003538fc7955909ef5f97135f5b2f9,11408ba4c2de5bc3b1f65ad431e56b75"
 
