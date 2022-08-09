@@ -19,7 +19,7 @@ spec:
           restartPolicy: Never
           nodeSelector:
             kubernetes.io/os: linux
-          InitContainers:
+          initContainers:
           - name: {{ include "testing-automation.fullname" . }}-synthetictrx
             image: {{ .Values.image.repository }}:{{ .Values.appVersion | default .Chart.AppVersion }}
             env:
