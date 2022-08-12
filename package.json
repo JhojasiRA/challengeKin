@@ -8,7 +8,7 @@
     "headless:syntheticTrx": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@SyntheticTrx\"",
     "headless:api": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@APITest\"",
     "headless:login": "npx wdio functional-testing/config/grid.config.ts --cucumberOpts.tagExpression=\"@loginSAML\"",
-    "testing": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@createOrg\"",
+    "testing": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@ApiNotifications\"",
     "local:syntheticTrx": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@SyntheticTrx\"",
     "local:api": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@APITest\""
   },

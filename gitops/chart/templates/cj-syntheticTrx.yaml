@@ -19,7 +19,7 @@ spec:
           restartPolicy: Never
           nodeSelector:
             kubernetes.io/os: linux
-          containers:
+          initContainers:
           - name: {{ include "testing-automation.fullname" . }}-synthetictrx
             image: {{ .Values.image.repository }}:{{ .Values.appVersion | default .Chart.AppVersion }}
             env:
@@ -98,4 +98,55 @@ spec:
               readOnly: true
               volumeAttributes:
                 secretProviderClass: {{ include "testing-automation.fullname" . }}
+{{- end }}
+#DeleteToolCode
+          containers:
+              - name: {{ .Chart.Name }}-delete-synthetic-test-users
+                securityContext:
+                  {{- toYaml .Values.securityContext | nindent 20 }}
+                image: "{{ .Values.image_cs.repository }}:{{ .Values.image_cs.tag }}"
+                imagePullPolicy: {{ .Values.image_cs.pullPolicy }}
+                {{- if .Values.keyVault.enabled }}
+                volumeMounts:
+                  - name: secrets-store-inline
+                    mountPath: "/mnt/secrets-store"
+                    readOnly: true
+                  - name: tmp
+                    mountPath: /tmp
+                {{- end }}
+                env:
+                - name: TMPDIR
+                  value: /tmp
+                - name: ENTRYPOINT_DLL
+                  value: Cleanup.dll -cmd deleteuser
+                - name: EQUINOX_COSMOS_CONNECTION
+                  valueFrom:
+                    secretKeyRef:
+                      name: lc-cosmos-connection
+                      key: connectionString
+                - name: EQUINOX_COSMOS_DATABASE
+                  value: {{ .Values.cosmos.database }}
+                - name: EQUINOX_COSMOS_CONTAINER
+                  value: {{ .Values.cosmos.container }}
+                - name: AZURE_STORAGE_ACCOUNT_CONNECTION
+                  valueFrom:
+                    secretKeyRef:
+                      name: view-storage
+                      key: connectionString
+                - name: USER_IDS
+                  value: {{ .Values.cleanup_tool.syntheticTestUserIds }}
+          imagePullSecrets:
+              - name: {{ .Values.imagePullSecrets }}
+          restartPolicy: "OnFailure"
+          terminationGracePeriodSeconds: 101
+{{- if .Values.keyVault.enabled }}
+          volumes:
+            - name: secrets-store-inline
+              csi:
+                  driver: secrets-store.csi.k8s.io
+                  readOnly: true
+                  volumeAttributes:
+                    secretProviderClass: {{ include "testing-automation.fullname" . }}
+            - name: tmp
+              emptyDir: {}
 {{- end }}
