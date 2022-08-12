@@ -1,8 +1,9 @@
 import {setDefaultTimeout, Given, When, Then, After} from '@cucumber/cucumber';
 import 'regenerator-runtime/runtime';
 import { editTenantInfoWithParams } from '../../services/Tenants';
-import { menuhomepage, organization, question } from '../../support/Hooks';
+import { menuhomepage, organization, question, indexPage } from '../../support/Hooks';
 import {defaultOrg} from '../../constant.json'
+import { IndexPage } from '../../src/pages/IndexPage';
 
 setDefaultTimeout(60 * 1000);
 When('the user goes inside to create organization option', async() => {
@@ -13,12 +14,7 @@ When('the user submits the form with its information', async() => {
     await organization.newOrganization();
 });  
 
-When('the user adds a new logo organization', async() => {
-    await organization.addNewLogoOrganization();
-});
-
 Then('the user will see a new {string} logo organization', async(src) => {
-   await organization.ok();
    await question.assertElementAttributeContains(organization.imageLogo, 'src', src);
   }); 
 
@@ -35,42 +31,23 @@ When('the user submits the form with its name', async() => {
 });  
 
 Then('User should see a message pop up: {string}', async(DiscardChangemessage) => {
+   await browser.pause(1000);
     await question.assertElementText(organization.getDiscardChangesMessage(),DiscardChangemessage);
     await organization.continue();
 });
 
-When('the user goes inside to edit organization option', async() => {
-   await menuhomepage.editOrganizationOption();
-  }); 
-
-When('the user submits the form with new information', async() => {
-    await organization.editOrganization();
-
-  });
-
 Then('the user will see the message {string}', async(message) => {
     await question.assertElementText(organization.getMessageEditOrganization(),message);
   }); 
- 
-When('the user edits the logo organization', async() => {
-   await organization.editLogoOrganization();
-}); 
 
   Then('the user will see an organization with {string} logo', async(src) => {
-   await organization.ok();
+   
    await menuhomepage.editOrganizationOption();
    await question.assertElementAttributeContains(organization.imageLogo, 'src', src);
 }); 
 
-When('the user changes the description but then cancel the edition', async() => {
-   await organization.canceleditOrganization();
-}); 
-
-When('User generates a new invide code', async() => {
-   await organization.newInviteCode();
-}); 
-
 Then('User will see a success message and will be able to close it', async() => {
+   
    await organization.ok();
 }); 
 
@@ -98,18 +75,104 @@ Then('user can see the {string} in join organization option', async(organization
    await question.assertElementText(organization.getMessageOrganizationName(),organizationName);
 });
 
-When('the user edits the form', async() => {
-   await organization.selectPublicOrganizationEdit();
-}); 
 
 After('@after', async() =>{
    await menuhomepage.editOrganizationOption(); 
    await organization.editPublicOrganization();
 });
 
-When('the user edits the info of the form', async() => {
-   await organization.selectPrivateOrganizationEdit();  
-}); 
 When('the user edits the form selecting vault service', async() => {
    await organization.selectVaultService();  
 });
+
+When('the user submits the info but then user goes back', async() => {
+   await organization.fillTheFields();  
+});
+
+When('the user submits the info with all services', async() => {
+   await organization.fillTheFields();  
+});
+
+Then('user can see {string} in organization details', async(organizationDetails) => {
+   await question.assertElementText(organization.getOrganizationDetailsMessage(),organizationDetails);
+});
+
+Given('the user creates a new organization with all service tiles with visibility {string}', async(flat) =>{
+ if(flat === "ON"){
+   await menuhomepage.createOrganizationOption();
+   await organization.newOrganizationDetails();
+ } 
+ else{
+   await menuhomepage.createOrganizationOption();
+   await organization.newOrganizationServicesON();
+ }
+});
+
+When('user turns on Vault service visibility', async() => {
+   await organization.selectVault();
+});
+
+Then('user should see the Vault service in home', async() => {
+   await question.assertElementExist(indexPage.VaultCard);
+});
+
+When('user turns on Remote Access service visibility', async() => {
+   await organization.selectFTRA();
+});
+
+Then('user should see the Remote Access Service in home', async() => {
+   await question.assertElementExist(indexPage.FTRACard);
+});
+
+When('user turns on Design Studio service visibility', async() => {
+   await organization.selectDesignStudio(); 
+});
+
+Then('user should see the Design Studio service in home', async() => {
+   await question.assertElementExist(indexPage.DesignStudioCard);
+});
+
+When('user turns on Foo service visibility', async() => {
+   await organization.selectFoo();
+});
+
+Then('user should see the Foo service in home.', async() => {
+   await question.assertElementExist(indexPage.FooCard);
+});
+
+When('user turns off Vault service visibility', async() => {
+   await organization.selectVault();
+});
+
+Then('user should not see the Vault service in home', async() => {
+   await question.assertElementNotExist(indexPage.VaultCard);
+});
+
+When('user turns off Remote Access service visibility', async() => {
+   await organization.selectFTRA();
+});
+
+Then('user should not see the Remote Access Service in home', async() => {
+   await question.assertElementNotExist(indexPage.FTRACard);
+});
+
+When('the user turns off Design Studio Service visibility', async() => {
+   await organization.selectDesignStudio();
+});
+
+Then('user should not see the Design Studio service in home', async() => {
+   await question.assertElementNotExist(indexPage.DesignStudioCard);
+});
+
+When('the user turns off Foo Service visibility', async() => {
+   await organization.selectFoo();
+});
+
+Then('user should see not the Foo service in home', async() => {
+   await question.assertElementNotExist(indexPage.FooCard);
+});
+
+
+
+
+

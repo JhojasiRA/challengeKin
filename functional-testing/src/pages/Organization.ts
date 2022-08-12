@@ -8,16 +8,17 @@ const organizationName = (orgName:string)=>`//*[ contains (text(), "${orgName}")
 export class Organization extends Action {
     get nameOrganizationField() { return browser.$('//*[@formcontrolname="tenantName"]'); }
     get createButton() { return browser.$('(//div[contains(text(), "Create")])[2]'); }
-    get cancelCreationButton() { return browser.$('//*[@class = "secondary-mat-button"]'); }
-    get cancelEditInfo() { return browser.$('//button[ contains (text(), "cancel")] |//span[ contains (text(), "cancel")]'); }
+    get backButton() { return browser.$('//div[contains(text(), "Back")]'); }
+    get cancelCreationButton() { return browser.$('(//div[contains(text(), "Cancel")])[1]'); }
+    get cancelEditInfo() { return browser.$('//div[ contains (text(), "Cancel")]'); }
     get saveButton() { return browser.$('//*[ contains (text(), "Save")]'); }
     get confirmationButton() { return browser.$('//*[ contains (text(), "Continue")]'); }
     get descriptionField() { return browser.$('//*[@formcontrolname="tenantDescription"]'); }
     get messageSuccessfully() { return browser.$('//*[ contains (text(), "Congratulations! You have created the organization test OrgRockwellAut successfully!")]'); }
     get successMessage() { return browser.$('//*[ contains (text(), "Organization updated successfully.")]'); }
     get discardChangesMessage() { return browser.$('//*[ contains (text(), "Changes will not be saved. Do you want to proceed?")]'); }
-    get OK() { return browser.$('//button[contains(text(), "OK")]'); }
-    get continueDiscardChanges() { return browser.$('(//*[@class = "primary-mat-button"])[2]'); }
+    get OK() { return browser.$('//div[contains(text(), "OK")]'); }
+    get continueButton() { return browser.$('//div[contains(text(), "Continue")]'); }
     get joinUsingInviCode() { return browser.$('//*[contains(text(),"here")]'); }
     get searchInput() { return browser.$('//*[@name = "searchInput"]'); }
     get continueButtonRequest() { return browser.$('//*[contains(@class, "primary-mat-button") and contains(text(), continue)]'); }
@@ -33,20 +34,20 @@ export class Organization extends Action {
     get orgVisibilityOnCreate() {return browser.$('//mat-radio-button[@id="mat-radio-2"]');}
     get orgVisibilityOffEdit() {return browser.$('//*[ contains (text(), "Visibility OFF")]');}
     get organizationName() {return browser.$('//div[ contains (text(),"test OrgRockwellAut")]');}
+    get organizationDetails() {return browser.$('//span[ contains (text(),"Setup Your Organization")]');}
     get orgVisibilityOnEdit() {return browser.$('//*[ contains (text(), "Visibility ON")]');}
     get nextButton(){return browser.$('//div[contains(text(), "Next")]')}
-    get checkFTRA(){return browser.$('(//input[starts-with(@id,"mat-slide-toggle-")])[2]')}
-    get checkFoo(){return browser.$('(//input[starts-with(@id,"mat-slide-toggle-")])[4]')}
-    get checkDesignStudio(){return browser.$('(//input[starts-with(@id,"mat-slide-toggle-")])[3]')}
-    get checkVault(){return browser.$('(//input[starts-with(@id,"mat-slide-toggle-")])[1]')}
-
-      
+    get checkFTRA(){return browser.$('(//mat-slide-toggle[starts-with(@class,"mat-slide-toggle")])[2]')}
+    get checkFoo(){return browser.$('(//mat-slide-toggle[starts-with(@class,"mat-slide-toggle")])[4]')}
+    get checkDesignStudio(){return browser.$('(//mat-slide-toggle[starts-with(@class,"mat-slide-toggle")])[3]')}
+    get checkVault(){return browser.$('(//mat-slide-toggle[starts-with(@class,"mat-slide-toggle")])[1]')}
+    get goDashboard(){return browser.$('//div[contains(text(), "Go to Dashboard")]')}
+    
     public async newOrganization(): Promise<void> {
         await this.enterText(this.nameOrganizationField,"test OrgRockwellAut");
         await this.enterText(this.descriptionField, "TEST"); 
         await this.click(this.nextButton);
-        await this.click(this.createButton);
-        
+        await this.click(this.createButton);    
     }
 
     public async publicOrganizationCreation( ): Promise<void> { 
@@ -73,7 +74,9 @@ export class Organization extends Action {
         const remoteFilePath = await browser.uploadFile(filePath);
         await this.addLogo.setValue(remoteFilePath);
         await this.click(this.nextButton);
+        await browser.pause(1000);
         await this.click(this.createButton);
+        await browser.pause(1000);
     }
 
     public async cancelCreation(): Promise<void> {
@@ -84,10 +87,12 @@ export class Organization extends Action {
 
     public async editOrganization(): Promise<void> {
         await browser.pause(1000);
-        let newTextName = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(4, 8);
+        let newTextName = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
         await this.enterText(this.nameOrganizationField, newTextName);
         await browser.pause(1000);
         await this.click(this.saveButton);
+        await browser.pause(1000);
+         await this.click(this.continueButton);
     }
 
     public async editPublicOrganization(): Promise<void> {
@@ -105,12 +110,16 @@ export class Organization extends Action {
         await this.editLogo.setValue(remoteFilePath);
         await browser.pause(1000);
         await this.click(this.saveButton);
+        await this.click(this.continueButton);
     }
     public async addNewLogoOrganization(): Promise<void> {
         await browser.pause(1000);
         const filePath = path.resolve(process.cwd() + '/functional-testing/support/testLogos/FTH.jpeg');
+        await browser.pause(1000);
         await browser.execute('document.getElementById("' + this.editOrganizationLogo + '").removeAttribute("hidden")');
+        await browser.pause(1000);
         const remoteFilePath = await browser.uploadFile(filePath);
+        await browser.pause(1000);
         await this.editLogo.setValue(remoteFilePath);
         await browser.pause(1000);
         await this.click(this.saveButton);
@@ -129,7 +138,7 @@ export class Organization extends Action {
     }
 
     public async continue(): Promise<void> {
-        await this.click(this.continueDiscardChanges);
+        await this.click(this.continueButton);
     }
 
     public async inviteCode(): Promise<void> {
@@ -192,6 +201,54 @@ export class Organization extends Action {
         await this.click(this.createButton); 
     }
 
+    public async fillTheFields(): Promise<void> {
+    await this.enterText(this.nameOrganizationField,"test OrgRockwellAut" );
+    await this.enterText(this.descriptionField, "TEST");
+    await this.click(this.nextButton);
+    await this.click(this.backButton);   
+    }
+
+    public async newOrganizationDetails(): Promise<void> {
+        await this.enterText(this.nameOrganizationField,"test OrgRockwellAut");
+        await this.enterText(this.descriptionField, "TEST"); 
+        await this.click(this.nextButton);   
+    }
+
+    public async selectVault(): Promise<void> {
+        await this.click(this.checkVault); 
+        await this.click(this.createButton);
+        await this.click(this.goDashboard);  
+        await browser.pause(1000);
+    }
+
+    public async selectFTRA(): Promise<void> {
+        await this.click(this.checkFTRA);
+        await this.click(this.createButton);
+        await this.click(this.goDashboard);   
+    }
+
+    public async selectDesignStudio(): Promise<void> {
+        await this.click(this.checkDesignStudio);  
+        await this.click(this.createButton);
+        await this.click(this.goDashboard); 
+    }
+
+    public async selectFoo(): Promise<void> {
+        await this.click(this.checkFoo);
+        await this.click(this.createButton);
+        await this.click(this.goDashboard);   
+    }
+
+    public async newOrganizationServicesON(): Promise<void> {
+        await this.enterText(this.nameOrganizationField,"test OrgRockwellAut");
+        await this.enterText(this.descriptionField, "TEST"); 
+        await this.click(this.nextButton); 
+        await this.click(this.checkVault);
+        await this.click(this.checkFTRA);
+        await this.click(this.checkDesignStudio);
+        await this.click(this.checkFoo);
+    }
+
     public getMessageCreateOrganization(): WebdriverIO.Element {
         return this.messageSuccessfully;
     }
@@ -217,6 +274,7 @@ export class Organization extends Action {
         return this.organizationName;
     }
 
-   
-
+    public getOrganizationDetailsMessage(): WebdriverIO.Element {
+        return this.organizationDetails;
+    }
 }
