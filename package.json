@@ -8,7 +8,7 @@
     "headless:syntheticTrx": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@SyntheticTrx\"",
     "headless:api": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@APITest\"",
     "headless:login": "npx wdio functional-testing/config/grid.config.ts --cucumberOpts.tagExpression=\"@loginSAML\"",
-    "testing": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@TestingOrg\"",
+    "testing": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@createOrg\"",
     "local:syntheticTrx": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@SyntheticTrx\"",
     "local:api": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@APITest\""
   },
@@ -17,7 +17,7 @@
   "dependencies": {
     "@wdio/cli": "^7.16.16",
     "@wdio/concise-reporter": "^7.16.14",
-    "webdriverio": "^7.19.5"
+    "webdriverio": "^7.20.9"
   },
   "devDependencies": {
     "@types/chai": "^4.3.0",
