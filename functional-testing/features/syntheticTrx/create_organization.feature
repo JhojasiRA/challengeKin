@@ -22,7 +22,7 @@ Scenario: Cancel user creation
     Then User should see a message pop up: "Changes will not be saved. Do you want to proceed?"
     And the user should see the "Home" page
     
-@SyntheticTrx  
+@SyntheticTrx 
 Scenario: Create private organization
     When the user goes inside to create organization option
     And the user submits the form with its information
@@ -42,7 +42,7 @@ Scenario: Go back create organization details
     And the user submits the info but then user goes back 
     Then user can see "Setup Your Organization" in organization details
 
-@SyntheticTrx 
+@SyntheticTrx @test
 Scenario: Change Vault tile visibility to ON
     And the user creates a new organization with all service tiles with visibility "OFF"
     When user turns on Vault service visibility

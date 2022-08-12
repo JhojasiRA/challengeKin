@@ -37,10 +37,10 @@ export class Organization extends Action {
     get organizationDetails() {return browser.$('//span[ contains (text(),"Setup Your Organization")]');}
     get orgVisibilityOnEdit() {return browser.$('//*[ contains (text(), "Visibility ON")]');}
     get nextButton(){return browser.$('//div[contains(text(), "Next")]')}
-    get checkFTRA(){return browser.$('(//mat-slide-toggle[starts-with(@class,"mat-slide-toggle")])[2]')}
-    get checkFoo(){return browser.$('(//mat-slide-toggle[starts-with(@class,"mat-slide-toggle")])[4]')}
-    get checkDesignStudio(){return browser.$('(//mat-slide-toggle[starts-with(@class,"mat-slide-toggle")])[3]')}
-    get checkVault(){return browser.$('(//mat-slide-toggle[starts-with(@class,"mat-slide-toggle")])[1]')}
+    get checkFTRA(){return browser.$('(//span[@class="mat-checkbox-inner-container"])[2]')}
+    get checkFoo(){return browser.$('(//span[@class="mat-checkbox-inner-container"])[4]')}
+    get checkDesignStudio(){return browser.$('(//span[@class="mat-checkbox-inner-container"])[3]')}
+    get checkVault(){return browser.$('(//span[@class="mat-checkbox-inner-container"])[1]')}
     get goDashboard(){return browser.$('//div[contains(text(), "Go to Dashboard")]')}
     
     public async newOrganization(): Promise<void> {
@@ -216,19 +216,22 @@ export class Organization extends Action {
 
     public async selectVault(): Promise<void> {
         await this.click(this.checkVault); 
-        await this.click(this.createButton);
-        await this.click(this.goDashboard);  
         await browser.pause(1000);
+        await this.click(this.createButton);
+        await browser.pause(1000);
+        await this.click(this.goDashboard);  
     }
 
     public async selectFTRA(): Promise<void> {
         await this.click(this.checkFTRA);
+        await browser.pause(1000);
         await this.click(this.createButton);
         await this.click(this.goDashboard);   
     }
 
     public async selectDesignStudio(): Promise<void> {
         await this.click(this.checkDesignStudio);  
+        await browser.pause(1000);
         await this.click(this.createButton);
         await this.click(this.goDashboard); 
     }

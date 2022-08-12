@@ -1,8 +1,8 @@
 import {Action} from '../globalTasks/Action'
 
-const USER_IN_TABLE = (usermail:string, resource:string) => `//*[@col-id='userEmail' and text()='${usermail}']/following-sibling::*[@col-id='resourceTypeForUI' and text()='${resource}']`
+const USER_IN_TABLE = (usermail:string) => `//*[@col-id='userEmail' and text()='${usermail}']`
 const ROLE_BUTTON = (role:string) => `//span[@class='mat-button-toggle-label-content' and text()='${role}']`
-const REMOVE_ACCESS_BTN = (usermail:string, resource:string) => `//*[@col-id='userEmail' and text()='${usermail}']/following-sibling::*[@col-id='resourceTypeForUI' and text()='${resource}']/ancestor::*[@role='row']/descendant::*[@id='ag-remove-access-btn']`
+const REMOVE_ACCESS_BTN = (usermail:string, resource:string) => `//*[@col-id='userEmail' and text()='${usermail}']/following-sibling::*[@col-id='resourceTypeForUI' and text()='${resource}']/ancestor::*[@role='row']/descendant::*[text()='Remove Access']`
 export class AccesManagement extends Action {
     get addAccessButton () { return $("//*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), 'add access')]")}
     get searchBar () { return $("#mat-chip-list-input-0")}
@@ -10,12 +10,12 @@ export class AccesManagement extends Action {
     get resourceTypeSelect () { return $("#resourceType_select")}
     get resourceNameSelect () { return $("#resourceName_select")}
     get roleSelect () { return $("#resourceName_select'")}
-    get addButton () { return $("//button[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), 'add')]")}
-    get saveButton () { return $("//button[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), 'save')]")}
-    get selectResourceType () { return $("#mat-select-value-1")}
-    get selectResource () { return $("#mat-select-value-3")}
-    get selectRole () { return $("#mat-select-value-5")}
-    get removeOption () { return $("//*[@id='cdk-overlay-0']/descendant::button[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), 'remove')]")}
+    get addButton () { return $("//div[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), 'add')]")}
+    get saveButton () { return $("//*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), 'save')]")}
+    get selectResourceType () { return $("(//*[contains(@id, 'mat-select-value')])[1]")}
+    get selectResource () { return $("(//*[contains(@id, 'mat-select-value')])[2]")}
+    get selectRole () { return $("(//*[contains(@id, 'mat-select-value')])[3]")}
+    get removeOption () { return $("//*[@id='cdk-overlay-0']/descendant::div[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), 'remove')]")}
     get accessRemovedMsg () { return $("//*[contains(text(), 'Access has been removed successfully')]")}
     get cancelOption () { return $("//*[@id='cdk-overlay-0']/descendant::button[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), 'cancel')]")}
     static userToRevoke: string ='';
@@ -43,9 +43,10 @@ export class AccesManagement extends Action {
     }
 
     public async modifyAccess(usermail: string, resource: string, role: string): Promise<void> {
-        const userInTable = await $(USER_IN_TABLE(usermail, resource))
+        const userInTable = await $(USER_IN_TABLE(usermail))
         const roleButton = await $(ROLE_BUTTON(role));
         await this.click(userInTable)
+        if('Organization'==resource)
         await this.click(roleButton)
         await this.click(this.saveButton);
     }
@@ -64,9 +65,11 @@ export class AccesManagement extends Action {
     }
 
     public async addAccess(usermail: string, resource: string, role: string): Promise<void> {
-        await this.click(this.addAccessButton)
-        await this.selectFromDropdown(this.searchBar, usermail)
+        const userInTable = await $(USER_IN_TABLE(usermail))
+        await this.click(userInTable)
+     //   await this.selectFromDropdown(this.searchBar, usermail)
         await this.selectFromDropdown(this.selectResourceType, "Service")
+        await browser.pause(500)
         await this.selectFromDropdown(this.selectResource, resource)
         await this.selectFromDropdown(this.selectRole, role)
         await this.click(this.addButton)

@@ -136,7 +136,7 @@ When('user turns on Foo service visibility', async() => {
    await organization.selectFoo();
 });
 
-Then('user should see the Foo service in home.', async() => {
+Then('user should see the Foo service in home', async() => {
    await question.assertElementExist(indexPage.FooCard);
 });
 
