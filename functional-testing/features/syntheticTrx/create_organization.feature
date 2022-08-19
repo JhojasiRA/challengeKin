@@ -42,7 +42,7 @@ Scenario: Go back create organization details
     And the user submits the info but then user goes back 
     Then user can see "Setup Your Organization" in organization details
 
-@SyntheticTrx @test
+@SyntheticTrx 
 Scenario: Change Vault tile visibility to ON
     And the user creates a new organization with all service tiles with visibility "OFF"
     When user turns on Vault service visibility

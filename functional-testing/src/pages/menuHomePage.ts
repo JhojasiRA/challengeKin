@@ -1,7 +1,8 @@
 import {Action} from '../globalTasks/Action';
+import { HomePage } from './HomePage';
 
 export class MenuHomePage extends Action {
-    get menuIcon() { return browser.$('//*[@class="ra-icon-ide-sm-bars ra-common-icon"]');}
+    get menuIcon() { return browser.$('#rubick-menu-btn');}
     get approveUser() { return browser.$('//*[@role="navigation"]//*[ contains (text(), "Approve Users")]');}
     get createOrganization() { return browser.$('//*[ contains (text(), "Create Organization")]');}
     get editOrganization() { return browser.$('//*[ contains (text(), "Edit Organization")]');}
@@ -10,6 +11,7 @@ export class MenuHomePage extends Action {
     get invitationManagement() { return browser.$('//*[contains(text(), "Invitation Management")]');}
     get accessManagement() { return browser.$('//*[contains(text(),"Access Management")]');}
     get entitlements() { return browser.$('//*[@role="navigation"]//*[contains(text(), "Entitlements")]')}
+    get HomeIcon() { return browser.$('(//*[ contains (text(), "Home")])[1]');}
 
     public async approveUserOption():Promise<void>{
         //global.lastError = 'menu icon was not located'
@@ -57,6 +59,11 @@ export class MenuHomePage extends Action {
       public async entitlementsOption():Promise<void>{
         await this.click(this.menuIcon);
         await this.click(this.entitlements)
+      }
+
+      public async indexOption():Promise<void>{
+        await this.click(this.menuIcon);
+        await this.click(this.HomeIcon);
       }
 
 }

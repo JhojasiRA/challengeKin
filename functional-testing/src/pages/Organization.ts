@@ -208,48 +208,47 @@ export class Organization extends Action {
     await this.click(this.backButton);   
     }
 
-    public async newOrganizationDetails(): Promise<void> {
+    public async newOrganizationServicesON(): Promise<void> {
         await this.enterText(this.nameOrganizationField,"test OrgRockwellAut");
         await this.enterText(this.descriptionField, "TEST"); 
-        await this.click(this.nextButton);   
+        await this.click(this.nextButton); 
+        await this.click(this.createButton);
     }
 
     public async selectVault(): Promise<void> {
         await this.click(this.checkVault); 
-        await browser.pause(1000);
-        await this.click(this.createButton);
-        await browser.pause(1000);
-        await this.click(this.goDashboard);  
+        await this.click(this.saveButton);
+        await this.click(this.continueButton); 
+
     }
 
     public async selectFTRA(): Promise<void> {
         await this.click(this.checkFTRA);
-        await browser.pause(1000);
-        await this.click(this.createButton);
-        await this.click(this.goDashboard);   
+        await this.click(this.saveButton);
+        await this.click(this.continueButton); 
     }
 
     public async selectDesignStudio(): Promise<void> {
         await this.click(this.checkDesignStudio);  
-        await browser.pause(1000);
-        await this.click(this.createButton);
-        await this.click(this.goDashboard); 
+        await this.click(this.saveButton);
+        await this.click(this.continueButton); 
     }
 
     public async selectFoo(): Promise<void> {
         await this.click(this.checkFoo);
-        await this.click(this.createButton);
-        await this.click(this.goDashboard);   
+        await this.click(this.saveButton);
+        await this.click(this.continueButton);   
     }
 
-    public async newOrganizationServicesON(): Promise<void> {
+    public async newOrganizationServicesOFF(): Promise<void> {
         await this.enterText(this.nameOrganizationField,"test OrgRockwellAut");
         await this.enterText(this.descriptionField, "TEST"); 
         await this.click(this.nextButton); 
         await this.click(this.checkVault);
         await this.click(this.checkFTRA);
         await this.click(this.checkDesignStudio);
-        await this.click(this.checkFoo);
+        await this.click(this.checkFoo); 
+        await this.click(this.createButton);
     }
 
     public getMessageCreateOrganization(): WebdriverIO.Element {
