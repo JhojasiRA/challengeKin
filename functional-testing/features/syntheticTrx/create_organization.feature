@@ -74,3 +74,6 @@ Scenario: Edit public organization
     And the user edits the info of the form 
     Then the user will see the message "Organization updated successfully."
     And user cant see the name in join organization option 
+
+
+		

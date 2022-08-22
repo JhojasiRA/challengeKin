@@ -1,16 +1,13 @@
 import { Action } from '../globalTasks/Action';
 import * as path from "path";
 
-const organizationName = (orgName:string)=>`//*[ contains (text(), "${orgName}")]`;
-
-
 export class Organization extends Action {
     get nameOrganizationField() { return browser.$('//*[@formcontrolname="tenantName"]'); }
     get createButton() { return browser.$("//button//*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), 'create')]"); }
     get cancelCreationButton() { return browser.$('//*[@class = "secondary-mat-button"]'); }
     get cancelEditInfo() { return browser.$('//button[ contains (text(), "cancel")] |//span[ contains (text(), "cancel")]'); }
-    get saveButton() { return browser.$('//*[ contains (text(), "save")]'); }
-    get confirmationButton() { return browser.$('//*[ contains (text(), " Continue ")]'); }
+    get saveButton() { return browser.$('//*[ contains (text(), "Save")]'); }
+    get confirmationButton() { return browser.$('//*[ contains (text(), "Continue")]'); }
     get descriptionField() { return browser.$('//*[@formcontrolname="tenantDescription"]'); }
     get messageSuccessfully() { return browser.$('//*[ contains (text(), "Congratulations! You have created the organization test OrgRockwellAut successfully!")]'); }
     get successMessage() { return browser.$('//*[ contains (text(), "Organization updated successfully.")]'); }
@@ -35,6 +32,10 @@ export class Organization extends Action {
     get organizationName() {return browser.$('//div[ contains (text(),"test OrgRockwellAut")]');}
     get orgVisibilityOnEdit() {return browser.$('//*[ contains (text(), "Visibility ON")]');}
     get nextButton(){return browser.$("//button//*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), 'next')]")}
+    get checkFTRA(){return browser.$('(//input[starts-with(@id,"mat-slide-toggle-")])[2]')}
+    get checkFoo(){return browser.$('(//input[starts-with(@id,"mat-slide-toggle-")])[4]')}
+    get checkDesignStudio(){return browser.$('(//input[starts-with(@id,"mat-slide-toggle-")])[3]')}
+    get checkVault(){return browser.$('(//input[starts-with(@id,"mat-slide-toggle-")])[1]')}
     
     public async newOrganization(): Promise<void> {
         await this.enterText(this.nameOrganizationField,"test OrgRockwellAut");
@@ -175,6 +176,16 @@ export class Organization extends Action {
     public async searchOrganization(): Promise<void> {
         await browser.pause(1000);
         await this.click(this.OK);
+    }
+
+    public async selectVaultService(): Promise<void> {
+        await this.enterText(this.nameOrganizationField,"test OrgRockwell" );
+        await this.enterText(this.descriptionField, "TEST");
+        await this.click(this.nextButton);
+        await this.click(this.checkFTRA);
+        await this.click(this.checkDesignStudio);
+        await this.click(this.checkFoo);
+        await this.click(this.createButton); 
     }
 
     public getMessageCreateOrganization(): WebdriverIO.Element {
