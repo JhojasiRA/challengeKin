@@ -1,13 +1,12 @@
 import { Action } from '../globalTasks/Action';
 import * as path from "path";
-import { getMessageByTenantId } from '../../services/NotificationService';
 
 const organizationName = (orgName:string)=>`//*[ contains (text(), "${orgName}")]`;
 
 
 export class Organization extends Action {
     get nameOrganizationField() { return browser.$('//*[@formcontrolname="tenantName"]'); }
-    get createButton() { return browser.$('//button[contains(text(), "create")]'); }
+    get createButton() { return browser.$("//button//*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), 'create')]"); }
     get cancelCreationButton() { return browser.$('//*[@class = "secondary-mat-button"]'); }
     get cancelEditInfo() { return browser.$('//button[ contains (text(), "cancel")] |//span[ contains (text(), "cancel")]'); }
     get saveButton() { return browser.$('//*[ contains (text(), "save")]'); }
@@ -17,6 +16,7 @@ export class Organization extends Action {
     get successMessage() { return browser.$('//*[ contains (text(), "Organization updated successfully.")]'); }
     get discardChangesMessage() { return browser.$('//*[ contains (text(), "Changes will not be saved. Do you want to proceed?")]'); }
     get OK() { return browser.$('//button[contains(text(), "OK")]'); }
+    get goToDashboard() { return browser.$("//button//*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), 'go to dashboard')]")}
     get continueDiscardChanges() { return browser.$('(//*[@class = "primary-mat-button"])[2]'); }
     get joinUsingInviCode() { return browser.$('//*[contains(text(),"here")]'); }
     get searchInput() { return browser.$('//*[@name = "searchInput"]'); }
@@ -34,7 +34,7 @@ export class Organization extends Action {
     get orgVisibilityOffEdit() {return browser.$('//*[ contains (text(), "Visibility OFF")]');}
     get organizationName() {return browser.$('//div[ contains (text(),"test OrgRockwellAut")]');}
     get orgVisibilityOnEdit() {return browser.$('//*[ contains (text(), "Visibility ON")]');}
-    get nextButton(){return browser.$('//button[contains(text(), "next")]')}
+    get nextButton(){return browser.$("//button//*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), 'next')]")}
     
     public async newOrganization(): Promise<void> {
         await this.enterText(this.nameOrganizationField,"test OrgRockwellAut");
@@ -56,7 +56,7 @@ export class Organization extends Action {
         await this.enterText(this.nameOrganizationField, newOrgName);
         await this.click(this.nextButton);
         await this.click(this.createButton);
-        await this.click(this.OK);
+        await this.click(this.goToDashboard);
         await browser.pause(1000);
     }
     
