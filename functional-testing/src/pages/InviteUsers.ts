@@ -7,7 +7,7 @@ export class InviteUsers extends Action {
     get emailsTextArea() { return browser.$('//*[@id="mat-input-0"]');}
     get sendInviteButton() { return browser.$('//*[contains(text(), "send invite")]');}
     get okButton() { return browser.$('//button[contains(text(), "OK")]');}
-    get closeButton() { return browser.$('//button[contains(text(), "close")]')}
+    get closeButton() { return browser.$("//button//child::*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), 'close')]")}
     public invitation: Invitation
 
     public async inviteUser(resource, role, email):Promise<void> {
