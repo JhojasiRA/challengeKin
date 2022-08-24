@@ -5,5 +5,6 @@ When('the user switchs from {string} to {string}', async(newOrgName:string,orgNa
     await topBar.switchOrganization(newOrgName,orgName);
 });
 Then('the user should see {string} profile on the navBar', async(organizationNavBarName) => {
+    await browser.pause(1000);
     await question.assertElementText(topBar.getOrganizationName(),organizationNavBarName);
   });

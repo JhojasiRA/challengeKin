@@ -14,7 +14,7 @@ export class TopBar extends Action {
     get issueType() {return browser.$('//*[ contains (text(), " Report an Issue ")]');}
     get provideFeedbackText() {return browser.$('//div[@class="headline-6"]');}
     get feedbackRequiredMessage() {return browser.$('//*[ contains (text(), "Feedback is required")]');}
-    get sendButton() { return browser.$('//button[@class="primary-mat-button"]');}
+    get sendButton() { return browser.$('//*[ contains (text(), "Send")]');}
     get cancelButton() { return browser.$('//*[ contains (text(), "CANCEL")]');}
     get releaseNotesComponent() { return browser.$('//*[ contains (text(), "Release Notes")]');}
     get messageReleaseNotes() { return browser.$('(//*[ contains (text(), "Release Notes")])[3]');}
@@ -37,7 +37,7 @@ export class TopBar extends Action {
     get changeOrgModal() {return browser.$('//*[@role= "dialog"]'); }
     get selectOrg() {return browser.$('//*[@role= "combobox"]'); }
     get org1() {return browser.$('//*[contains(text(),"Organization automation")]'); }
-    get changeOrgButton() {return browser.$('//*[contains(text()," Change")]'); }
+    get changeOrgButton() {return browser.$('//*[@label= "Change"]'); }
     get cancelChangeOrgButton() {return browser.$('//*[contains(text()," Cancel")]'); }
 
 

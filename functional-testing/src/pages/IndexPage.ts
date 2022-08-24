@@ -24,6 +24,7 @@ export class IndexPage extends Action {
   }
 
   public async goToSignIn(): Promise<void> {
+    await browser.pause(1000);
     await this.click(this.signInButton);
   }
 

@@ -21,10 +21,10 @@ export class Organization extends Action {
     get continueButton() { return browser.$('//div[contains(text(), "Continue")]'); }
     get joinUsingInviCode() { return browser.$('//*[contains(text(),"here")]'); }
     get searchInput() { return browser.$('//*[@name = "searchInput"]'); }
-    get continueButtonRequest() { return browser.$('//*[contains(@class, "primary-mat-button") and contains(text(), continue)]'); }
+    get continueButtonRequest() { return browser.$('//*[contains(text(),"continue")]'); }
     get requestSentMessage() { return browser.$('//*[ contains (text(), "You will be notified once the owner of the organization approves your request")]'); }
     get newCodeButton() { return browser.$('//*[ contains (text(), "New Code") ]'); }
-    get copyInviteCodeBtn() { return browser.$('//button[contains(text(), "Copy Invite Code")]'); }
+    get copyInviteCodeBtn() { return browser.$('//div[contains(text(), "Copy Invite Code")]'); }
     get closeMessageInviteCodeCopied() { return browser.$('//mat-icon[text()=" close "]'); }
     get addOrganizationLogo(){ return 'create-org-logo'}
     get addLogo(){ return browser.$(`#${this.addOrganizationLogo}`)}
@@ -43,6 +43,8 @@ export class Organization extends Action {
     get checkVault(){return browser.$('(//span[@class="mat-checkbox-inner-container"])[1]')}
     get goDashboard(){return browser.$('//div[contains(text(), "Go to Dashboard")]')}
     
+    
+    
     public async newOrganization(): Promise<void> {
         await this.enterText(this.nameOrganizationField,"test OrgRockwellAut");
         await this.enterText(this.descriptionField, "TEST"); 
@@ -60,10 +62,9 @@ export class Organization extends Action {
 
     public async newOrg(newOrgName:string): Promise<void> {
         await this.enterText(this.nameOrganizationField, newOrgName);
+        await this.enterText(this.descriptionField, "TEST2"); 
         await this.click(this.nextButton);
-        await this.click(this.createButton);
-        await this.click(this.OK);
-        await browser.pause(1000);
+        await this.click(this.createButton);  
     }
     
     public async newOrganizationWithLogo(): Promise<void> {
@@ -142,9 +143,7 @@ export class Organization extends Action {
     }
 
     public async inviteCode(): Promise<void> {
-        await browser.pause(2000);
         await this.click(this.copyInviteCodeBtn);
-        await this.click(this.closeMessageInviteCodeCopied);
     }
 
     public async newInviteCode(): Promise<void> {

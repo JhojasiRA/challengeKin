@@ -5,22 +5,22 @@ Feature: As a user, I want to delete, manage and view the notification on the Na
         When the user submits the form with its credentials
         And the user accepts the EULA testing eula "false"
         
-    @Notifications @SyntheticTrx 
+    @Notifications @SyntheticTrx @test
     Scenario: Delete a notification from the panel
         When the user goes to the notification option
         And the user removes a notification from the panel
         Then the user will see one notification less on his NavBar
-    @Notifications @SyntheticTrx 
+    @Notifications @SyntheticTrx @test
     Scenario: Delete a notification from the VIEW ALL page
         When the user goes to the notification option
         And the user clears one notification on the view all page
         Then the user will see one notification less on his NavBar
-    @Notifications @SyntheticTrx 
+    @Notifications @SyntheticTrx @test
     Scenario: Delete all notification from the VIEW ALL page
         When the user goes to the notification option
         And the user clears all notifications on the view all page
         Then The user will see an empty page
-    @Notifications @SyntheticTrx 
+    @Notifications @SyntheticTrx @test
     Scenario: Delete all notification from the panel
         When the user goes to the notification option
         And the user clears all notifications on the panel notification

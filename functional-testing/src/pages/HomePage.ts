@@ -2,7 +2,7 @@ import { Action } from '../globalTasks/Action'
 
 export class HomePage extends Action {
     get vaultCard() { return $(`#card-Vault`) }
-    get vaultView() { return $(`(//*[ contains (text(), "Vault")])[2]`) }
+    get vaultView() { return $(`//*[ contains (text(), "Vault")]`) }
     get FTRACard() { return $(`#card-SecureRemoteAccess`) }
     get homePage() { return $(`//*[@class="xng-breadcrumb-root"]//*[ contains (text(), "Home")]`) }
     get rubikIcon() { return $('#rubick-menu-btn') }
@@ -26,8 +26,8 @@ export class HomePage extends Action {
 
     async launchVault(): Promise<void> {
         await this.click(this.vaultCard);
-        let handles = await browser.getWindowHandles()
-        await browser.switchToWindow(handles[1])
+        let handles = await browser.getWindowHandles();
+        await browser.switchToWindow(handles[1]);
     }
 
     async launchFiix(): Promise<void> {
