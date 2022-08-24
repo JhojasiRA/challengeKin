@@ -31,18 +31,6 @@ const ChromeConfig = {
                 '--disable-dev-shm-usage',
                 ]
             }
-        },
-        {
-            maxInstances: parseInt(process.env.MAX_INSTANCES),
-        browserName: 'firefox',
-        acceptInsecureCerts : true,
-        'moz:firefoxOptions': {
-            // One 'args' should be always commented, args: [] is mainly used locally for debugging
-            // args: ['-headless'],
-            args: [],
-
-            prefs: { credentials_enable_service: false }
-        }
         }
     ]
     
