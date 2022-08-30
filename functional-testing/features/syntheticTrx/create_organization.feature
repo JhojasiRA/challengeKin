@@ -4,12 +4,12 @@ Background:  Be on the Le Mans portal
     Given the user opens the Le Mans portal
     And the user submits the form with its credentials
 @create @SyntheticTrx 
-Scenario: Create Organization Sucessfully
+Scenario: Create Organization Sucessfully 
     When the user goes inside to create organization option
     And the user submits the form with its information
-    Then the user should see the message "Congratulations! You have created the organization test OrgRockwellAut successfully!"    
+    Then the user should see the message "Congratulations! You have created the organization TestingOrgRockwell1 successfully!"    
 
-@createWithLogo @SyntheticTrx 
+@createWithLogo @SyntheticTrx
 Scenario: Create Organization with logo organization Sucessfully
     When the user goes inside to create organization option
     And the user submits the form with its information and add an organization logo
@@ -26,15 +26,15 @@ Scenario: Cancel user creation
 Scenario: Create private organization
     When the user goes inside to create organization option
     And the user submits the form with its information
-    Then the user should see the message "Congratulations! You have created the organization test OrgRockwellAut successfully!"
+    Then the user should see the message "Congratulations! You have created the organization TestingOrgRockwell1 successfully!"
     And user cant see the name in join organization option
 
-@SyntheticTrx @after 
+@SyntheticTrx  @after
 Scenario: Create public organization
     When the user goes inside to create organization option
     And the user submits the form with public organization information
-    Then the user should see the message "Congratulations! You have created the organization test OrgRockwellAut successfully!"
-    And user can see the "test OrgRockwellAut" in join organization option
+    Then the user should see the message "Congratulations! You have created the organization TestingOrgRockwell1 successfully!"
+    And user can see the "TestingOrgRockwell1" in join organization option
 
 @SyntheticTrx 
 Scenario: Go back create organization details

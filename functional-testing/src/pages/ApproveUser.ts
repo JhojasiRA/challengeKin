@@ -1,3 +1,4 @@
+import pause from 'webdriverio/build/commands/browser/pause'
 import { Action } from '../globalTasks/Action'
 
 const ROLE_IN_MODAL = (role: string) => `//*[@class='mat-button-toggle-label-content' and text()='${role}']`
@@ -26,8 +27,11 @@ export class ApproveUser extends Action {
 
   public async approveJoinRequest(role: string) {
     await this.click(this.approveButton)
+    await browser.pause(3000);
     const roleInModal = await $(ROLE_IN_MODAL(role))
     await this.click(roleInModal)
+    await browser.pause(3000);
     await this.click(this.saveButton)
+    await browser.pause(3000);
   }
 }

@@ -4,6 +4,7 @@ import { HomePage } from './HomePage';
 export class MenuHomePage extends Action {
     get menuIcon() { return browser.$('#rubick-menu-btn');}
     get approveUser() { return browser.$('//*[@role="navigation"]//*[ contains (text(), "Approve Users")]');}
+    get approve() { return browser.$('//*[ contains (text(), "APPROVE")]');}
     get createOrganization() { return browser.$('//*[ contains (text(), "Create Organization")]');}
     get editOrganization() { return browser.$('//*[ contains (text(), "Edit Organization")]');}
     get joinOrganization() { return browser.$('//*[ contains (text(), "Join")]');}

@@ -14,7 +14,7 @@ export class Organization extends Action {
     get saveButton() { return browser.$('//*[ contains (text(), "Save")]'); }
     get confirmationButton() { return browser.$('//*[ contains (text(), "Continue")]'); }
     get descriptionField() { return browser.$('//*[@formcontrolname="tenantDescription"]'); }
-    get messageSuccessfully() { return browser.$('//*[ contains (text(), "Congratulations! You have created the organization test OrgRockwellAut successfully!")]'); }
+    get messageSuccessfully() { return browser.$('//*[ contains (text(), "Congratulations! You have created the organization TestingOrgRockwell1 successfully!")]'); }
     get successMessage() { return browser.$('//*[ contains (text(), "Organization updated successfully.")]'); }
     get discardChangesMessage() { return browser.$('//*[ contains (text(), "Changes will not be saved. Do you want to proceed?")]'); }
     get OK() { return browser.$('//div[contains(text(), "OK")]'); }
@@ -33,7 +33,7 @@ export class Organization extends Action {
     get imageLogo() { return browser.$('//*[@alt="Image"]'); }
     get orgVisibilityOnCreate() {return browser.$('//mat-radio-button[@id="mat-radio-2"]');}
     get orgVisibilityOffEdit() {return browser.$('//*[ contains (text(), "Visibility OFF")]');}
-    get organizationName() {return browser.$('//div[ contains (text(),"test OrgRockwellAut")]');}
+    get organizationName() {return browser.$('//div[ contains (text(),"TestingOrgRockwell1")]');}
     get organizationDetails() {return browser.$('//span[ contains (text(),"Setup Your Organization")]');}
     get orgVisibilityOnEdit() {return browser.$('//*[ contains (text(), "Visibility ON")]');}
     get nextButton(){return browser.$('//div[contains(text(), "Next")]')}
@@ -46,18 +46,19 @@ export class Organization extends Action {
     
     
     public async newOrganization(): Promise<void> {
-        await this.enterText(this.nameOrganizationField,"test OrgRockwellAut");
+        await this.enterText(this.nameOrganizationField,"TestingOrgRockwell1");
         await this.enterText(this.descriptionField, "TEST"); 
         await this.click(this.nextButton);
         await this.click(this.createButton);    
     }
 
     public async publicOrganizationCreation( ): Promise<void> { 
-        await this.enterText(this.nameOrganizationField,"test OrgRockwellAut" );
+        await this.enterText(this.nameOrganizationField,"TestingOrgRockwell1" );
         await this.enterText(this.descriptionField, "TEST");
         await this.click(this.orgVisibilityOnCreate);
         await this.click(this.nextButton);
-        await this.click(this.createButton);      
+        await this.click(this.createButton);    
+        await browser.pause(2000);  
     }
 
     public async newOrg(newOrgName:string): Promise<void> {
@@ -97,9 +98,10 @@ export class Organization extends Action {
     }
 
     public async editPublicOrganization(): Promise<void> {
-        await browser.pause(1000);
         await this.click(this.orgVisibilityOffEdit);
         await this.click(this.saveButton);
+        await this.click(this.continueButton);
+
     }
     public async editLogoOrganization(): Promise<void> {
         await browser.pause(1000);
@@ -191,7 +193,7 @@ export class Organization extends Action {
     }
 
     public async selectVaultService(): Promise<void> {
-        await this.enterText(this.nameOrganizationField,"test OrgRockwell" );
+        await this.enterText(this.nameOrganizationField,"TestingOrgRockwell1" );
         await this.enterText(this.descriptionField, "TEST");
         await this.click(this.nextButton);
         await this.click(this.checkFTRA);
@@ -201,14 +203,14 @@ export class Organization extends Action {
     }
 
     public async fillTheFields(): Promise<void> {
-    await this.enterText(this.nameOrganizationField,"test OrgRockwellAut" );
+    await this.enterText(this.nameOrganizationField,"TestingOrgRockwell1" );
     await this.enterText(this.descriptionField, "TEST");
     await this.click(this.nextButton);
     await this.click(this.backButton);   
     }
 
     public async newOrganizationServicesON(): Promise<void> {
-        await this.enterText(this.nameOrganizationField,"test OrgRockwellAut");
+        await this.enterText(this.nameOrganizationField,"TestingOrgRockwell1");
         await this.enterText(this.descriptionField, "TEST"); 
         await this.click(this.nextButton); 
         await this.click(this.createButton);
@@ -240,7 +242,7 @@ export class Organization extends Action {
     }
 
     public async newOrganizationServicesOFF(): Promise<void> {
-        await this.enterText(this.nameOrganizationField,"test OrgRockwellAut");
+        await this.enterText(this.nameOrganizationField,"TestingOrgRockwell1");
         await this.enterText(this.descriptionField, "TEST"); 
         await this.click(this.nextButton); 
         await this.click(this.checkVault);

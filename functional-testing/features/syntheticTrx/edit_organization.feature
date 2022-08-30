@@ -10,7 +10,7 @@ Scenario: Add a new organization Logo
     And the user adds a new logo organization
     Then the user will see a new "image/png" logo organization
 
-@edit @afterEditOrganization @SyntheticTrx 
+@edit @afterEditOrganization @SyntheticTrx @test
 Scenario: Edit Organization info successfully
     When the user goes inside to edit organization option
     And the user submits the form with new information
@@ -40,7 +40,7 @@ Scenario: Edit private organization
     When the user goes inside to edit organization option
     And the user edits the form 
     Then the user will see the message "Organization updated successfully."
-    And user can see the "test OrgRockwellAut" in join organization option
+    And user can see the "TestingOrgRockwell1" in join organization option
  
 @SyntheticTrx 
 Scenario: Edit public organization
