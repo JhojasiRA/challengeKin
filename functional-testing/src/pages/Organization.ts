@@ -101,8 +101,8 @@ export class Organization extends Action {
         await this.click(this.orgVisibilityOffEdit);
         await this.click(this.saveButton);
         await this.click(this.continueButton);
-
     }
+
     public async editLogoOrganization(): Promise<void> {
         await browser.pause(1000);
         await  browser.execute("document.querySelector(\"img[id='edit-org-logo-img']\").setAttribute(\"hidden\",\"true\");"); 

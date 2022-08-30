@@ -32,7 +32,7 @@ Scenario: Send a join request with an outdate invite code
     And User2 tries to send a join request with a outdate invite code
     Then User2 will see the continue button disabled
 
-@joinrequest @SyntheticTrx @TearDownAddAccess @test4
+@joinrequest @SyntheticTrx @TearDownAddAccess 
 Scenario: Approve a join request to billing admin role
     Given user "testuser1" has applied a join request to the last accessed organization of current user
     When the user tries to approve the join request with role "Billing Admin"
