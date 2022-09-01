@@ -20,7 +20,12 @@ const FirefoxConfig = {
         browserName: 'firefox',
         acceptInsecureCerts : true,
         'moz:firefoxOptions': {
-            args: [],
+            args: ['--no-sandbox',
+            '--disable-infobars',
+            '--disable-gpu',
+            'start-maximized',
+            '--disable-dev-shm-usage',
+        ],
             prefs: { credentials_enable_service: false }
         }
     }]
