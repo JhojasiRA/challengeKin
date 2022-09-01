@@ -1,9 +1,4 @@
 import {BaseConfig} from "./wdio.conf";
-/*
-*   Notes:
-*      driver is installed by chromedriver in lib/chromedriver of module folder.
-*
-* */
 
 const ChromeOptions: WebdriverIO.Config = {
     hostname: process.env.HOSTNAME,
@@ -17,7 +12,6 @@ const ChromeOptions: WebdriverIO.Config = {
 const ChromeConfig = {
     capabilities: [
         {
-            // Set maxInstances to 1 if screen recordings are enabled:
             maxInstances: parseInt(process.env.MAX_INSTANCES),
             browserName: 'chrome',
             acceptInsecureCerts : true,
