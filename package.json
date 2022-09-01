@@ -7,7 +7,7 @@
     "chrome": "npx wdio functional-testing/config/chrome.config.ts",
     "headless:syntheticTrx": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@SyntheticTrx\"",
     "headless:api": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@APITest\"",
-    "headless:login": "npx wdio functional-testing/config/firefox.config.ts --cucumberOpts.tagExpression=\"@loginSAML\"",
+    "headless:login": "npx wdio functional-testing/config/firefox.config.ts --cucumberOpts.tagExpression=\"@RockwellLogin\"",
     "testing": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@loginSAML\"",
     "local:syntheticTrx": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@SyntheticTrx\"",
     "local:api": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@APITest\""
@@ -56,6 +56,7 @@
     "wdio-chromedriver-service": "^7.2.8",
     "wdio-cucumberjs-json-reporter": "^4.4.0",
     "wdio-docker-service": "^3.2.0",
+    "wdio-edgedriver-service": "^1.2.0",
     "wdio-eslinter-service": "0.0.4",
     "wdio-geckodriver-service": "^2.1.0",
     "wdio-intercept-service": "^4.2.2"
