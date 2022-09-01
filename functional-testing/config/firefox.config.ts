@@ -4,8 +4,8 @@ const FirefoxConfig = {
     
     hostname: process.env.HOSTNAME,
     port: parseInt(process.env.PORT),
-    path: '/wd/hub',
-    protocol: 'http',
+   // path: '/wd/hub',
+   // protocol: 'http',
     services:[
         ['firefox-profile',{
             'security.insecure_field_warning.contextual.enabled': false,
