@@ -2,12 +2,12 @@ import { BaseConfig } from "./wdio.conf"
 
 
 const EdgeConfig = {
-    services: ['edgedriver'],
-    path: '/',
+    //services: ['edgedriver'],
+    path: '/wd/hub',
+    hostname: process.env.HOSTNAME,
+    port: parseInt(process.env.PORT),
     //hostname: "localhost",
     //port: 4444,
-    port: 17556, // default for EdgeDriver
-    //path: '/wd/hub',
     protocol: 'http',
     capabilities: [
         {
