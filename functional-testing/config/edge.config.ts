@@ -11,7 +11,7 @@ const EdgeConfig = {
     protocol: 'http',
     capabilities: [
         {
-        maxInstances: 1,
+        maxInstances: parseInt(process.env.MAX_INSTANCES),
         browserName: 'MicrosoftEdge',
         acceptInsecureCerts : true,
         'ms:edgeOptions':{
