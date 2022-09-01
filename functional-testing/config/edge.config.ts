@@ -2,9 +2,12 @@ import { BaseConfig } from "./wdio.conf"
 
 
 const EdgeConfig = {
-    hostname: "localhost",
-    port: 4444,
-    path: '/wd/hub',
+    services: ['edgedriver'],
+    path: '/',
+    //hostname: "localhost",
+    //port: 4444,
+    port: 17556, // default for EdgeDriver
+    //path: '/wd/hub',
     protocol: 'http',
     capabilities: [
         {
@@ -12,7 +15,7 @@ const EdgeConfig = {
         browserName: 'MicrosoftEdge',
         acceptInsecureCerts : true,
         'ms:edgeOptions':{
-            args: ['start-maximized'],
+            args: ['--disable-gpu','--disable-popup-blocking', '--no-default-browser-check','--no-sandbox', 'start-maximized'],
             prefs: { 
                 credentials_enable_service: false },
         }
