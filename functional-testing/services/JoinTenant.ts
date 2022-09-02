@@ -3,7 +3,7 @@ import {
   createUserWithToken,
   getEula,
   getPreferences,
-  getUserIdWithParam,
+  getUserIdWithToken,
 } from "./Users";
 import { accessRequest, approveAccessRequest } from "./AccesRequest";
 
@@ -12,8 +12,8 @@ var jp = require("jsonpath");
 export var joinLastaccessedTenant = async (user: string, role: string) => {
   let tokenUser1 = await getToken5(process.env.USERNAME, process.env.PASSWORD);
   let tokenUser2 = await getToken5(user, process.env.PASSWORD);
-  let userId = await getUserIdWithParam(tokenUser1);
-  let userId2 = await getUserIdWithParam(tokenUser2);
+  let userId = await getUserIdWithToken(tokenUser1);
+  let userId2 = await getUserIdWithToken(tokenUser2);
   if (userId2 == 403) {
     await getEula();
     await createUserWithToken(tokenUser2);
@@ -30,7 +30,7 @@ export var joinLastaccessedTenant = async (user: string, role: string) => {
 export var joinRequest = async (user: string) => {
   let tokenUser1 = await getToken5(process.env.USERNAME, process.env.PASSWORD);
   let tokenUser2 = await getToken5(user, process.env.PASSWORD);
-  let userId = await getUserIdWithParam(tokenUser1);
+  let userId = await getUserIdWithToken(tokenUser1);
   let preferences = await getPreferences(userId, tokenUser1);
   let tenantId = await jp.query(
     preferences,

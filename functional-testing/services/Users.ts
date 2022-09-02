@@ -112,7 +112,7 @@ export var getUserId2 = async () => {
   }
 };
 
-export var getUserIdWithParam = async (token: string) => {
+export var getUserIdWithToken = async (token: string) => {
   try {
     let url = `${process.env.API_CS}/api/tenant`;
     let config = {

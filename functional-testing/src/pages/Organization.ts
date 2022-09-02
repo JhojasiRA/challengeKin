@@ -56,6 +56,7 @@ export class Organization extends Action {
     public async newOrg(newOrgName:string): Promise<void> {
         await this.enterText(this.nameOrganizationField, newOrgName);
         await this.click(this.nextButton);
+        await browser.pause(1000); 
         await this.click(this.createButton);
         await this.click(this.goToDashboard);
         await browser.pause(1000);

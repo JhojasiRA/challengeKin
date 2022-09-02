@@ -1,6 +1,6 @@
 import 'regenerator-runtime/runtime';
 import { getToken5 } from '../Token';
-import { getPreferences, getUserIdWithParam } from './Users';
+import { getPreferences, getUserIdWithToken } from './Users';
 const axios = require('axios');
 var jp = require('jsonpath')
 
@@ -234,13 +234,13 @@ export var getTenantEffectiveRoles = async (userId: string, token: string) => {
 
 export var getLastAccessedTenantId = async () => {
     let token = await getToken5(process.env.USERNAME, process.env.PASSWORD);
-    let userId = await getUserIdWithParam(token);
+    let userId = await getUserIdWithToken(token);
     let preferences = await getPreferences(userId, token);
     return await jp.query(preferences, '$..preferences.lastAccessedTenantId')[0];
 }
 
 export var getLastAccessedTenantIdWithToken = async (token: string) => {
-    let userId = await getUserIdWithParam(token);
+    let userId = await getUserIdWithToken(token);
     let preferences = await getPreferences(userId, token);
     return await jp.query(preferences, '$..preferences.lastAccessedTenantId')[0];
 }

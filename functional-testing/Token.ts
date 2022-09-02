@@ -81,3 +81,20 @@ export var getToken2 = async () => {
     export var getTokenFromStorage = async (): Promise<string> => {
         return await browser.executeScript(`return JSON.parse(sessionStorage["oidc.user:${process.env.AUTH0_URL}:pDcl3IpDhGCbYSHGr3YTT0BLH6aetTmh"])["access_token"];`, []);
     }
+
+    export var getM2MToken = async (clientId: string, clientSecret: string): Promise<string> => {
+        try {
+            let url = `${process.env.IS_URL}`
+            let body = {
+                client_id: clientId,
+                client_secret: clientSecret,
+                audience: "https://lemans.common",
+                grant_type: "client_credentials"
+            }
+            const response = await axios.post(url, body);
+            var token = response.data.access_token;
+            return token;
+        } catch (error) {
+            throw new Error(error)
+        }
+    }
