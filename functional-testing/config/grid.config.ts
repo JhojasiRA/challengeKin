@@ -27,13 +27,14 @@ const ChromeConfig = {
                 ]
             }
         },
-        {​
+        {
             maxInstances: parseInt(process.env.MAX_INSTANCES),
-            browserName: 'firefox',
+            browserName: 'MicrosoftEdge',
             acceptInsecureCerts : true,
-            'moz:firefoxOptions': {
+            'ms:edgeOptions':{
                 args: ['--disable-gpu','--disable-popup-blocking', '--no-default-browser-check','--no-sandbox', 'start-maximized'],
-                prefs: { credentials_enable_service: false }
+                prefs: { 
+                    credentials_enable_service: false },
             }
         },
         {​
