@@ -42,7 +42,7 @@ const ChromeConfig = {
             browserName: 'firefox',
             acceptInsecureCerts : true,
             'moz:firefoxOptions': {
-                args: ['--disable-gpu','--disable-popup-blocking', '--no-default-browser-check','--no-sandbox', 'start-maximized'],
+                args: [],
                 prefs: { credentials_enable_service: false }
             }
         }
