@@ -2,12 +2,9 @@ import { BaseConfig } from "./wdio.conf"
 
 
 const EdgeConfig = {
-    //services: ['edgedriver'],
     path: '/wd/hub',
     hostname: process.env.HOSTNAME,
     port: parseInt(process.env.PORT),
-    //hostname: "localhost",
-    //port: 4444,
     protocol: 'http',
     capabilities: [
         {
@@ -19,7 +16,7 @@ const EdgeConfig = {
             prefs: { 
                 credentials_enable_service: false },
         }
-    }
+    },
 ]
 }
 
