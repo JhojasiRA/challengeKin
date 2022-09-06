@@ -4,7 +4,7 @@ Background:  Be on the Le Mans portal
     Given the user opens the Le Mans portal
     And the user submits the form with its credentials
 
-Scenario: Allocate a single credits
+Scenario: Allocate a single credit
     Given the user has created a new organization with name "Credits_test"
     When the user allocates "1" credits entitlement with email "testuser20@rockwellautomation.com" and valid for "365" days 
     Then the user should see "1" credit allocated to that organization
@@ -15,10 +15,12 @@ Scenario: Allocate multiple credits
     When the user allocates "1000000" credits entitlement with email "testuser20@rockwellautomation.com" and valid for "365" days 
     Then the user should see "1000000" credit allocated to that organization
 
- #Given the user has created a new organization with name "Credits_test_register_outdated"
-  #  And the user allocates "100000" credits entitlement with email "testuser20@rockwellautomation.com" and valid for "365" days
+
 @testing
 Scenario: Send a register with outdated timestamp or timestamp related to a different month than the current
+    Given the user has created a new organization with name "Credits_Test_SC03"
+    And the user allocates "100000" credits entitlement with email "testuser20@rockwellautomation.com" and valid for "365" days
+    And the user has provisioned Foo service
     When the user consumes Foo service with a date from the past month
     Then the user should see the consumption is not carried out
 

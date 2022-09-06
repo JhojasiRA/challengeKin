@@ -1,12 +1,13 @@
-import { When, Then } from '@cucumber/cucumber'
+import { Given, When, Then } from '@cucumber/cucumber'
 import { activateEntitlement } from '../../services/Entitlements';
 import { menuhomepage, entitlements, inviteUsersPage } from '../../support/Hooks';
 import { catalogNumberEntitlements, planIds } from '../../constant.json'
 import { question } from '../../support/Hooks';
-import { bulkReportMetrics } from '../../services/BulkMetrics';
-import { getTenantId } from '../../services/Tenants';
+import { bulkReportMetrics, provisionFooService } from '../../services/Credits';
+import { getTenantById, getTenantId } from '../../services/Tenants';
 import { getToken5, getM2MToken } from '../../Token';
 import { getUserIdWithToken } from '../../services/Users';
+var jp = require("jsonpath");
 
 When(/^the user allocates "([^"]*)" credits entitlement with email "([^"]*)" and valid for "([^"]*)" days$/, async(quantity,email,validForDays) => {
     let effectiveDate = new Date()
@@ -39,10 +40,20 @@ Then(/^the user should see "([^"]*)" credit allocated to that organization$/, as
 
 When(/^the user consumes Foo service with a date from the past month$/, async() => {
   let token = await getToken5(process.env.USERNAME, process.env.PASSWORD)
-  let tenantId = await getTenantId(token)
+  let tenantId = (await getTenantId(token)).id
   let tokenM2M = await getM2MToken(process.env.CLIENT_ID_FOO, process.env.CLIENT_SECRET_FOO)
   let userId = await getUserIdWithToken(token)
   await bulkReportMetrics(tenantId, planIds.Foo, tokenM2M, userId)
+});
+
+
+
+Given(/^the user has provisioned Foo service$/, async() => {
+  let tokenM2M = await getM2MToken(process.env.CLIENT_ID_FOO, process.env.CLIENT_SECRET_FOO)
+  let token = await getToken5(process.env.USERNAME, process.env.PASSWORD)
+  let tenantId = (await getTenantId(token)).id
+  let serviceId = jp.query(await getTenantById(tenantId), `$.pendingServices[0].serviceId`)[0]
+	await provisionFooService(tokenM2M, tenantId, serviceId)
 });
 
 

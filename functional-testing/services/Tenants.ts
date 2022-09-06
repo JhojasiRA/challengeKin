@@ -244,3 +244,32 @@ export var getLastAccessedTenantIdWithToken = async (token: string) => {
     let preferences = await getPreferences(userId, token);
     return await jp.query(preferences, '$..preferences.lastAccessedTenantId')[0];
 }
+
+export var createOrganization = async (token: string, name: string, location: string, description: string, visibility:string) => {
+    try {
+      let url = `${process.env.API_CS}/api/tenants`;
+      let config = {
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+      };
+      const response = await axios.post(
+        url,
+        {
+          name: name+new Date().getTime(),
+          location: location,
+          description: description,
+          visibility: visibility,
+          trialServices: [
+            "SecureRemoteAccess"
+          ]
+        },
+        config
+      );
+      let tenantInfo = { id: response.data.tenantId, status: response.status };
+      return tenantInfo;
+    } catch (error) {
+      return error.response.status;
+    }
+  };
