@@ -9,6 +9,8 @@ const ChromeOptions: WebdriverIO.Config = {
 };
 
 const ChromeConfig = {
+    path: '/wd/hub',
+    protocol: 'http',
     capabilities: [
         {
             maxInstances: parseInt(process.env.MAX_INSTANCES),
@@ -24,42 +26,27 @@ const ChromeConfig = {
                 '--disable-dev-shm-usage',
                 ]
             }
+        },
+        {​
+            maxInstances: parseInt(process.env.MAX_INSTANCES),
+            browserName: 'firefox',
+            acceptInsecureCerts : true,
+            'moz:firefoxOptions': {
+                args: ['--disable-gpu','--disable-popup-blocking', '--no-default-browser-check','--no-sandbox', 'start-maximized'],
+                prefs: { credentials_enable_service: false }
+            }
+        },
+        {​
+            maxInstances: parseInt(process.env.MAX_INSTANCES),
+            browserName: 'firefox',
+            acceptInsecureCerts : true,
+            'moz:firefoxOptions': {
+                args: ['--disable-gpu','--disable-popup-blocking', '--no-default-browser-check','--no-sandbox', 'start-maximized'],
+                prefs: { credentials_enable_service: false }
+            }
         }
     ]
     
 };
-const EdgeConfig = {
-    path: '/wd/hub',
-    hostname: process.env.HOSTNAME,
-    port: parseInt(process.env.PORT),
-    protocol: 'http',
-    capabilities: [
-        {
-        maxInstances: parseInt(process.env.MAX_INSTANCES),
-        browserName: 'MicrosoftEdge',
-        acceptInsecureCerts : true,
-        'ms:edgeOptions':{
-            args: ['--disable-gpu','--disable-popup-blocking', '--no-default-browser-check','--no-sandbox', 'start-maximized'],
-            prefs: { credentials_enable_service: false },
-        }
-    },
-]
-};
-const FirefoxConfig = {
-    
-    hostname: process.env.HOSTNAME,
-    port: parseInt(process.env.PORT),
-    path: '/wd/hub',
-    protocol: 'http',
-    capabilities: [{​
-        maxInstances: parseInt(process.env.MAX_INSTANCES),
-        browserName: 'firefox',
-        acceptInsecureCerts : true,
-        'moz:firefoxOptions': {
-            args: ['--disable-gpu','--disable-popup-blocking', '--no-default-browser-check','--no-sandbox', 'start-maximized'],
-            prefs: { credentials_enable_service: false }
-        }
-    }]
-};
 const config = Object.assign({}, BaseConfig,ChromeOptions,ChromeConfig);
-export  {config, ChromeOptions, ChromeConfig , EdgeConfig , FirefoxConfig} ;
+export  {config, ChromeOptions, ChromeConfig} ;
