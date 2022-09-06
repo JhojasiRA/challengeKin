@@ -11,7 +11,10 @@ const FirefoxConfig = {
         browserName: 'firefox',
         acceptInsecureCerts : true,
         'moz:firefoxOptions': {
-            args: ['--disable-gpu','--no-sandbox', 'start-maximized'],
+            // One 'args' should be always commented, args: [] is mainly used locally for debugging
+            // args: ['-headless'],
+            args: ['--disable-gpu','--disable-popup-blocking', '--no-default-browser-check','--no-sandbox', 'start-maximized'],
+
             prefs: { credentials_enable_service: false }
         }
     }]
