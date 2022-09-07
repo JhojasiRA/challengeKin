@@ -39,7 +39,17 @@
         "FTRA": {
             "catalogNumber": "9545C-FTRAT11-SALES",
             "serviceKind": "SecureRemoteAccess"
+        },
+        "credits":{
+            "catalogNumber":"9523-UtilityToken"
         }
+    },
+
+    "planIds":{
+        "Foo": "03F7542F-DBDB-47FA-96DC-2B6E23E1C34B",
+        "Logix5000": "122F31F8-41A8-45A0-A523-3B01341F7F0A",
+        "FooPro": "FB0C64AA-1877-4200-AB59-B7AEFA67EAE6",
+        "FooSilver": "1E1FE763-3308-494F-8AFA-C1005F531B83"
     }
 
 }

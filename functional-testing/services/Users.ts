@@ -112,7 +112,7 @@ export var getUserId2 = async () => {
   }
 };
 
-export var getUserIdWithParam = async (token: string) => {
+export var getUserIdWithToken = async (token: string) => {
   try {
     let url = `${process.env.API_CS}/api/tenant`;
     let config = {
@@ -147,6 +147,24 @@ export var getEula = async () => {
     return error.response.status;
   }
 };
+
+export var getEulaWithToken = async (token: string) => {
+  try {
+    let url = `${process.env.API_CS}/api/eula`;
+    let config = {
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      },
+    };
+    const response = await axios.get(url, config);
+    eula = { version: response.data.eulaVersion, status: response.status };
+    return eula;
+  } catch (error) {
+    return error.response.status;
+  }
+};
+
 //---------Get User by Id-----------
 export var getUser = async () => {
   try {
@@ -198,6 +216,9 @@ export var createOrgTenant = async () => {
         location: "Milwaukee",
         description: "org tenant automation",
         visibility: "Private",
+        trialServices: [
+          "SecureRemoteAccess"
+        ]
       },
       config
     );

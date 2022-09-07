@@ -1,6 +1,6 @@
 import 'regenerator-runtime/runtime';
 import { getToken5 } from '../Token';
-import { getPreferences, getUserIdWithParam } from './Users';
+import { getPreferences, getUserIdWithToken } from './Users';
 const axios = require('axios');
 var jp = require('jsonpath')
 
@@ -234,13 +234,42 @@ export var getTenantEffectiveRoles = async (userId: string, token: string) => {
 
 export var getLastAccessedTenantId = async () => {
     let token = await getToken5(process.env.USERNAME, process.env.PASSWORD);
-    let userId = await getUserIdWithParam(token);
+    let userId = await getUserIdWithToken(token);
     let preferences = await getPreferences(userId, token);
     return await jp.query(preferences, '$..preferences.lastAccessedTenantId')[0];
 }
 
 export var getLastAccessedTenantIdWithToken = async (token: string) => {
-    let userId = await getUserIdWithParam(token);
+    let userId = await getUserIdWithToken(token);
     let preferences = await getPreferences(userId, token);
     return await jp.query(preferences, '$..preferences.lastAccessedTenantId')[0];
 }
+
+export var createOrganization = async (token: string, name: string, location: string, description: string, visibility:string) => {
+    try {
+      let url = `${process.env.API_CS}/api/tenants`;
+      let config = {
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+      };
+      const response = await axios.post(
+        url,
+        {
+          name: name+new Date().getTime(),
+          location: location,
+          description: description,
+          visibility: visibility,
+          trialServices: [
+            "SecureRemoteAccess"
+          ]
+        },
+        config
+      );
+      let tenantInfo = { id: response.data.tenantId, status: response.status };
+      return tenantInfo;
+    } catch (error) {
+      return error.response.status;
+    }
+  };

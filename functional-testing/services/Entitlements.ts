@@ -2,7 +2,7 @@ const axios = require('axios');
 import { getLastAccessedTenantIdWithToken } from './Tenants';
 var entitlementId: string
 var _token: string
-export var activateEntitlement = async(email:string, effectiveDate: string, validForDays: number, catalogNumber: string, serviceKind: string, token: string) => {
+export var activateEntitlement = async(email:string, effectiveDate: string, validForDays: number, quantity: number, catalogNumber: string, serviceKind: string, token: string) => {
     let tenantId = await getLastAccessedTenantIdWithToken(token)
     _token = token
     try {
@@ -18,7 +18,7 @@ export var activateEntitlement = async(email:string, effectiveDate: string, vali
             email: email,
             effectiveDate: effectiveDate,
             validForDays: Number(validForDays),
-            value: 1,
+            quantity: quantity,
             catalogNumber: catalogNumber,
             serviceKind: serviceKind
         }
