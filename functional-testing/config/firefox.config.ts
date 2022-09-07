@@ -1,29 +1,21 @@
 import { BaseConfig } from "./wdio.conf"
 
+
 const FirefoxConfig = {
-    
+    path: '/wd/hub',
     hostname: process.env.HOSTNAME,
     port: parseInt(process.env.PORT),
-    path: '/wd/hub',
     protocol: 'http',
-    services:[
-        ['firefox-profile',{
-            'security.insecure_field_warning.contextual.enabled': false,
-            'security.certerrors.permanentOverride': false,
-            'network.stricttransportsecurity.preloadlist': false,
-            'security.enterprise_roots.enabled': true
-        }]
-    ],
-    maxInstances: parseInt(process.env.MAX_INSTANCES),
     capabilities: [{​
         maxInstances: parseInt(process.env.MAX_INSTANCES),
         browserName: 'firefox',
         acceptInsecureCerts : true,
         'moz:firefoxOptions': {
             args: [],
-            prefs: { credentials_enable_service: false }
+            prefs: { credentials_enable_service: false
+            }
         }
-    }]
+    },]
 }
 
 

@@ -7,8 +7,8 @@
     "chrome": "npx wdio functional-testing/config/chrome.config.ts",
     "headless:syntheticTrx": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@SyntheticTrx\"",
     "headless:api": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@APITest\"",
-    "headless:login": "npx wdio functional-testing/config/grid.config.ts --cucumberOpts.tagExpression=\"@RockwellLogin\"",
-    "testing": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@loginSAML\"",
+    "headless:login": "npx wdio functional-testing/config/grid.config.ts --cucumberOpts.tagExpression=\"@loginSAML\"",
+    "testing": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@APITest\"",
     "local:syntheticTrx": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@SyntheticTrx\"",
     "local:api": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@APITest\""
   },
@@ -28,8 +28,8 @@
     "@typescript-eslint/eslint-plugin": "5.2.0",
     "@typescript-eslint/parser": "5.2.0",
     "@wdio/cucumber-framework": "^7.18.0",
-    "@wdio/firefox-profile-service": "^7.18.0",
-    "@wdio/local-runner": "^7.18.1",
+    "@wdio/firefox-profile-service": "^7.19.5",
+    "@wdio/local-runner": "^7.19.7",
     "@wdio/selenium-standalone-service": "^7.18.0",
     "@wdio/spec-reporter": "^7.18.0",
     "chai": "^4.3.4",
@@ -56,8 +56,9 @@
     "wdio-chromedriver-service": "^7.2.8",
     "wdio-cucumberjs-json-reporter": "^4.4.0",
     "wdio-docker-service": "^3.2.0",
+    "wdio-edgedriver-service": "^1.2.0",
     "wdio-eslinter-service": "0.0.4",
-    "wdio-geckodriver-service": "^2.1.0",
+    "wdio-geckodriver-service": "^2.1.1",
     "wdio-intercept-service": "^4.2.2"
   }
 }

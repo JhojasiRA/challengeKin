@@ -5,6 +5,7 @@ export class Organization extends Action {
     get nameOrganizationField() { return browser.$('//*[@formcontrolname="tenantName"]'); }
     get backButton() { return browser.$('//div[contains(text(), "Back")]'); }
     get createButton() { return browser.$("//button//*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), 'create')]"); }
+    get backButton() { return browser.$('//div[contains(text(), "Back")]'); }
     get cancelCreationButton() { return browser.$('//*[@class = "secondary-mat-button"]'); }
     get cancelEditInfo() { return browser.$('//button[ contains (text(), "cancel")] |//span[ contains (text(), "cancel")]'); }
     get saveButton() { return browser.$('//*[ contains (text(), "Save")]'); }
@@ -13,6 +14,7 @@ export class Organization extends Action {
     get messageSuccessfully() { return browser.$('//*[ contains (text(), "Congratulations! You have created the organization TestingOrgRockwell1 successfully!")]'); }
     get successMessage() { return browser.$('//*[ contains (text(), "Organization updated successfully.")]'); }
     get discardChangesMessage() { return browser.$('//*[ contains (text(), "Changes will not be saved. Do you want to proceed?")]'); }
+    get continueButton() { return browser.$('//div[contains(text(), "Continue")]'); }
     get OK() { return browser.$('//button[contains(text(), "OK")]'); }
     get goToDashboard() { return browser.$("//button//*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), 'go to dashboard')]")}
     get continueDiscardChanges() { return browser.$('(//*[@class = "primary-mat-button"])[2]'); }
@@ -60,6 +62,7 @@ export class Organization extends Action {
         await this.enterText(this.nameOrganizationField, newOrgName);
         await this.enterText(this.descriptionField, "TEST2"); 
         await this.click(this.nextButton);
+        await browser.pause(1000); 
         await this.click(this.createButton);
         await this.click(this.goToDashboard);
         await browser.pause(1000);

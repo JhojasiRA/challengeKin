@@ -49,6 +49,12 @@ Scenario: Change Vault tile visibility to ON
     Then user should see the Vault service in home
 
 @SyntheticTrx 
+Scenario: Go back create organization details
+    When the user goes inside to create organization option	
+    And the user submits the info but then user goes back 
+    Then user can see "Setup Your Organization" in organization details
+
+@SyntheticTrx 
 Scenario: Change Remote Access tile visibility to ON
     And the user creates a new organization with all service tiles with visibility "OFF"
     When user turns on Remote Access service visibility

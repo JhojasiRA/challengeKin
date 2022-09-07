@@ -18,7 +18,7 @@ Given(/^the user has allocated a new FTRA entitlement with email "([^"]*)" and v
   }else{
     throw new Error("Service intercepted does not have a token header param: "+requestEntitlements.url)
   }
-  await activateEntitlement(email,effectiveDate.toDateString(),validForDays, catalogNumberEntitlements.FTRA.catalogNumber, catalogNumberEntitlements.FTRA.serviceKind, token)
+  await activateEntitlement(email,effectiveDate.toDateString(),validForDays, 1, catalogNumberEntitlements.FTRA.catalogNumber, catalogNumberEntitlements.FTRA.serviceKind, token)
   await browser.refresh()
   await entitlements.allocateEntitlement(catalogNumberEntitlements.FTRA.catalogNumber)
   await browser.pause(1000)
