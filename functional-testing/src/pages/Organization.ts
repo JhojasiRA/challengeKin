@@ -4,6 +4,7 @@ import * as path from "path";
 export class Organization extends Action {
     get nameOrganizationField() { return browser.$('//*[@formcontrolname="tenantName"]'); }
     get createButton() { return browser.$("//button//*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), 'create')]"); }
+    get backButton() { return browser.$('//div[contains(text(), "Back")]'); }
     get cancelCreationButton() { return browser.$('//*[@class = "secondary-mat-button"]'); }
     get cancelEditInfo() { return browser.$('//button[ contains (text(), "cancel")] |//span[ contains (text(), "cancel")]'); }
     get saveButton() { return browser.$('//*[ contains (text(), "Save")]'); }
@@ -12,6 +13,7 @@ export class Organization extends Action {
     get messageSuccessfully() { return browser.$('//*[ contains (text(), "Congratulations! You have created the organization test OrgRockwellAut successfully!")]'); }
     get successMessage() { return browser.$('//*[ contains (text(), "Organization updated successfully.")]'); }
     get discardChangesMessage() { return browser.$('//*[ contains (text(), "Changes will not be saved. Do you want to proceed?")]'); }
+    get continueButton() { return browser.$('//div[contains(text(), "Continue")]'); }
     get OK() { return browser.$('//button[contains(text(), "OK")]'); }
     get goToDashboard() { return browser.$("//button//*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), 'go to dashboard')]")}
     get continueDiscardChanges() { return browser.$('(//*[@class = "primary-mat-button"])[2]'); }
@@ -30,7 +32,9 @@ export class Organization extends Action {
     get orgVisibilityOnCreate() {return browser.$('//mat-radio-button[@id="mat-radio-2"]');}
     get orgVisibilityOffEdit() {return browser.$('//*[ contains (text(), "Visibility OFF")]');}
     get organizationName() {return browser.$('//div[ contains (text(),"test OrgRockwellAut")]');}
+    get organizationDetails() {return browser.$('//span[ contains (text(),"Setup Your Organization")]');}
     get orgVisibilityOnEdit() {return browser.$('//*[ contains (text(), "Visibility ON")]');}
+    get goDashboard(){return browser.$('//div[contains(text(), "Go to Dashboard")]')}
     get nextButton(){return browser.$("//button//*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), 'next')]")}
     get checkFTRA(){return browser.$('(//input[starts-with(@id,"mat-slide-toggle-")])[2]')}
     get checkFoo(){return browser.$('(//input[starts-with(@id,"mat-slide-toggle-")])[4]')}
@@ -41,8 +45,7 @@ export class Organization extends Action {
         await this.enterText(this.nameOrganizationField,"test OrgRockwellAut");
         await this.enterText(this.descriptionField, "TEST"); 
         await this.click(this.nextButton);
-        await this.click(this.createButton);
-        
+        await this.click(this.createButton);    
     }
 
     public async publicOrganizationCreation( ): Promise<void> { 
@@ -70,7 +73,9 @@ export class Organization extends Action {
         const remoteFilePath = await browser.uploadFile(filePath);
         await this.addLogo.setValue(remoteFilePath);
         await this.click(this.nextButton);
+        await browser.pause(1000);
         await this.click(this.createButton);
+        await browser.pause(1000);
     }
 
     public async cancelCreation(): Promise<void> {
@@ -81,10 +86,12 @@ export class Organization extends Action {
 
     public async editOrganization(): Promise<void> {
         await browser.pause(1000);
-        let newTextName = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(4, 8);
+        let newTextName = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
         await this.enterText(this.nameOrganizationField, newTextName);
         await browser.pause(1000);
         await this.click(this.saveButton);
+        await browser.pause(1000);
+         await this.click(this.continueButton);
     }
 
     public async editPublicOrganization(): Promise<void> {
@@ -102,12 +109,16 @@ export class Organization extends Action {
         await this.editLogo.setValue(remoteFilePath);
         await browser.pause(1000);
         await this.click(this.saveButton);
+        await this.click(this.continueButton);
     }
     public async addNewLogoOrganization(): Promise<void> {
         await browser.pause(1000);
         const filePath = path.resolve(process.cwd() + '/functional-testing/support/testLogos/FTH.jpeg');
+        await browser.pause(1000);
         await browser.execute('document.getElementById("' + this.editOrganizationLogo + '").removeAttribute("hidden")');
+        await browser.pause(1000);
         const remoteFilePath = await browser.uploadFile(filePath);
+        await browser.pause(1000);
         await this.editLogo.setValue(remoteFilePath);
         await browser.pause(1000);
         await this.click(this.saveButton);
@@ -126,7 +137,7 @@ export class Organization extends Action {
     }
 
     public async continue(): Promise<void> {
-        await this.click(this.continueDiscardChanges);
+        await this.click(this.continueButton);
     }
 
     public async inviteCode(): Promise<void> {
@@ -189,6 +200,56 @@ export class Organization extends Action {
         await this.click(this.createButton); 
     }
 
+    public async fillTheFields(): Promise<void> {
+    await this.enterText(this.nameOrganizationField,"test OrgRockwellAut" );
+    await this.enterText(this.descriptionField, "TEST");
+    await this.click(this.nextButton);
+    await this.click(this.backButton);   
+    }
+
+    public async newOrganizationServicesON(): Promise<void> {
+        await this.enterText(this.nameOrganizationField,"test OrgRockwellAut");
+        await this.enterText(this.descriptionField, "TEST"); 
+        await this.click(this.nextButton); 
+        await this.click(this.createButton);
+    }
+
+    public async selectVault(): Promise<void> {
+        await this.click(this.checkVault); 
+        await this.click(this.saveButton);
+        await this.click(this.continueButton); 
+
+    }
+
+    public async selectFTRA(): Promise<void> {
+        await this.click(this.checkFTRA);
+        await this.click(this.saveButton);
+        await this.click(this.continueButton); 
+    }
+
+    public async selectDesignStudio(): Promise<void> {
+        await this.click(this.checkDesignStudio);  
+        await this.click(this.saveButton);
+        await this.click(this.continueButton); 
+    }
+
+    public async selectFoo(): Promise<void> {
+        await this.click(this.checkFoo);
+        await this.click(this.saveButton);
+        await this.click(this.continueButton);   
+    }
+
+    public async newOrganizationServicesOFF(): Promise<void> {
+        await this.enterText(this.nameOrganizationField,"test OrgRockwellAut");
+        await this.enterText(this.descriptionField, "TEST"); 
+        await this.click(this.nextButton); 
+        await this.click(this.checkVault);
+        await this.click(this.checkFTRA);
+        await this.click(this.checkDesignStudio);
+        await this.click(this.checkFoo); 
+        await this.click(this.createButton);
+    }
+
     public getMessageCreateOrganization(): WebdriverIO.Element {
         return this.messageSuccessfully;
     }
@@ -214,6 +275,7 @@ export class Organization extends Action {
         return this.organizationName;
     }
 
-   
-
+    public getOrganizationDetailsMessage(): WebdriverIO.Element {
+        return this.organizationDetails;
+    }
 }

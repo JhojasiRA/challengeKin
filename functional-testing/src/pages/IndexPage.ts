@@ -2,13 +2,25 @@ import { Action } from "../globalTasks/Action";
 
 export class IndexPage extends Action {
   get signInButton() {
-    return $('//*[@id="sign-in-button"]');
+    return $('//button[@id="sign-in-button"]');
   }
   get companyLogo() {
     return $('//*[@id="companyLogo"]');
   }
   get instructionLogOut() {
     return $('//*[@id="instruction"]');
+  }
+  get VaultCard() {
+    return $('//*[@id="card-Vault"]');
+  }
+  get FTRACard() {
+    return $('//*[@id="card-SecureRemoteAccess"]');
+  }
+  get DesignStudioCard() {
+    return $('//*[@id="card-IDE"]');
+  }
+  get FooCard() {
+    return $('//*[@id="card-FooService"]');
   }
 
   public async goToSignIn(): Promise<void> {
@@ -25,4 +37,6 @@ export class IndexPage extends Action {
   public getInstructionLogOut(): WebdriverIO.Element {
     return this.instructionLogOut;
   }
+
+
 }
