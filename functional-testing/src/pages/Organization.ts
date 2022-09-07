@@ -5,8 +5,7 @@ export class Organization extends Action {
     get nameOrganizationField() { return browser.$('//*[@formcontrolname="tenantName"]'); }
     get backButton() { return browser.$('//div[contains(text(), "Back")]'); }
     get createButton() { return browser.$("//button//*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), 'create')]"); }
-    get backButton() { return browser.$('//div[contains(text(), "Back")]'); }
-    get cancelCreationButton() { return browser.$('//*[@class = "secondary-mat-button"]'); }
+    get cancelCreationButton() { return browser.$('(//*[ contains (text(), "Cancel")])[1]'); }
     get cancelEditInfo() { return browser.$('//button[ contains (text(), "cancel")] |//span[ contains (text(), "cancel")]'); }
     get saveButton() { return browser.$('//*[ contains (text(), "Save")]'); }
     get confirmationButton() { return browser.$('//*[ contains (text(), "Continue")]'); }
@@ -37,10 +36,10 @@ export class Organization extends Action {
     get orgVisibilityOnEdit() {return browser.$('//*[ contains (text(), "Visibility ON")]');}
     get goDashboard(){return browser.$('//div[contains(text(), "Go to Dashboard")]')}
     get nextButton(){return browser.$("//button//*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), 'next')]")}
-    get checkFTRA(){return browser.$('(//input[starts-with(@id,"mat-slide-toggle-")])[2]')}
-    get checkFoo(){return browser.$('(//input[starts-with(@id,"mat-slide-toggle-")])[4]')}
-    get checkDesignStudio(){return browser.$('(//input[starts-with(@id,"mat-slide-toggle-")])[3]')}
-    get checkVault(){return browser.$('(//input[starts-with(@id,"mat-slide-toggle-")])[1]')}
+    get checkFTRA(){return browser.$('//*[ contains (text(), "FactoryTalk Remote Access")]')}
+    get checkFoo(){return browser.$('//*[ contains (text(), "Foo (Integration Sample)")]')}
+    get checkDesignStudio(){return browser.$('//*[ contains (text(), "FactoryTalk Design Studio")]')}
+    get checkVault(){return browser.$('//*[ contains (text(), "FactoryTalk Vault")]')}
 
     public async newOrganization(): Promise<void> {
         await this.enterText(this.nameOrganizationField,"TestingOrgRockwell1");
