@@ -64,7 +64,8 @@ Then('user cant see the name in join organization option', async() => {
 Given(/^the user has created a new organization with name "([^"]*)"$/, async(orgName:string) => {
 	await menuhomepage.createOrganizationOption();
   let date = new Date();
-  await organization.newOrg(orgName+"_"+date.getTime());
+  let organizationName= orgName+"_"+(date.getTime().toString())
+  await organization.newOrg(organizationName);
 });
 When('the user submits the form with public organization information', async() => {
    await organization.publicOrganizationCreation();

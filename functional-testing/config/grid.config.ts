@@ -1,9 +1,4 @@
 import {BaseConfig} from "./wdio.conf";
-/*
-*   Notes:
-*      driver is installed by chromedriver in lib/chromedriver of module folder.
-*
-* */
 
 const ChromeOptions: WebdriverIO.Config = {
     hostname: process.env.HOSTNAME,
@@ -13,11 +8,11 @@ const ChromeOptions: WebdriverIO.Config = {
     chromeDriverLogs: './logs'
 };
 
-
 const ChromeConfig = {
+    path: '/wd/hub',
+    protocol: 'http',
     capabilities: [
         {
-            // Set maxInstances to 1 if screen recordings are enabled:
             maxInstances: parseInt(process.env.MAX_INSTANCES),
             browserName: 'chrome',
             acceptInsecureCerts : true,
@@ -30,6 +25,25 @@ const ChromeConfig = {
                 'start-maximized',
                 '--disable-dev-shm-usage',
                 ]
+            }
+        },
+        {
+            maxInstances: parseInt(process.env.MAX_INSTANCES),
+            browserName: 'MicrosoftEdge',
+            acceptInsecureCerts : true,
+            'ms:edgeOptions':{
+                args: ['--disable-gpu','--disable-popup-blocking', '--no-default-browser-check','--no-sandbox', 'start-maximized'],
+                prefs: { 
+                    credentials_enable_service: false },
+            }
+        },
+        {​
+            maxInstances: parseInt(process.env.MAX_INSTANCES),
+            browserName: 'firefox',
+            acceptInsecureCerts : true,
+            'moz:firefoxOptions': {
+                args: [],
+                prefs: { credentials_enable_service: false }
             }
         }
     ]
