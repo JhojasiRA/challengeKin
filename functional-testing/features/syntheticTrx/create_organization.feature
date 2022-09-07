@@ -55,7 +55,7 @@ Scenario: Change Design Studio Service tile visibility to ON.
     When user turns on Design Studio service visibility
     Then user should see the Design Studio service in home
 
-@SyntheticTrx @testJhojasi
+@SyntheticTrx
 Scenario: Change Foo Service tile visibility to ON.
     And the user creates a new organization with all service tiles with visibility "OFF"   
     When user turns on Foo service visibility

@@ -46,7 +46,6 @@ Then('the user will see the message {string}', async(message) => {
 }); 
 
 Then('User will see a success message and will be able to close it', async() => {
-   
    await organization.ok();
 }); 
 

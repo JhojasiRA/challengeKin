@@ -6,7 +6,7 @@ export class Organization extends Action {
     get backButton() { return browser.$('//div[contains(text(), "Back")]'); }
     get createButton() { return browser.$("//button//*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), 'create')]"); }
     get cancelCreationButton() { return browser.$('(//*[ contains (text(), "Cancel")])[1]'); }
-    get cancelEditInfo() { return browser.$('//button[ contains (text(), "cancel")] |//span[ contains (text(), "cancel")]'); }
+    get cancelEditInfo() { return browser.$('//*[ contains (text(), "Cancel")]'); }
     get saveButton() { return browser.$('//*[ contains (text(), "Save")]'); }
     get confirmationButton() { return browser.$('//*[ contains (text(), "Continue")]'); }
     get descriptionField() { return browser.$('//*[@formcontrolname="tenantDescription"]'); }
@@ -14,7 +14,7 @@ export class Organization extends Action {
     get successMessage() { return browser.$('//*[ contains (text(), "Organization updated successfully.")]'); }
     get discardChangesMessage() { return browser.$('//*[ contains (text(), "Changes will not be saved. Do you want to proceed?")]'); }
     get continueButton() { return browser.$('//div[contains(text(), "Continue")]'); }
-    get OK() { return browser.$('//button[contains(text(), "OK")]'); }
+    get OK() { return browser.$('//*[contains(text(), "OK")]'); }
     get goToDashboard() { return browser.$("//button//*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), 'go to dashboard')]")}
     get continueDiscardChanges() { return browser.$('(//*[@class = "primary-mat-button"])[2]'); }
     get joinUsingInviCode() { return browser.$('//*[contains(text(),"here")]'); }

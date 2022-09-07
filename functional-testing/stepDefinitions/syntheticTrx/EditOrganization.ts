@@ -1,7 +1,7 @@
-import {setDefaultTimeout, Given, When, Then, After} from '@cucumber/cucumber';
+import {setDefaultTimeout, Given, When, After} from '@cucumber/cucumber';
 import 'regenerator-runtime/runtime';
 import { editTenantInfoWithParams } from '../../services/Tenants';
-import { menuhomepage, organization, question } from '../../support/Hooks';
+import { menuhomepage, organization } from '../../support/Hooks';
 import {defaultOrg} from '../../constant.json'
 
 setDefaultTimeout(60 * 1000);
