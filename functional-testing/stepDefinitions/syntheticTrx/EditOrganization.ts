@@ -35,12 +35,6 @@ After('@afterEditOrganization', async() =>{
    await editTenantInfoWithParams(defaultOrg.name, defaultOrg.location, defaultOrg.description, defaultOrg.visibility);
 });
 
-Given(/^the user has created a new organization with name "([^"]*)"$/, async(orgName:string) => {
-	await menuhomepage.createOrganizationOption();
-  let date = new Date();
-  await organization.newOrg(orgName+"_"+date.getTime());
-});
-
 When('the user edits the form', async() => {
    await organization.selectPublicOrganizationEdit();
 }); 

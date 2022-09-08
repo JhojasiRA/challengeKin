@@ -12,8 +12,8 @@ export class HomePage extends Action {
     get lockEaasIcon() { return $(`//*[@id="card-EaaS"]//*[contains (@class, "fav-lock-icon")]`) }
     get fiixCard() { return $(`#card-Fiix`) }
     get fooCard() { return $(`#card-FooService`) }
-    get uniqoCard() { return $(`#card-Vista`) }
-    get eaasCard() { return $(`#card-EaaS`) }
+    get optixCard() { return $(`#card-Vista`) }
+    get EaasCard() { return $(`#card-EaaS`) }
     get allAppsTab() { return $('#mat-tab-label-0-0') }
     get designHubTab() { return $('#mat-tab-label-0-1') }
     get operationsHubTab() { return $('#mat-tab-label-0-2') }
@@ -44,14 +44,14 @@ export class HomePage extends Action {
         await this.click(this.fooCard);
     }
 
-    async launchUniqo(): Promise<void> {
-        await this.click(this.uniqoCard)
+    async launchOptix(): Promise<void> {
+        await this.click(this.optixCard)
         let handles = await browser.getWindowHandles()
         await browser.switchToWindow(handles[1])
     }
 
-    async launchEaas(): Promise<void> {
-        await this.click(this.eaasCard)
+    async launchEaaS(): Promise<void> {
+        await this.click(this.EaasCard)
     }
 
     public async newBrowser(): Promise<void> {
