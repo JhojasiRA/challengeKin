@@ -20,7 +20,7 @@ Feature: As a user, I want to launch vault into Le Mans portal
     Scenario: Launch FTRA service without entitlement
         When the user launches the FTRA card
         Then the user does not have access to the FTRA service
-        
+
     #Trial entitlement is applied by default
     #@LaunchServices @SyntheticTrx @teardownAddEntitlement
     #Scenario: Launch FTRA service with entitlement
@@ -45,12 +45,12 @@ Feature: As a user, I want to launch vault into Le Mans portal
     #       When the user launches the Foo card
     #      Then the user sees page with the title "Foo title page placeholder"
 
-@LaunchServices @SyntheticTrx @faltaEste
+@LaunchServices @SyntheticTrx
     Scenario: Launch Optix service
         When the user launches the FTOptix card
         Then the user sees page with the title "FT Optix"
 
-   @LaunchServices @SyntheticTrx @faltaEste
+   @LaunchServices @SyntheticTrx
     Scenario: Launch EaaS service without entitlement
        When the user launches the EaaS card
        Then the user sees page with the title "ZedControl"
