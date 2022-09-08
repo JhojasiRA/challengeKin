@@ -16,7 +16,7 @@ When('the user clears one notification on the view all page', async() => {
     await notification.clearNotificationsFromViewAllPage();
 });
 Then('the user will see one notification less on his NavBar', async() => {
-    await browser.pause(3000);
+    await browser.pause(4000);
     finalValue2= await question.getValue(notification.counterIcon);
     await question.compareInts(finalValue,finalValue2+1);
   });

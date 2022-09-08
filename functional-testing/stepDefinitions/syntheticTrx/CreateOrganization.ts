@@ -1,9 +1,8 @@
 import {setDefaultTimeout, Given, When, Then, After} from '@cucumber/cucumber';
 import 'regenerator-runtime/runtime';
 import { editTenantInfoWithParams } from '../../services/Tenants';
-import { menuhomepage, organization, question, indexPage, homePage } from '../../support/Hooks';
+import { menuhomepage, organization, question, indexPage } from '../../support/Hooks';
 import {defaultOrg} from '../../constant.json'
-import { IndexPage } from '../../src/pages/IndexPage';
 
 setDefaultTimeout(60 * 1000);
 When('the user goes inside to create organization option', async() => {
@@ -47,7 +46,6 @@ Then('the user will see the message {string}', async(message) => {
 }); 
 
 Then('User will see a success message and will be able to close it', async() => {
-   
    await organization.ok();
 }); 
 

@@ -1,7 +1,7 @@
 import {Given, When, Then } from '@cucumber/cucumber'
 import { joinRequest } from '../../services/JoinTenant';
 import { AccesManagement } from '../../src/pages/AccessManagement';
-import { menuhomepage, organization, question, approveUser ,topBar,indexPage,externalAccount,accesManagement } from '../../support/Hooks';
+import { menuhomepage, organization, question, approveUser ,topBar,indexPage,externalAccount } from '../../support/Hooks';
 
 When('User1 copies a new invite code', {timeout: 2 * 5000}, async() => {
     await organization.inviteCode();
@@ -14,7 +14,7 @@ When('User1 gives to user2 an invite code', async() => {
 When('User2 signs in on his account', async() => {   
      await browser.url(process.env.PORTAL_URL);
      await indexPage.goToSignIn();
-     await externalAccount.submitForm("testuser21", process.env.PASSWORD);
+     await externalAccount.submitForm("tester1", process.env.PASSWORD);
 });
 
 When('User2 goes inside to the option join request', async() => {
@@ -38,6 +38,7 @@ When('User1 goes to approve user option', async() => {
 When('User1 dismisses the user2 request to join to the organization', async() => {
   await browser.pause(3000);
   await approveUser.Dismiss();
+  
 });
 
 Then('the user1 will see a message pop up: {string}', async(MessageDismissRequest) => {
@@ -56,7 +57,6 @@ When('User2 tries to send a join request with a outdate invite code', async() =>
   await organization.joinRequestWithOutDateCode();
 });
 Then('User2 will see the continue button disabled', async() => {
-  await browser.pause(3000);
   await question.assertElementNotClickable((organization.ContinueButton()));
   });
 

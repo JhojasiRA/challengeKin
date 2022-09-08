@@ -2,7 +2,7 @@ import { Action } from '../globalTasks/Action'
 
 export class HomePage extends Action {
     get vaultCard() { return $(`#card-Vault`) }
-    get vaultView() { return $(`(//*[ contains (text(), "Vault")])[2]`) }
+    get vaultView() { return $(`//*[ contains (text(), "Vault")]`) }
     get FTRACard() { return $(`#card-SecureRemoteAccess`) }
     get homePage() { return $(`//*[@class="xng-breadcrumb-root"]//*[ contains (text(), "Home")]`) }
     get rubikIcon() { return $('#rubick-menu-btn') }
@@ -12,8 +12,8 @@ export class HomePage extends Action {
     get lockEaasIcon() { return $(`//*[@id="card-EaaS"]//*[contains (@class, "fav-lock-icon")]`) }
     get fiixCard() { return $(`#card-Fiix`) }
     get fooCard() { return $(`#card-FooService`) }
-    get uniqoCard() { return $(`#card-Vista`) }
-    get eaasCard() { return $(`#card-EaaS`) }
+    get optixCard() { return $(`#card-Vista`) }
+    get EaasCard() { return $(`#card-EaaS`) }
     get allAppsTab() { return $('#mat-tab-label-0-0') }
     get designHubTab() { return $('#mat-tab-label-0-1') }
     get operationsHubTab() { return $('#mat-tab-label-0-2') }
@@ -26,8 +26,8 @@ export class HomePage extends Action {
 
     async launchVault(): Promise<void> {
         await this.click(this.vaultCard);
-        let handles = await browser.getWindowHandles()
-        await browser.switchToWindow(handles[1])
+        let handles = await browser.getWindowHandles();
+        await browser.switchToWindow(handles[1]);
     }
 
     async launchFiix(): Promise<void> {
@@ -44,14 +44,14 @@ export class HomePage extends Action {
         await this.click(this.fooCard);
     }
 
-    async launchUniqo(): Promise<void> {
-        await this.click(this.uniqoCard)
+    async launchOptix(): Promise<void> {
+        await this.click(this.optixCard)
         let handles = await browser.getWindowHandles()
         await browser.switchToWindow(handles[1])
     }
 
-    async launchEaas(): Promise<void> {
-        await this.click(this.eaasCard)
+    async launchEaaS(): Promise<void> {
+        await this.click(this.EaasCard)
     }
 
     public async newBrowser(): Promise<void> {

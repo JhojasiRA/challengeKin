@@ -1,9 +1,9 @@
 import {Action} from '../globalTasks/Action';
-import { HomePage } from './HomePage';
 
 export class MenuHomePage extends Action {
     get menuIcon() { return browser.$('#rubick-menu-btn');}
     get approveUser() { return browser.$('//*[@role="navigation"]//*[ contains (text(), "Approve Users")]');}
+    get approve() { return browser.$('//*[ contains (text(), "APPROVE")]');}
     get createOrganization() { return browser.$('//*[ contains (text(), "Create Organization")]');}
     get editOrganization() { return browser.$('//*[ contains (text(), "Edit Organization")]');}
     get joinOrganization() { return browser.$('//*[ contains (text(), "Join")]');}
@@ -14,13 +14,11 @@ export class MenuHomePage extends Action {
     get HomeIcon() { return browser.$('(//*[ contains (text(), "Home")])[1]');}
 
     public async approveUserOption():Promise<void>{
-        //global.lastError = 'menu icon was not located'
         await this.click(this.menuIcon);
         await this.click(this.approveUser);
       }
 
     public async createOrganizationOption():Promise<void>{
-        //global.lastError = 'menu icon was not located'
         await browser.pause(1000);
         await this.click(this.menuIcon);
         await browser.pause(1000);
@@ -28,7 +26,6 @@ export class MenuHomePage extends Action {
       }
 
     public async editOrganizationOption():Promise<void>{
-        //global.lastError = 'menu icon was not located'
         await browser.pause(1000);
         await this.click(this.menuIcon);
         await browser.pause(3000);
@@ -36,7 +33,6 @@ export class MenuHomePage extends Action {
       }
 
       public async joinOrganizationOption():Promise<void>{
-        //global.lastError = 'join organization option was not located'
         await this.click(this.menuIcon);
         await this.click(this.joinOrganization);
       }
