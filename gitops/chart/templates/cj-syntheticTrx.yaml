@@ -21,7 +21,7 @@ spec:
             kubernetes.io/os: linux
           initContainers:
           - name: {{ include "testing-automation.fullname" . }}-synthetictrx
-            image: {{ .Values.image.repository }}:{{ .Values.appVersion | default .Chart.AppVersion }}
+            image: {{ .Values.image_cs.repository }}:{{ .Values.appVersion | default .Chart.AppVersion }}
             env:
             - name: STEPS_TIMEOUT
               value: "90000"
