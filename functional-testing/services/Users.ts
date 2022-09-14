@@ -218,7 +218,7 @@ export var createOrgTenant = async () => {
         visibility: "Private",
         trialServices: [
           "SecureRemoteAccess",
-          ""
+          "FTOptix"
         ]
       },
       config
