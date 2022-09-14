@@ -217,7 +217,8 @@ export var createOrgTenant = async () => {
         description: "org tenant automation",
         visibility: "Private",
         trialServices: [
-          "SecureRemoteAccess"
+          "SecureRemoteAccess",
+          ""
         ]
       },
       config

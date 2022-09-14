@@ -4,6 +4,8 @@ const ALLOCATED_CREDITS = (quantity: number) => `//*[@class='ag-center-cols-view
 
 export class Entitlements extends Action {
     get allocateBtn() { return browser.$("//*[contains(@id, 'mat-dialog')]//following::*[contains(text(),'Allocate')]")}
+    get trialFTRAEntitlement() {return browser.$('//*[ contains (text(),"Catalog: FTRA-TRIAL-01")]');}
+    get trialFTOSEntitlement() {return browser.$('//*[ contains (text(),"Catalog: FTOS-TRIAL-01")]');}
     
     public async allocateEntitlement(catalogNumber:string): Promise<void> {
         const allocateButton = await $(ALLOCATE_BTN(catalogNumber))
@@ -22,4 +24,11 @@ export class Entitlements extends Action {
         return allocatedCredits;
 
     }
+
+    public getTrialFTRAEntitlement(): WebdriverIO.Element {
+      return this.trialFTRAEntitlement;
+  }
+  public getTrialFTOSEntitlement(): WebdriverIO.Element {
+    return this.trialFTOSEntitlement;
+}
 }

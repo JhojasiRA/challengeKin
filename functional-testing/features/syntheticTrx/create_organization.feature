@@ -85,5 +85,10 @@ Scenario: Change Foo Service tile visibility to OFF
     When the user turns off Foo Service visibility
     Then user should see not the Foo service in home
 
-
-		
+@SyntheticTrx @testingTrial
+Scenario: Create organization with FTRA-TRIAL-01 entitlement by default
+    When the user goes inside to create organization option
+    And the user submits the form with its information
+    And the user goes to the entitlement page
+    Then user should see the "Catalog: FTRA-TRIAL-01" entitlement applied by default
+    And user should see the "Catalog: FTOS-TRIAL-01" entitlement

@@ -12,6 +12,7 @@ export class MenuHomePage extends Action {
     get accessManagement() { return browser.$('//*[contains(text(),"Access Management")]');}
     get entitlements() { return browser.$('//*[@role="navigation"]//*[contains(text(), "Entitlements")]')}
     get HomeIcon() { return browser.$('(//*[ contains (text(), "Home")])[1]');}
+    
 
     public async approveUserOption():Promise<void>{
         await this.click(this.menuIcon);
