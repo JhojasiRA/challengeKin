@@ -7,9 +7,9 @@ Scenario: Login into Le Mans portal
     When the user submits the form with its credentials
     And the user accepts the EULA testing eula "false"
     Then the user should see the "Home" page
-@login @SyntheticTrx @loginSAML 
+@login @SyntheticTrx @loginSAML
 Scenario: Login SAML flow
-    When the user logs in with MyRockwell-SAML 
+    When the user logs in with MyRockwell-SAML
     And the user accepts the EULA testing eula "false"
     Then the user should see the "Home" page
 @login @SyntheticTrx @loginSAML

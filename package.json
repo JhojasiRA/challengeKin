@@ -12,7 +12,7 @@
     "local:syntheticTrx": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@SyntheticTrx\"",
     "local:api": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@APITest\""
   },
-  "author": "JorgeZapataC, JhojasiRA",
+  "author": "JorgeZapataC, JhojasiRA, CSanchez58",
   "license": "ISC",
   "dependencies": {
     "@wdio/cli": "^7.16.16",
