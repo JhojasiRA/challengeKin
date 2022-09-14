@@ -1,7 +1,7 @@
 import {setDefaultTimeout, Given, When, Then, After} from '@cucumber/cucumber';
 import 'regenerator-runtime/runtime';
 import { editTenantInfoWithParams } from '../../services/Tenants';
-import { menuhomepage, organization, question, indexPage } from '../../support/Hooks';
+import { menuhomepage, organization, question, indexPage, entitlements } from '../../support/Hooks';
 import {defaultOrg} from '../../constant.json'
 
 setDefaultTimeout(60 * 1000);
@@ -187,6 +187,16 @@ Then('user should see not the Foo service in home', async() => {
    await question.assertElementNotExist(indexPage.FooCard);
 });
 
+
+When('the user goes to the entitlement page', async() => {
+   await menuhomepage.entitlementsOption();
+});
+Then('user should see the {string} entitlement applied by default', async(TrialFTRAEntitlement) => {
+   await question.assertElementText(entitlements.getTrialFTRAEntitlement(),TrialFTRAEntitlement);
+});
+Then('user should see the {string} entitlement', async(TrialFTOSEntitlement) => {
+   await question.assertElementText(entitlements.getTrialFTOSEntitlement(),TrialFTOSEntitlement);
+});
 
 
 
