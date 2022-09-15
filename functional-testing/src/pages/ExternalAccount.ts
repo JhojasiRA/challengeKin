@@ -23,7 +23,7 @@ export class ExternalAccount extends Action {
   }
 
   public async loginWithSAML(username: string, password: string): Promise<void> {
-    await this.click(this.continueWithSAMLButton)
+    await this.click(this.continueWithSAMLButton);
     await this.enterText(this.userNameField, username);
     await this.enterText(this.passwordField, password);
     await browser.keys("\uE007")

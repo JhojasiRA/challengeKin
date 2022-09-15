@@ -36,6 +36,7 @@ When('the user launches the vault card', async() => {
 });
 
 Then('the user should see the {string} page of controller project', async(message) => {
+    await browser.pause(10000); //ISSUE VAULT
     await question.assertElementText(homePage.getVaultView(),message);
   });
 
@@ -83,8 +84,8 @@ Then('the user does not have access to the Foo service', async() => {
   await question.assertElementPresent((homePage.lockFooIcon));
 });
 
-When('the user launches the UNIQO card', async() => {
-  await homePage.launchUniqo();
+When('the user launches the FTOptix card', async() => {
+  await homePage.launchOptix();
 });
 
 Then('the user does not have access to the UNIQO service', async() => {
@@ -92,7 +93,7 @@ Then('the user does not have access to the UNIQO service', async() => {
 });
 
 When('the user launches the EaaS card', async() => {
-  await homePage.launchEaas();
+  await homePage.launchEaaS();
 });
 
 

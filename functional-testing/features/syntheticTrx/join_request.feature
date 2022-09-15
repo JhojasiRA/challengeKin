@@ -5,7 +5,7 @@ Background:  Be on the Le Mans portal
     And the user submits the form with its credentials
     And the user accepts the EULA testing eula "false"
 
-@joinrequest @SyntheticTrx
+@joinrequest @SyntheticTrx 
 Scenario: Send a join request successfuly
     When the user goes inside to edit organization option
     And User1 copies a new invite code
@@ -21,7 +21,8 @@ Scenario: Dismiss join request
     When User1 goes to approve user option
     And User1 dismisses the user2 request to join to the organization
     Then the user1 will see a message pop up: "User request to join your organization will be dismissed."
-@joinrequest @SyntheticTrx 
+
+@joinrequest @SyntheticTrx
 Scenario: Send a join request with an outdate invite code
     When the user goes inside to edit organization option
     And User1 copies a new invite code
@@ -33,7 +34,7 @@ Scenario: Send a join request with an outdate invite code
 
 @joinrequest @SyntheticTrx @TearDownAddAccess
 Scenario: Approve a join request to billing admin role
-    Given user "testuser21" has applied a join request to the last accessed organization of current user
+    Given user "testuser1" has applied a join request to the last accessed organization of current user
     When the user tries to approve the join request with role "Billing Admin"
     Then the user should see that the access has been granted 
-    And the user should see that "testuser21@rockwellautomation.com" has access to to the approved resource with the role "Billing Admin"
+    And the user should see that "testuser1@rockwellautomation.com" has access to to the approved resource with the role "Billing Admin"
