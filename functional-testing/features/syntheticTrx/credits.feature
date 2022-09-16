@@ -39,5 +39,6 @@ Scenario: Renew expiry date by purchasing new utility credits
 Scenario: Renew expiry date allocating the utility credits
     Given the user has created a new organization with name "Credits_Test_SC06"
     And the user has purchased an entitlement that is about to expire
-    When the user tries to allocate the credits entitlement
+    And the user tries to allocate the credits entitlement
+    When the user allocates "100000" credits entitlement with email "testuser20@rockwellautomation.com" and valid for "365" days
     Then the user should see the just allocated credits have expiry date of 1 year from that moment

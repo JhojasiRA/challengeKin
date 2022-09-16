@@ -10,6 +10,7 @@ import { getToken5, getM2MToken } from '../../Token';
 import { getUserIdWithToken } from '../../services/Users';
 var jp = require("jsonpath");
 var chai = require('chai');
+chai.use(require('chai-string'))
 var expect = chai.expect;
 var timestamp
 
@@ -108,8 +109,6 @@ Then(/^the user should see that is not possible to allocate expired credits$/, a
 
 Given(/^the user has purchased an entitlement that is about to expire$/, async() => {
   let effectiveDate = new Date()
-  let time = effectiveDate.getTime()
-  effectiveDate.setTime(time+1728000000) //plus 2 days
     //@ts-ignore
     await browser.setupInterceptor()
     await menuhomepage.entitlementsOption()
@@ -138,12 +137,17 @@ Then(/^the users should see all their utility tokens have the expiry date update
 });
 
 
-Then(/^the user should see the just allocated credits have expiry date of 1 year from that moment$/, async() => {
-  let token = await getToken5(process.env.USERNAME, process.env.PASSWORD)
-  let tenantId = (await getTenantId(token)).id
-	let response = await getUtilityTokens(token, tenantId)
-  console.log(response)
-});
+Then(/^the user should see the just allocated credits have expiry date of 1 year from that moment$/,
+  async () => {
+    let token = await getToken5(process.env.USERNAME, process.env.PASSWORD);
+    let tenantId = (await getTenantId(token)).id;
+    let response = await getUtilityTokens(token, tenantId);
+    let date = new Date();
+    date.setFullYear(date.getFullYear() + 1);
+    let tokenExpiration = jp.query(response, `$.tokenExpiration`);
+    await expect(tokenExpiration[0]).to.startWith(date.getFullYear().toString());
+  }
+);
 
 
 
