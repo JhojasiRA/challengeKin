@@ -5,12 +5,12 @@ Feature: As a user, I want to launch vault into Le Mans portal
         When the user logs in with MyRockwell-SAML
         And the user accepts the EULA testing eula "false"
 
-    @LaunchServices @SyntheticTrx @test8
+    @LaunchServices @SyntheticTrx 
     Scenario: Launch vault into Home page
         When the user launches the vault card
         Then the user should see the "Vault" page of controller project
 
-    @LaunchServices @SyntheticTrx @test8
+    @LaunchServices @SyntheticTrx 
     Scenario: sign out vault and homepage
         When the user launches the vault card
         And the user signs out the home page

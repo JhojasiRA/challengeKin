@@ -42,6 +42,7 @@ export class Organization extends Action {
     get checkDesignStudio(){return browser.$('(//span[@class="mat-checkbox-inner-container"])[3]')}
     get checkVault(){return browser.$('(//span[@class="mat-checkbox-inner-container"])[1]')}
     get goDashboard(){return browser.$('//div[contains(text(), "Go to Dashboard")]')}
+    get badRequest() {return browser.$('//*[ contains (text(),"The request was invalid")]');}
     
     
     
@@ -279,5 +280,9 @@ export class Organization extends Action {
 
     public getOrganizationDetailsMessage(): WebdriverIO.Element {
         return this.organizationDetails;
+    }
+
+    public getBadRequestMessage(): WebdriverIO.Element {
+        return this,this.badRequest;
     }
 }

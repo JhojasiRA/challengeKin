@@ -38,3 +38,14 @@ Scenario: Approve a join request to billing admin role
     When the user tries to approve the join request with role "Billing Admin"
     Then the user should see that the access has been granted 
     And the user should see that "testuser1@rockwellautomation.com" has access to to the approved resource with the role "Billing Admin"
+
+@SyntheticTrx
+Scenario: Ask access to the same organization you are in
+    Given user copies the organization code 
+    When the user tries to join to the organization
+    Then user should see a pop up message: "The request was invalid"
+
+
+    
+
+    
