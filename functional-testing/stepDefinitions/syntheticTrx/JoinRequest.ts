@@ -80,3 +80,19 @@ Then('the user should see that {string} has access to to the approved resource w
   AccesManagement.setUserToRevoke(user)
   AccesManagement.setAsset('Organization')
 })
+
+Given('user copies the organization code', async() => {
+ await menuhomepage.editOrganizationOption();
+ await organization.inviteCode();
+})
+
+When('the user tries to join to the organization', async() => {
+  await menuhomepage.joinOrganizationOption();
+  await organization.joinRequest();
+
+})
+
+Then('user should see a pop up message: {string}', async(MessageBadRequest) => {
+  await question.assertElementText(organization.getBadRequestMessage(),MessageBadRequest);
+  
+});
