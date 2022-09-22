@@ -20,4 +20,4 @@ ENV SPLUNK_TOKEN=xxx \
     PORTAL_URL=xxxx \
     TEST_TO_RUN=headless 
 
-CMD npm run $TEST_TO_RUN
+CMD npm run $TEST_TO_RUN || true
