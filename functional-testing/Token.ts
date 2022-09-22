@@ -85,19 +85,13 @@ export var getToken2 = async () => {
     export var getM2MToken = async (clientId: string, clientSecret: string): Promise<string> => {
         try {
             let url = `${process.env.IS_URL}`
-            let config = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': '*/*'
-                }
-            }
             let body = {
                 client_id: clientId,
                 client_secret: clientSecret,
                 audience: "https://lemans.common",
                 grant_type: "client_credentials"
             }
-            const response = await axios.post(url,config,body);
+            const response = await axios.post(url,body);
             var token = response.data.access_token;
             return token;
         } catch (error) {

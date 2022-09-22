@@ -35,19 +35,13 @@ export class Organization extends Action {
     get organizationDetails() {return browser.$('//span[ contains (text(),"Setup Your Organization")]');}
     get orgVisibilityOnEdit() {return browser.$('//*[ contains (text(), "Visibility ON")]');}
     get goDashboard(){return browser.$('//div[contains(text(), "Go to Dashboard")]')}
-<<<<<<< HEAD
     get badRequest() {return browser.$('//*[ contains (text(),"The request was invalid")]');}
-    
-    
-    
-=======
     get nextButton(){return browser.$("//button//*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), 'next')]")}
     get checkFTRA(){return browser.$('//*[ contains (text(), "FactoryTalk Remote Access")]')}
     get checkFoo(){return browser.$('//*[ contains (text(), "Foo (Integration Sample)")]')}
     get checkDesignStudio(){return browser.$('//*[ contains (text(), "FactoryTalk Design Studio")]')}
     get checkVault(){return browser.$('//*[ contains (text(), "FactoryTalk Vault")]')}
 
->>>>>>> 24ffc8106c18fdc2f33f3a99073fbead7f4ff4f9
     public async newOrganization(): Promise<void> {
         await this.enterText(this.nameOrganizationField,"TestingOrgRockwell1");
         await this.enterText(this.descriptionField, "TEST"); 

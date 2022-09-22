@@ -18,7 +18,7 @@ export class Question {
     
   public async assertAllocatedCredits(credits: number): Promise<void> {
     let creditsQuantity = await entitlements.allocatedCredits(credits);
-    await expect(creditsQuantity).to.be.equal(credits);
+    await expect(creditsQuantity).to.be.equal(parseInt(credits));
   }
 
   public async assertTexts(
