@@ -3,7 +3,7 @@ import {Action} from '../globalTasks/Action';
 export class Notification extends Action {
     get notificacionIcon() { return browser.$('//*[@class= "ra-icon-ide-sm-alarm ra-common-icon"]');}
     get removeNotificationOption() { return browser.$('(//*[@class="mat-tooltip-trigger ra-icon-ide-sm-close"])[1]');}
-    get deleteButton() { return browser.$('//*[contains(text(), " DELETE")]');}
+    get deleteButton() { return browser.$('//button//*[contains(text(), "DELETE")]');}
     get clearAllPanelNotifications() { return browser.$('//*[contains(text(), " Clear All ")]');}
     get viewAllButton() { return browser.$('//*[contains(text(), " View All ")]');}
     get deleteAllNotificationsOption() { return browser.$('//*[contains(text(), "DELETE ALL")]');}

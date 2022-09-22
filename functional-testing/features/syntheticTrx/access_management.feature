@@ -1,6 +1,6 @@
 Feature: As an admin of an organization, I want to manage the access to my application, granting, modifying and removing permissions as needed
 
-    @TearDownAddAccess @SyntheticTrx @accesManagement 
+    @TearDownAddAccess @SyntheticTrx @accesManagement
     Scenario: Add access to a user to the tenant with role administrator
         Given the user "testuser21" has joined the last accessed tenant with role "Contributor"
         And the user opens the Le Mans portal

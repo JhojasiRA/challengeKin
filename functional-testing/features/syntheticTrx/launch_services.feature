@@ -5,28 +5,37 @@ Feature: As a user, I want to launch vault into Le Mans portal
         When the user logs in with MyRockwell-SAML
         And the user accepts the EULA testing eula "false"
 
+<<<<<<< HEAD
     @LaunchServices @SyntheticTrx 
+=======
+    @LaunchServices @SyntheticTrx
+>>>>>>> 24ffc8106c18fdc2f33f3a99073fbead7f4ff4f9
     Scenario: Launch vault into Home page
         When the user launches the vault card
         Then the user should see the "Vault" page of controller project
 
+<<<<<<< HEAD
     @LaunchServices @SyntheticTrx 
+=======
+    @LaunchServices
+>>>>>>> 24ffc8106c18fdc2f33f3a99073fbead7f4ff4f9
     Scenario: sign out vault and homepage
         When the user launches the vault card
         And the user signs out the home page
         Then the user should see logout page
 
-    @LaunchServices @SyntheticTrx 
+    @LaunchServices
     Scenario: Launch FTRA service without entitlement
         When the user launches the FTRA card
         Then the user does not have access to the FTRA service
 
-    @LaunchServices @SyntheticTrx @teardownAddEntitlement 
-    Scenario: Launch FTRA service with entitlement
-        Given the user has created a new organization with name "FTRA_entitlement_test"
-        And the user has allocated a new FTRA entitlement with email "rasynthetictest@rockwellautomation.com" and valid for "5" days
-        When the user launches the FTRA card
-        Then the user sees page with the title "Operation Hub"
+    #Trial entitlement is applied by default
+    #@LaunchServices @SyntheticTrx @teardownAddEntitlement
+    #Scenario: Launch FTRA service with entitlement
+    #    Given the user has created a new organization with name "FTRA_entitlement_test"
+    #    And the user has allocated a new FTRA entitlement with email "rasynthetictest@rockwellautomation.com" and valid for "5" days
+    #    When the user launches the FTRA card
+    #    Then the user sees page with the title "Operation Hub"
 
     @LaunchServices @SyntheticTrx 
     Scenario: Launch Foo service without entitlement
@@ -44,12 +53,12 @@ Feature: As a user, I want to launch vault into Le Mans portal
     #       When the user launches the Foo card
     #      Then the user sees page with the title "Foo title page placeholder"
 
-    @LaunchServices @SyntheticTrx 
-    Scenario: Launch UNIQO service
-        When the user launches the UNIQO card
-        Then the user sees page with the title "UNIQO title page placeholder"
+@LaunchServices @SyntheticTrx
+    Scenario: Launch Optix service
+        When the user launches the FTOptix card
+        Then the user sees page with the title "FT Optix"
 
-   @LaunchServices @SyntheticTrx 
+   @LaunchServices @SyntheticTrx
     Scenario: Launch EaaS service without entitlement
        When the user launches the EaaS card
        Then the user sees page with the title "ZedControl"

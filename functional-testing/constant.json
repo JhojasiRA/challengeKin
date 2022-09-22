@@ -3,7 +3,7 @@
     "creds": {
         "rockwell_user": "testuser20",
         "user": "tester7",
-        "user2": "cs.test02"
+        "user2": "tester6"
     },
 
     "defaultOrg": {
@@ -18,7 +18,7 @@
         "designHub": {
             "Vault": "#card-Vault",
             "Uniqo": "#card-Vista",
-            "LogixDesigner": "#card-Studio5000LogixDesigner",
+            "LogixDesigner": "#card-Logix5000",
             "Emulate3D": "#card-Emulate3D",
             "Arena": "#card-Arena", 
             "EPlan": "#card-EPlan"
@@ -39,7 +39,17 @@
         "FTRA": {
             "catalogNumber": "9545C-FTRAT11-SALES",
             "serviceKind": "SecureRemoteAccess"
+        },
+        "credits":{
+            "catalogNumber":"9523-UtilityToken"
         }
+    },
+
+    "planIds":{
+        "Foo": "03F7542F-DBDB-47FA-96DC-2B6E23E1C34B",
+        "Logix5000": "122F31F8-41A8-45A0-A523-3B01341F7F0A",
+        "FooPro": "FB0C64AA-1877-4200-AB59-B7AEFA67EAE6",
+        "FooSilver": "1E1FE763-3308-494F-8AFA-C1005F531B83"
     }
 
 }

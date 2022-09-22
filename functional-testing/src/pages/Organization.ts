@@ -1,24 +1,22 @@
 import { Action } from '../globalTasks/Action';
 import * as path from "path";
-import { getMessageByTenantId } from '../../services/NotificationService';
-
-const organizationName = (orgName:string)=>`//*[ contains (text(), "${orgName}")]`;
-
 
 export class Organization extends Action {
     get nameOrganizationField() { return browser.$('//*[@formcontrolname="tenantName"]'); }
-    get createButton() { return browser.$('(//div[contains(text(), "Create")])[2]'); }
     get backButton() { return browser.$('//div[contains(text(), "Back")]'); }
-    get cancelCreationButton() { return browser.$('(//div[contains(text(), "Cancel")])[1]'); }
-    get cancelEditInfo() { return browser.$('//div[ contains (text(), "Cancel")]'); }
+    get createButton() { return browser.$("//button//*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), 'create')]"); }
+    get cancelCreationButton() { return browser.$('(//*[ contains (text(), "Cancel")])[1]'); }
+    get cancelEditInfo() { return browser.$('//*[ contains (text(), "Cancel")]'); }
     get saveButton() { return browser.$('//*[ contains (text(), "Save")]'); }
     get confirmationButton() { return browser.$('//*[ contains (text(), "Continue")]'); }
     get descriptionField() { return browser.$('//*[@formcontrolname="tenantDescription"]'); }
     get messageSuccessfully() { return browser.$('//*[ contains (text(), "Congratulations! You have created the organization TestingOrgRockwell1 successfully!")]'); }
     get successMessage() { return browser.$('//*[ contains (text(), "Organization updated successfully.")]'); }
     get discardChangesMessage() { return browser.$('//*[ contains (text(), "Changes will not be saved. Do you want to proceed?")]'); }
-    get OK() { return browser.$('//div[contains(text(), "OK")]'); }
     get continueButton() { return browser.$('//div[contains(text(), "Continue")]'); }
+    get OK() { return browser.$('//*[contains(text(), "OK")]'); }
+    get goToDashboard() { return browser.$("//button//*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), 'go to dashboard')]")}
+    get continueDiscardChanges() { return browser.$('(//*[@class = "primary-mat-button"])[2]'); }
     get joinUsingInviCode() { return browser.$('//*[contains(text(),"here")]'); }
     get searchInput() { return browser.$('//*[@name = "searchInput"]'); }
     get continueButtonRequest() { return browser.$('//*[contains(text(),"continue")]'); }
@@ -36,16 +34,20 @@ export class Organization extends Action {
     get organizationName() {return browser.$('//div[ contains (text(),"TestingOrgRockwell1")]');}
     get organizationDetails() {return browser.$('//span[ contains (text(),"Setup Your Organization")]');}
     get orgVisibilityOnEdit() {return browser.$('//*[ contains (text(), "Visibility ON")]');}
-    get nextButton(){return browser.$('//div[contains(text(), "Next")]')}
-    get checkFTRA(){return browser.$('(//span[@class="mat-checkbox-inner-container"])[2]')}
-    get checkFoo(){return browser.$('(//span[@class="mat-checkbox-inner-container"])[4]')}
-    get checkDesignStudio(){return browser.$('(//span[@class="mat-checkbox-inner-container"])[3]')}
-    get checkVault(){return browser.$('(//span[@class="mat-checkbox-inner-container"])[1]')}
     get goDashboard(){return browser.$('//div[contains(text(), "Go to Dashboard")]')}
+<<<<<<< HEAD
     get badRequest() {return browser.$('//*[ contains (text(),"The request was invalid")]');}
     
     
     
+=======
+    get nextButton(){return browser.$("//button//*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), 'next')]")}
+    get checkFTRA(){return browser.$('//*[ contains (text(), "FactoryTalk Remote Access")]')}
+    get checkFoo(){return browser.$('//*[ contains (text(), "Foo (Integration Sample)")]')}
+    get checkDesignStudio(){return browser.$('//*[ contains (text(), "FactoryTalk Design Studio")]')}
+    get checkVault(){return browser.$('//*[ contains (text(), "FactoryTalk Vault")]')}
+
+>>>>>>> 24ffc8106c18fdc2f33f3a99073fbead7f4ff4f9
     public async newOrganization(): Promise<void> {
         await this.enterText(this.nameOrganizationField,"TestingOrgRockwell1");
         await this.enterText(this.descriptionField, "TEST"); 
@@ -66,7 +68,10 @@ export class Organization extends Action {
         await this.enterText(this.nameOrganizationField, newOrgName);
         await this.enterText(this.descriptionField, "TEST2"); 
         await this.click(this.nextButton);
-        await this.click(this.createButton);  
+        await browser.pause(1000); 
+        await this.click(this.createButton);
+        await this.click(this.goToDashboard);
+        await browser.pause(1000);
     }
     
     public async newOrganizationWithLogo(): Promise<void> {

@@ -1,9 +1,8 @@
 import {setDefaultTimeout, Given, When, Then, After} from '@cucumber/cucumber';
 import 'regenerator-runtime/runtime';
 import { editTenantInfoWithParams } from '../../services/Tenants';
-import { menuhomepage, organization, question, indexPage, homePage } from '../../support/Hooks';
+import { menuhomepage, organization, question, indexPage, entitlements } from '../../support/Hooks';
 import {defaultOrg} from '../../constant.json'
-import { IndexPage } from '../../src/pages/IndexPage';
 
 setDefaultTimeout(60 * 1000);
 When('the user goes inside to create organization option', async() => {
@@ -63,7 +62,8 @@ Then('user cant see the name in join organization option', async() => {
 Given(/^the user has created a new organization with name "([^"]*)"$/, async(orgName:string) => {
 	await menuhomepage.createOrganizationOption();
   let date = new Date();
-  await organization.newOrg(orgName+"_"+date.getTime());
+  let organizationName= orgName+"_"+(date.getTime().toString())
+  await organization.newOrg(organizationName);
 });
 When('the user submits the form with public organization information', async() => {
    await organization.publicOrganizationCreation();
@@ -187,6 +187,16 @@ Then('user should see not the Foo service in home', async() => {
    await question.assertElementNotExist(indexPage.FooCard);
 });
 
+
+When('the user goes to the entitlement page', async() => {
+   await menuhomepage.entitlementsOption();
+});
+Then('user should see the {string} entitlement applied by default', async(TrialFTRAEntitlement) => {
+   await question.assertElementText(entitlements.getTrialFTRAEntitlement(),TrialFTRAEntitlement);
+});
+Then('user should see the {string} entitlement', async(TrialFTOSEntitlement) => {
+   await question.assertElementText(entitlements.getTrialFTOSEntitlement(),TrialFTOSEntitlement);
+});
 
 
 
