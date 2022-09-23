@@ -3,7 +3,7 @@ import { activateEntitlement, deactivateEntitlement } from '../../services/Entit
 import { indexPage,homePage,question,topBar, menuhomepage, entitlements, inviteUsersPage } from '../../support/Hooks';
 import { catalogNumberEntitlements } from '../../constant.json'
 
-Given(/^the user has allocated a new FTRA entitlement with email "([^"]*)" and valid for "([^"]*)" days$/, async(email,validForDays) => {
+Given(/^the user has allocated a new "([^"]*)" entitlement with email "([^"]*)" and valid for "([^"]*)" days$/, async(entitlementType, email,validForDays) => {
   let effectiveDate = new Date()
   //@ts-ignore
   await browser.setupInterceptor()
@@ -13,6 +13,19 @@ Given(/^the user has allocated a new FTRA entitlement with email "([^"]*)" and v
   let requests = await browser.getRequests(false, false)
   let requestEntitlements = requests.filter(request => request.url.startsWith(process.env.API_CS))[0]
   let token = requestEntitlements.headers.authorization
+  let catalogNumber = null
+  let serviceKind = null;
+  switch(entitlementType) {
+    case 'FTRA':
+      catalogNumber = catalogNumberEntitlements.FTRA.catalogNumber
+      serviceKind = catalogNumberEntitlements.FTRA.serviceKind
+      break;
+    case 'Vault':
+      catalogNumber = catalogNumberEntitlements.Vault.catalogNumber
+      serviceKind = catalogNumberEntitlements.Vault.serviceKind
+      break;
+    default: 
+  }
   if(typeof token === 'string'){
     token = token.split(' ')[1]
   }else{

@@ -20,7 +20,7 @@ Feature: As a user, I want to delete, manage and view the notification on the Na
         When the user goes to the notification option
         And the user clears all notifications on the view all page
         Then The user will see an empty page
-    @Notifications @SyntheticTrx 
+    @Notifications @SyntheticTrx @testing
     Scenario: Delete all notification from the panel
         When the user goes to the notification option
         And the user clears all notifications on the panel notification
