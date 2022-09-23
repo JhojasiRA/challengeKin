@@ -56,7 +56,7 @@ Feature: As a user, I want to launch different services in the FTHub portal
        Then the user sees page with the title "ZedControl"
 
 
- @LaunchServices @SyntheticTrx @teardownAddEntitlement @testing
+ @LaunchServices @SyntheticTrx @teardownAddEntitlement
     Scenario: Launch Vault service with entitlement
         Given the user has created a new organization with name "Vault_entitlement_test"
         And the user has allocated a new "Vault" entitlement with email "rasynthetictest@rockwellautomation.com" and valid for "5" days

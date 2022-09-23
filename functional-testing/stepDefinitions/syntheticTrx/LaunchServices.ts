@@ -31,9 +31,9 @@ Given(/^the user has allocated a new "([^"]*)" entitlement with email "([^"]*)" 
   }else{
     throw new Error("Service intercepted does not have a token header param: "+requestEntitlements.url)
   }
-  await activateEntitlement(email,effectiveDate.toDateString(),validForDays, 1, catalogNumberEntitlements.FTRA.catalogNumber, catalogNumberEntitlements.FTRA.serviceKind, token)
+  await activateEntitlement(email,effectiveDate.toDateString(),validForDays, 1, catalogNumber, serviceKind, token)
   await browser.refresh()
-  await entitlements.allocateEntitlement(catalogNumberEntitlements.FTRA.catalogNumber)
+  await entitlements.allocateEntitlement(catalogNumber)
   await browser.pause(1000)
   await inviteUsersPage.closeInvitation()
 });
