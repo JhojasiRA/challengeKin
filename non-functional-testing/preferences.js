@@ -3,20 +3,42 @@ import http from 'k6/http';
 // import { Rate } from 'k6/metrics';
 
 export const options = {
-    vus: 2,
-    duration: '1s',
-  };
+  stages: [
+    { duration: '10s', target: 1 },
+    { duration: '15s', target: 2 }
+],
+};
   
 export function setup() {
-    return {
-      1: {
-        userInfo: getAccessToken(__ENV.USER, __ENV.PASSWORD)                                    
-      },
-      2:{
-        userInfo: getAccessToken(__ENV.USER, __ENV.PASSWORD)
+  let user, users;
+  var nuevoArray = new Array();
+  //var userInfo = {userInfo: string}
+ for (let i = 1; i <= 2; i++) {
+    user =`${i}: { userInfo:` + getAccessToken(__ENV.USER, __ENV.PASSWORD)+`}`;
+    nuevoArray.push(user);
+  }
+  
+  var temp = JSON.parse(JSON.stringify(nuevoArray))
+  console.log(temp.toString())
+  if (temp instanceof Object){
+    console.log('Its an object')
+    for(var i=1; i< temp.length; i++) {
+      if(temp[i].userInfo){
+        console.log(temp[i].userInfo)
       }
     }
-};
+    return temp
+  }else{
+    return {
+      1: {userInfo: getAccessToken(__ENV.USER, __ENV.PASSWORD)                                    
+    },
+    2:{
+      userInfo: getAccessToken(__ENV.USER, __ENV.PASSWORD)
+    }
+  }}
+}
+  
+ 
 
 export default function getList(data) {
    let auth = "Bearer " + data[__VU]["userInfo"][0];
