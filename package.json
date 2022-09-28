@@ -8,7 +8,7 @@
     "headless:syntheticTrx": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@SyntheticTrx\"",
     "headless:api": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@APITest\"",
     "headless:login": "npx wdio functional-testing/config/grid.config.ts --cucumberOpts.tagExpression=\"@RockwellLogin\"",
-    "testing": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@testingTrial\"",
+    "testing": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@mailosaur\"",
     "local:syntheticTrx": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@SyntheticTrx\"",
     "local:api": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@APITest\""
   },
@@ -22,12 +22,12 @@
   "devDependencies": {
     "@types/chai": "^4.3.0",
     "@types/chai-datetime": "0.0.37",
+    "@types/chai-string": "1.4.2",
     "@types/expect": "24.3.0",
     "@types/lodash": "4.14.176",
     "@types/node": "16.11.6",
     "@typescript-eslint/eslint-plugin": "5.2.0",
     "@typescript-eslint/parser": "5.2.0",
-    "@types/chai-string": "1.4.2",
     "@wdio/cucumber-framework": "^7.18.0",
     "@wdio/firefox-profile-service": "^7.19.5",
     "@wdio/local-runner": "^7.19.7",
@@ -37,6 +37,7 @@
     "chai-as-promised": "^7.1.1",
     "chai-datetime": "^1.8.0",
     "chai-like": "^1.1.1",
+    "chai-string": "1.5.0",
     "chai-things": "^0.2.0",
     "chromedriver": "^105.0.0",
     "eslint": "8.1.0",
@@ -47,6 +48,7 @@
     "fs-extra": "^10.0.1",
     "geckodriver": "^3.0.1",
     "jsonpath": "^1.1.1",
+    "mailosaur": "^8.4.1",
     "multiple-cucumber-html-reporter": "^1.19.0",
     "prettier": "2.4.1",
     "selenium-standalone": "^8.0.10",
@@ -60,7 +62,6 @@
     "wdio-edgedriver-service": "^1.2.0",
     "wdio-eslinter-service": "0.0.4",
     "wdio-geckodriver-service": "^2.1.1",
-    "wdio-intercept-service": "^4.2.2",
-    "chai-string": "1.5.0"
+    "wdio-intercept-service": "^4.2.2"
   }
 }
