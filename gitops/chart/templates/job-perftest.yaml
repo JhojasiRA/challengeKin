@@ -1,0 +1,66 @@
+{{- if .Values.jobperfTest }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "testing-automation.name" . }}-perftest-{{ randAlphaNum 4 | lower}}
+  labels:
+    {{- include "testing-automation.labels" . | nindent 4 }}
+    app: testing-automation-perftest
+spec:
+  backoffLimit: 0 # number of retries before throwing error
+  template:
+    metadata:
+      labels:
+        aadpodidbinding: {{ include "testing-automation.fullname" . }}
+
+    spec:
+      restartPolicy: Never
+      nodeSelector:
+        kubernetes.io/os: linux
+      containers:
+      - name: {{ include "testing-automation.fullname" . }}-perftest
+        image: {{ .Values.image.repository }}:{{ .Values.appVersion | default .Chart.AppVersion }}
+        env:
+        - name: AUTH0_URL
+          value: "{{ .Values.AUTH0_URL }}"
+        - name: API_CS
+          value: "{{ .Values.API_CS }}"
+        - name: SPLUNK_INDEX
+          value: "{{ .Values.splunkIndex }}"
+        - name: SPLUNK_HOST
+          value: "{{ .Values.splunkHost }}"
+        - name: STRESS_TEST_ID
+          value: "{{ .Values.stressTestID }}"
+{{- if .Values.keyVault.enabled }}              
+            - name: CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: common-services-client-secret
+                  key: client-secret
+{{- end }} 
+{{- if .Values.keyVault.enabled }}              
+            - name: PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: common-services-user1-password
+                  key: passworduser1
+{{- end }}
+{{- if .Values.keyVault.enabled }}              
+            - name: PERF_USER
+              valueFrom:
+                secretKeyRef:
+                  name: common-services-userperf
+                  key: user-perf
+{{- end }}  
+      imagePullSecrets:
+      - name: {{ .Values.imagePullSecrets }}
+{{- end }}
+{{- if .Values.keyVault.enabled }}
+          volumes:
+          - name: secrets-store-inline
+            csi:
+              driver: secrets-store.csi.k8s.io
+              readOnly: true
+              volumeAttributes:
+                secretProviderClass: {{ include "testing-automation.fullname" . }}
+{{- end }}
