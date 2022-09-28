@@ -68,5 +68,9 @@ export class Action {
         return browser.url(`${process.env.PORTAL_URL}/${path}`)
     }
 
+    openInvitUrl (path?: string) {
+        return browser.url(`${path}`)
+    }
+
 
 }
