@@ -21,6 +21,8 @@ spec:
       - name: {{ include "testing-automation.fullname" . }}-perftest
         image: {{ .Values.image.repository }}:{{ .Values.appVersion | default .Chart.AppVersion }}
         env:
+        - name: TEST_TO_RUN
+          value: headless:performance
         - name: AUTH0_URL
           value: "{{ .Values.AUTH0_URL }}"
         - name: API_CS
@@ -30,7 +32,7 @@ spec:
         - name: SPLUNK_HOST
           value: "{{ .Values.splunkHost }}"
         - name: STRESS_TEST_ID
-          value: "{{ .Values.stressTestID }}"
+          value: "{{ .Values.stressTestID }}"  
 {{- if .Values.keyVault.enabled }}              
             - name: CLIENT_SECRET
               valueFrom:
