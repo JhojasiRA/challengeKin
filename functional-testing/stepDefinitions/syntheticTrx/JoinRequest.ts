@@ -1,7 +1,8 @@
 import {Given, When, Then } from '@cucumber/cucumber'
 import { joinRequest } from '../../services/JoinTenant';
 import { AccesManagement } from '../../src/pages/AccessManagement';
-import { menuhomepage, organization, question, approveUser ,topBar,indexPage,externalAccount } from '../../support/Hooks';
+import { menuhomepage, organization, question, approveUser, topBar, indexPage, externalAccount, homePage } from '../../support/Hooks';
+import pause from 'webdriverio/build/commands/browser/pause';
 
 When('User1 copies a new invite code', {timeout: 2 * 5000}, async() => {
     await organization.inviteCode();
@@ -94,5 +95,48 @@ When('the user tries to join to the organization', async() => {
 
 Then('user should see a pop up message: {string}', async(MessageBadRequest) => {
   await question.assertElementText(organization.getBadRequestMessage(),MessageBadRequest);
-  
 });
+
+Given('user1 creates an organization', async() => {
+  await menuhomepage.createOrganizationOption();
+  await organization.newOrganization();
+  await menuhomepage.editOrganizationOption();
+  await organization.inviteCode();
+  await topBar.signOutOption();
+});
+
+
+When('user2 makes the request for the organization created before', async() => {
+  await browser.url(process.env.PORTAL_URL);
+  await indexPage.goToSignIn();
+  await externalAccount.submitForm("tester1", process.env.PASSWORD);
+  await menuhomepage.joinOrganizationOption();
+  await organization.joinRequest();
+  await organization.ok();
+  await topBar.signOutOption();
+})
+
+When('user1 accepts the request of user2 with role {string}', async(role: string) => {
+  await indexPage.goToSignIn();
+  await externalAccount.submitForm(process.env.USERNAME, process.env.PASSWORD);
+  await menuhomepage.approveUserOption();
+  await approveUser.approveJoinRequest(role);
+  await topBar.signOutOption();
+})
+
+
+When('user2 makes the same org request again', async() => {
+  await indexPage.goToSignIn();
+  await externalAccount.submitForm("tester1", process.env.PASSWORD);
+  await menuhomepage.joinOrganizationOption();
+  await organization.joinRequest();
+  
+})
+
+Then('user should see a pop up message: {string}', async(MessageBadRequest) => {
+  await browser.pause(1000);
+  await question.assertElementText(organization.getBadRequestMessage(),MessageBadRequest);
+});
+
+
+     

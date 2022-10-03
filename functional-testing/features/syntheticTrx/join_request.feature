@@ -45,6 +45,15 @@ Scenario: Ask access to the same organization you are in
     When the user tries to join to the organization
     Then user should see a pop up message: "The request was invalid"
 
+@SyntheticTrx @testOrg
+Scenario: Ask access to an organization an user already belong
+    Given user1 creates an organization 
+    When user2 makes the request for the organization created before
+    And user1 accepts the request of user2 with role "Administrator"
+    And user2 makes the same org request again
+    Then user should see a pop up message: "The request was invalid"
+
+
 
     
 
