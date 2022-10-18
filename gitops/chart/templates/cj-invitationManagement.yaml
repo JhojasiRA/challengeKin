@@ -19,9 +19,9 @@ spec:
           restartPolicy: Never
           nodeSelector:
             kubernetes.io/os: linux
-          initContainers:
+          containers:
           - name: {{ include "testing-automation.fullname" . }}-invitationManagement
-            image: "{{ .Values.image.repository }}:{{ .Values.appVersion | default .Chart.AppVersion }}"
+            image: {{ .Values.image.repository }}:{{ .Values.appVersion | default .Chart.AppVersion }}
             env:
             - name: STEPS_TIMEOUT
               value: "90000"
