@@ -1,0 +1,101 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ include "testing-automation.fullname" . }}-editOrg
+  labels:
+    {{- include "testing-automation.labels" . | nindent 4 }}
+    app: testing-automation-editOrg
+spec:
+  schedule: "{{ .Values.cronScheduleeditOrg }}"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      template:
+        metadata:
+          labels:
+            aadpodidbinding: {{ include "testing-automation.fullname" . }}
+        spec:
+          restartPolicy: Never
+          nodeSelector:
+            kubernetes.io/os: linux
+          initContainers:
+          - name: {{ include "testing-automation.fullname" . }}-editOrg
+            image: "{{ .Values.image.repository }}:{{ .Values.appVersion | default .Chart.AppVersion }}"
+            env:
+            - name: STEPS_TIMEOUT
+              value: "90000"
+            - name: TEST_TO_RUN
+              value: headless:editOrg             
+            - name: SPLUNK_INDEX
+              value: "{{ .Values.splunkIndex }}"
+            - name: PORTAL_URL
+              value: "{{ .Values.PORTAL_URL }}"
+            - name: API_CS
+              value: "{{ .Values.API_CS }}"
+            - name: URL_NOTIF
+              value: "{{ .Values.URL_NOTIF }}"
+            - name: IS_URL
+              value: "{{ .Values.IS_URL }}"
+            - name: SPLUNK_HOST
+              value: "{{ .Values.splunkHost }}"
+
+{{- if .Values.keyVault.enabled }}              
+            - name: SPLUNK_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: splunk-collector-token
+                  key: token
+{{- end }}  
+{{- if .Values.keyVault.enabled }}              
+            - name: PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: common-services-user1-password
+                  key: passworduser1
+{{- end }}
+{{- if .Values.keyVault.enabled }}              
+            - name: CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: common-services-client-secret
+                  key: client-secret
+{{- end }} 
+{{- if .Values.keyVault.enabled }}              
+            - name: USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: common-services-rockwell-username
+                  key: rockwell-username
+{{- end }}
+{{- if .Values.keyVault.enabled }}              
+            - name: RA_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: common-services-ra-username
+                  key: ra-username
+{{- end }}
+{{- if .Values.keyVault.enabled }}              
+            - name: RA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: common-services-ra-password
+                  key: ra-password
+{{- end }}                
+{{- if .Values.keyVault.enabled }}
+            volumeMounts:
+            - name: secrets-store-inline
+              mountPath: "/mnt/secrets-store"
+              readOnly: true
+{{- end }}
+          imagePullSecrets:
+          - name: {{ .Values.imagePullSecrets }}
+{{- if .Values.keyVault.enabled }}
+          volumes:
+          - name: secrets-store-inline
+            csi:
+              driver: secrets-store.csi.k8s.io
+              readOnly: true
+              volumeAttributes:
+                secretProviderClass: {{ include "testing-automation.fullname" . }}
+{{- end }}
