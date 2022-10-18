@@ -1,12 +1,12 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: {{ include "testing-automation.fullname" . }}-homeFilters
+  name: {{ include "testing-automation.fullname" . }}-homefilters
   labels:
     {{- include "testing-automation.labels" . | nindent 4 }}
-    app: testing-automation-homeFilters
+    app: testing-automation-homefilters
 spec:
-  schedule: "{{ .Values.cronSchedulehomeFilters }}"
+  schedule: "{{ .Values.cronSchedulehomefilters }}"
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:
@@ -20,7 +20,7 @@ spec:
           nodeSelector:
             kubernetes.io/os: linux
           containers:
-          - name: {{ include "testing-automation.fullname" . }}-homeFilters
+          - name: {{ include "testing-automation.fullname" . }}-homefilters
             image: {{ .Values.image.repository }}:{{ .Values.appVersion | default .Chart.AppVersion }}
             env:
             - name: STEPS_TIMEOUT
