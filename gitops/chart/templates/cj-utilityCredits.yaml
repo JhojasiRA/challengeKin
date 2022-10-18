@@ -19,7 +19,7 @@ spec:
           restartPolicy: Never
           nodeSelector:
             kubernetes.io/os: linux
-          initContainers:
+          containers:
           - name: {{ include "testing-automation.fullname" . }}-utilityCredits
             image: "{{ .Values.image.repository }}:{{ .Values.appVersion | default .Chart.AppVersion }}"
             env:
