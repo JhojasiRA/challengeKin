@@ -21,7 +21,7 @@ spec:
             kubernetes.io/os: linux
           containers:
           - name: {{ include "testing-automation.fullname" . }}-utilityCredits
-            image: "{{ .Values.image.repository }}:{{ .Values.appVersion | default .Chart.AppVersion }}"
+            image: {{ .Values.image.repository }}:{{ .Values.appVersion | default .Chart.AppVersion }}
             env:
             - name: STEPS_TIMEOUT
               value: "90000"
