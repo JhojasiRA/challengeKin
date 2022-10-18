@@ -1,12 +1,12 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: {{ include "testing-automation.fullname" . }}-utilityCredits
+  name: {{ include "testing-automation.fullname" . }}-utilitycredits
   labels:
     {{- include "testing-automation.labels" . | nindent 4 }}
-    app: testing-automation-utilityCredits
+    app: testing-automation-utilitycredits
 spec:
-  schedule: "{{ .Values.cronScheduleutilityCredits }}"
+  schedule: "{{ .Values.cronScheduleutilitycredits }}"
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:
@@ -20,7 +20,7 @@ spec:
           nodeSelector:
             kubernetes.io/os: linux
           containers:
-          - name: {{ include "testing-automation.fullname" . }}-utilityCredits
+          - name: {{ include "testing-automation.fullname" . }}-utilitycredits
             image: {{ .Values.image.repository }}:{{ .Values.appVersion | default .Chart.AppVersion }}
             env:
             - name: STEPS_TIMEOUT

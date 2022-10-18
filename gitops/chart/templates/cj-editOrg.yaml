@@ -1,12 +1,12 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: {{ include "testing-automation.fullname" . }}-editOrg
+  name: {{ include "testing-automation.fullname" . }}-editorg
   labels:
     {{- include "testing-automation.labels" . | nindent 4 }}
-    app: testing-automation-editOrg
+    app: testing-automation-editorg
 spec:
-  schedule: "{{ .Values.cronScheduleeditOrg }}"
+  schedule: "{{ .Values.cronScheduleeditorg }}"
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:
@@ -20,7 +20,7 @@ spec:
           nodeSelector:
             kubernetes.io/os: linux
           containers:
-          - name: {{ include "testing-automation.fullname" . }}-editOrg
+          - name: {{ include "testing-automation.fullname" . }}-editorg
             image: {{ .Values.image.repository }}:{{ .Values.appVersion | default .Chart.AppVersion }}
             env:
             - name: STEPS_TIMEOUT

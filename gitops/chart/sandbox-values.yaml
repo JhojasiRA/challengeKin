@@ -2,14 +2,14 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-cronSchedulecreateOrg: "0 */2 * * *"
-cronScheduleeditOrg: "5 */2 * * *"
+cronSchedulecreateorg: "0 */2 * * *"
+cronScheduleeditorg: "5 */2 * * *"
 cronScheduleaccesmanagement: "10 */2 * * *"
-cronScheduleutilityCredits: "15 */2 * * *"
-cronSchedulehomeFilters: "20 */2 * * *"
-cronScheduleinvitationManagement: "25 */2 * * *"
+cronScheduleutilitycredits: "15 */2 * * *"
+cronSchedulehomefilters: "20 */2 * * *"
+cronScheduleinvitationmanagement: "25 */2 * * *"
 cronSchedulejoinrequest: "30 */2 * * *"
-cronSchedulelaunchServices: "35 */2 * * *"
+cronSchedulelaunchservices: "35 */2 * * *"
 cronSchedulenotifications: "40 */2 * * *"
 cronScheduletopbar: "45 */2 * * *"
 
