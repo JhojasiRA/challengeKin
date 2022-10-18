@@ -4,7 +4,7 @@
 
 cronSchedulecreateOrg: "0 */2 * * *"
 cronScheduleeditOrg: "5 */2 * * *"
-cronScheduleaccesManagement: "10 */2 * * *"
+cronScheduleaccesmanagement: "10 */2 * * *"
 cronScheduleutilityCredits: "15 */2 * * *"
 cronSchedulehomeFilters: "20 */2 * * *"
 cronScheduleinvitationManagement: "25 */2 * * *"
