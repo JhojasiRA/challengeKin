@@ -7,7 +7,7 @@ metadata:
     {{- include "testing-automation.labels" . | nindent 4 }}
     app: testing-automation-perftest
 spec:
-  backoffLimit: 0 # number of retries before throwing error
+  backoffLimit: 0
   template:
     metadata:
       labels:
