@@ -1,5 +1,6 @@
 Feature: Launch Services
 
+
     Background:  Be on the Le Mans portal
         Given the user opens the Le Mans portal
         When the user logs in with MyRockwell-SAML
@@ -50,7 +51,15 @@ Feature: Launch Services
         When the user launches the FTOptix card
         Then the user sees page with the title "FT Optix"
 
-   @LaunchServices @SyntheticTrx
+@LaunchServices @SyntheticTrx
     Scenario: Launch EaaS service without entitlement
        When the user launches the EaaS card
        Then the user sees page with the title "ZedControl"
+
+
+ @LaunchServices @SyntheticTrx @teardownAddEntitlement
+    Scenario: Launch Vault service with entitlement
+        Given the user has created a new organization with name "Vault_entitlement_test"
+        And the user has allocated a new "Vault" entitlement with email "rasynthetictest@rockwellautomation.com" and valid for "5" days
+        When the user launches the vault card
+        Then the user should see the "Vault" page of controller project

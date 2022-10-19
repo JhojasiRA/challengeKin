@@ -40,6 +40,10 @@
             "catalogNumber": "9545C-FTRAT11-SALES",
             "serviceKind": "SecureRemoteAccess"
         },
+        "Vault": {
+            "catalogNumber": "FTVAULT-11",
+            "serviceKind": "Vault"
+        },
         "credits":{
             "catalogNumber":"9523-UtilityToken"
         }

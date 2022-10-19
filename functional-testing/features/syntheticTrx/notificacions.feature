@@ -20,7 +20,7 @@ Feature: Notifications
         When the user goes to the notification option
         And the user clears all notifications on the view all page
         Then The user will see an empty page
-    @Notifications @SyntheticTrx 
+    @Notifications @SyntheticTrx
     Scenario: Delete all notification from the panel
         When the user goes to the notification option
         And the user clears all notifications on the panel notification

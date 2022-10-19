@@ -1,5 +1,5 @@
 import { Action } from "../globalTasks/Action";
-const ALLOCATE_BTN = (catalogNumber: string) => `(//*[@class='ag-center-cols-container']//*[@role="row"]//*[contains(text(), '${catalogNumber}')]//following::*[contains(text(),'Active')])[1]//following-sibling::*//button`
+const ALLOCATE_BTN = (catalogNumber: string) => `//*[contains(text(), '${catalogNumber}')]//ancestor::*[@role="row"]//descendant::button`
 const ALLOCATED_CREDITS = (quantity: number) => `//*[@class='ag-center-cols-viewport']//following::*[contains(text(),'9523-UtilityToken')]//following::*[@col-id='allocated' and text()='${quantity}']` 
 
 export class Entitlements extends Action {

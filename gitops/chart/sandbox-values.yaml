@@ -2,7 +2,18 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-cronScheduleSynthetictrx: "5 */2 * * *"
+cronSchedulecreateorg: "0 */2 * * *"
+cronScheduleeditorg: "5 */2 * * *"
+cronScheduleaccesmanagement: "10 */2 * * *"
+cronScheduleutilitycredits: "15 */2 * * *"
+cronSchedulehomefilters: "20 */2 * * *"
+cronScheduleinvitationmanagement: "25 */2 * * *"
+cronSchedulejoinrequest: "30 */2 * * *"
+cronSchedulelaunchservices: "35 */2 * * *"
+cronSchedulenotifications: "40 */2 * * *"
+cronScheduletopbar: "45 */2 * * *"
+
+cronScheduleSynthetictrx: "0 0 1 1 *"
 cronScheduleapi: "0 0 1 1 *"
 cronScheduleLogin: "0 0 1 1 *"
 
@@ -13,6 +24,8 @@ IS_URL: https://factorytalkhub.us.auth0.com/oauth/token
 API_CS: https://common.lemans-sandbox.rockwellautomation.com
 PORTAL_URL: https://home.lemans-sandbox.rockwellautomation.com
 URL_NOTIF: https://api-notifications.lemans-sandbox.rockwellautomation.com
+AUTH0_URL: https://factorytalkhub.us.auth0.com
+STRESS_TEST_ID: cc84f43a2ce1e0e2efcd40ce966f942ceb2f94aab6bf3c4d94075c43653215148d5113f53e32bbbe91f9ff1725c76a711957b4586f074bd520625bceb3e14ad4
 
 
 image:
