@@ -1,4 +1,4 @@
-Feature: As a user, I want to purchase and allocate utility credits to my organizations so users belonging to this organizations be able to consume the different services provided by FactoryTalkHub
+Feature: Utility Credits
 
 Background:  Be on the Le Mans portal
     Given the user opens the Le Mans portal

@@ -1,4 +1,4 @@
-Feature: As a user, I want to delete, manage and view the notification on the Nagivation Bar
+Feature: Notifications
 
     Background:  Be on the Le Mans portal
         Given the user opens the Le Mans portal

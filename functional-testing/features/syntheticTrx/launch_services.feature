@@ -1,4 +1,4 @@
-Feature: As a user, I want to launch vault into Le Mans portal
+Feature: Launch Services
 
     Background:  Be on the Le Mans portal
         Given the user opens the Le Mans portal

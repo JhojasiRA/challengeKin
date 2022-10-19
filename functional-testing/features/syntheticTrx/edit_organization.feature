@@ -1,6 +1,6 @@
-Feature: As an user, I want to edit an  organization into Le Mans portal
+Feature: Edit Organization
 
-Background:  Be on the Le Mans portal
+Background: Be on the Le Mans portal
     Given the user opens the Le Mans portal
     When the user submits the form with its credentials
     
