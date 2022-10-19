@@ -1,4 +1,5 @@
-Feature: As a user, I want to launch different services in the FTHub portal
+Feature: Launch Services
+
 
     Background:  Be on the Le Mans portal
         Given the user opens the Le Mans portal

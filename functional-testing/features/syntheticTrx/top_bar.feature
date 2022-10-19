@@ -1,4 +1,4 @@
-Feature: As a user, I want to navigate into the top bar of homePage
+Feature: Topbar Navigator
 
     Background: Be on the Le Mans portal
         Given the user opens the Le Mans portal

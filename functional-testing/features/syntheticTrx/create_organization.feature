@@ -1,4 +1,4 @@
-Feature: As an user, I want to create a new organization into Le Mans portal
+Feature: Create Organization
 
 Background:  Be on the Le Mans portal
     Given the user opens the Le Mans portal

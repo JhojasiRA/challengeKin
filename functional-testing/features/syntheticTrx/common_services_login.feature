@@ -1,6 +1,6 @@
-Feature: As a user, I want to login in FactoryTalk Hub
+Feature: Login FTHub
 
-Background:  Be on the Le Mans portal
+Background: Be on the Le Mans portal
     Given the user opens the Le Mans portal
 
 @login @SyntheticTrx @RockwellLogin

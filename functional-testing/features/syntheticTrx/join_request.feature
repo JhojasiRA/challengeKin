@@ -1,4 +1,4 @@
-Feature: As an user, I want to send a join request to other user
+Feature: Join Request
 
 Background:  Be on the Le Mans portal
     Given the user opens the Le Mans portal
