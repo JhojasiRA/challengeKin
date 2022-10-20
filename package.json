@@ -21,7 +21,8 @@
     "headless:login": "npx wdio functional-testing/config/grid.config.ts --cucumberOpts.tagExpression=\"@RockwellLogin\"",
     "testing": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@mailosaur\"",
     "local:syntheticTrx": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@SyntheticTrx\"",
-    "local:api": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@APITest\""
+    "local:api": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@APITest\"",
+    "nightly": "sh ./nightly.sh" 
   },
   "author": "JorgeZapataC, JhojasiRA, CSanchez58",
   "license": "ISC",
