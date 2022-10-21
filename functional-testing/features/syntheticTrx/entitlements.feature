@@ -1,4 +1,4 @@
-Feature:  As a user, I want to purchase and allocate fake entitlements 
+Feature:  entitlement types
 
 Background: Be on the Le Mans portal
     Given the user opens the Le Mans portal
