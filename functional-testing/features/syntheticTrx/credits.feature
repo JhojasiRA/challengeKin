@@ -4,7 +4,7 @@ Background:  Be on the Le Mans portal
     Given the user opens the Le Mans portal
     And the user submits the form with its credentials
 
-@SyntheticTrx
+@SyntheticTrx 
 Scenario: Allocate a single credit
     Given the user has created a new organization with name "Credits_test_SC01"
     When the user allocates "1" credits entitlement with email "testuser20@rockwellautomation.com" and valid for "365" days 

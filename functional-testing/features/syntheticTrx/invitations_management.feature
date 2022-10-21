@@ -3,7 +3,7 @@ Feature: As a user, I want to invite new users to my tenant and services
     Background:  Be on the Le Mans portal
         Given the user opens the Le Mans portal
     
-    @invitationManagement @SyntheticTrx
+    @invitationManagement @SyntheticTrx 
     Scenario: Invite a user to a service
         Given the user submits the form with its credentials
         When the user invites "testuser6@rockwellautomation.com" to the resource "Service: FactoryTalk Vault" with role "Contributor"
