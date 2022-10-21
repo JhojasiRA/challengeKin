@@ -19,7 +19,7 @@
     
     "headless:api": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@APITest\"",
     "headless:login": "npx wdio functional-testing/config/grid.config.ts --cucumberOpts.tagExpression=\"@RockwellLogin\"",
-    "testing": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@mailosaur\"",
+    "testing": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@entitlement\"",
     "local:syntheticTrx": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@SyntheticTrx\"",
     "local:api": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@APITest\"",
     "nightly": "sh ./nightly.sh" 
@@ -27,6 +27,7 @@
   "author": "JorgeZapataC, JhojasiRA, CSanchez58",
   "license": "ISC",
   "dependencies": {
+    "@cucumber/cucumber": "^8.6.0",
     "@wdio/cli": "^7.16.16",
     "@wdio/concise-reporter": "^7.16.14",
     "webdriverio": "^7.20.9"
@@ -40,7 +41,7 @@
     "@types/node": "16.11.6",
     "@typescript-eslint/eslint-plugin": "5.2.0",
     "@typescript-eslint/parser": "5.2.0",
-    "@wdio/cucumber-framework": "^7.18.0",
+    "@wdio/cucumber-framework": "^7.25.1",
     "@wdio/firefox-profile-service": "^7.19.5",
     "@wdio/local-runner": "^7.19.7",
     "@wdio/selenium-standalone-service": "^7.18.0",
