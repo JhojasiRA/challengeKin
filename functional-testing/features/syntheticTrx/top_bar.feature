@@ -48,7 +48,7 @@ Feature: Topbar Navigator
         And the user submits the form with enhancement request information
         Then user should not see the feedback modal
 
-    @SyntheticTrx @Topbar @testing
+    @SyntheticTrx @Topbar
     Scenario: navigate into top bar reporting an issue
         When the user goes inside on the help icon
         And the user goes inside on provide feedback option 
