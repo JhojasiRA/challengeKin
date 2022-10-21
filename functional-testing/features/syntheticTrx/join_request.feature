@@ -1,4 +1,4 @@
-Feature: As an user, I want to send a join request to other user
+Feature: Join Request
 
 Background:  Be on the Le Mans portal
     Given the user opens the Le Mans portal
@@ -39,7 +39,7 @@ Scenario: Approve a join request to billing admin role
     Then the user should see that the access has been granted 
     And the user should see that "testuser1@rockwellautomation.com" has access to to the approved resource with the role "Billing Admin"
 
-@SyntheticTrx
+@joinrequest @SyntheticTrx
 Scenario: Ask access to the same organization you are in
     Given user copies the organization code 
     When the user tries to join to the organization

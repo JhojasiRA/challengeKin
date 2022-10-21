@@ -1,4 +1,4 @@
-Feature: As a user, I want to invite new users to my tenant and services
+Feature: Invitations Management
 
     Background:  Be on the Le Mans portal
         Given the user opens the Le Mans portal

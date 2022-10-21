@@ -1,4 +1,4 @@
-Feature: As a User, I want to switch between organizations using the navBar
+Feature: Switch Organizations
 
     Background:  Be on the Le Mans portal
         Given the user opens the Le Mans portal

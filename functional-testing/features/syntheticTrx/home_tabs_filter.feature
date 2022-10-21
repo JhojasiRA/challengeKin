@@ -1,4 +1,4 @@
-Feature: As a user, I want to narrow down the services cards I see on screen so I can easily find the one I need
+Feature: Home filters and service tiles
 
     Background:  Be on the Le Mans portal
         Given the user opens the Le Mans portal

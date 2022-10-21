@@ -1,10 +1,12 @@
 const { generate } = require('multiple-cucumber-html-reporter');
 const { removeSync } = require('fs-extra');
 import { logJSONresults } from '../support/SplunkLog'
+import { sendResultsToqTest } from '../utils/SendResultsToqTest';
 
 var intStepsTimeoutDefault = 60000;
 let intStepsTimeout = process.env.STEPS_TIMEOUT !== undefined ? parseInt(process.env.STEPS_TIMEOUT) : intStepsTimeoutDefault;
 intStepsTimeout = isNaN(global.intElementsTimeout) ? intStepsTimeoutDefault : intStepsTimeout;
+const jsonDirPath = './reports/';
 
 export const BaseConfig: WebdriverIO.Config = {
     specs: [
@@ -69,6 +71,7 @@ export const BaseConfig: WebdriverIO.Config = {
     },
     onComplete: async () => {
         const path = require('path')
+        let pathJson = jsonDirPath
         //@ts-ignore
         // TODO: Set test type from execution
         const argv = require("yargs").argv;
@@ -78,10 +81,12 @@ export const BaseConfig: WebdriverIO.Config = {
             .catch((err) => console.log(`Splunk logs were not sent: ${err.message}`));
 
         await generate({
-            jsonDir: './reports/',
-            reportPath: './reports/',
-            // for more options see https://github.com/wswebcreation/multiple-cucumber-html-reporter#options
+            jsonDir: pathJson,
+            reportPath: jsonDirPath,
         });
+
+        if(process.env.SEND_REPORT_QTEST == "true") {await sendResultsToqTest(path.join(process.cwd(),`reports`))}
+
     }
 
 }
