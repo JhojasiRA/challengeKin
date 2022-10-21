@@ -1,4 +1,4 @@
-process.env.QTEST_TOKEN = `437558b4-83d4-4429-aa2f-bfd9599f2a3b`
+process.env.QTEST_TOKEN = `d8a148fb-0b9a-42fa-9398-d2260c83a5dd`
 process.env.QTEST_URL = `https://ra.qtestnet.com`
 
 const axios = require('axios')
