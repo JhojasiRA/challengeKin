@@ -4,7 +4,7 @@ export class HomePage extends Action {
     get vaultCard() { return $(`#card-Vault`) }
     get vaultView() { return $(`//*[ contains (text(), "Vault")]`) }
     get FTRACard() { return $(`#card-SecureRemoteAccess`) }
-    get homePage() { return $(`//*[@class="xng-breadcrumb-root"]//*[ contains (text(), "Home")]`) }
+    get homePage() { return $(`//*[ contains (text(), "All Apps")]`) }
     get rubikIcon() { return $('#rubick-menu-btn') }
     get lockFTRAIcon() { return $(`//*[@id="card-SecureRemoteAccess"]//*[contains (@class, "fav-lock-icon")]`) }
     get lockFooIcon() { return $(`//*[@id="card-FooService"]//*[contains (@class, "fav-lock-icon")]`) }
