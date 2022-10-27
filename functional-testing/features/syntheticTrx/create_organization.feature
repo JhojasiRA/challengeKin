@@ -4,7 +4,7 @@ Background:  Be on the Le Mans portal
     Given the user opens the Le Mans portal
     And the user submits the form with its credentials
 
-@createWithLogo @SyntheticTrx @createOrg
+@createWithLogo @SyntheticTrx @createOrg @deletingUserr
 Scenario: Create Organization with logo organization Sucessfully
     When the user goes inside to create organization option
     And the user submits the form with its information and add an organization logo
@@ -17,14 +17,14 @@ Scenario: Cancel user creation
     Then User should see a message pop up: "Changes will not be saved. Do you want to proceed?"
     And the user should see the "All Apps" page
     
-@SyntheticTrx @createOrg @testingcreatetin
+@SyntheticTrx @createOrg
 Scenario: Create private organization
     When the user goes inside to create organization option
     And the user submits the form with its information
     Then the user should see the message "Congratulations! You have created the organization TestingOrgRockwell1 successfully!"
     And user cant see the name in join organization option
 
-@SyntheticTrx  @after @createOrg @testingcreatetin
+@SyntheticTrx  @after @createOrg
 Scenario: Create public organization
     When the user goes inside to create organization option
     And the user submits the form with public organization information
