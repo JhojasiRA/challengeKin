@@ -10,7 +10,7 @@ export class Organization extends Action {
     get saveButton() { return browser.$('//*[ contains (text(), "Save")]'); }
     get confirmationButton() { return browser.$('//*[ contains (text(), "Continue")]'); }
     get descriptionField() { return browser.$('//*[@formcontrolname="tenantDescription"]'); }
-    get messageSuccessfully() { return browser.$('//*[ contains (text(), "Congratulations! You have created the organization TestingOrgRockwell1 successfully!")]'); }
+    get messageSuccessfully() { return browser.$('//*[ contains (text(), "Congratulations! You have created the organization")]'); }
     get successMessage() { return browser.$('//*[ contains (text(), "Organization updated successfully.")]'); }
     get discardChangesMessage() { return browser.$('//*[ contains (text(), "Changes will not be saved. Do you want to proceed?")]'); }
     get continueButton() { return browser.$('//div[contains(text(), "Continue")]'); }

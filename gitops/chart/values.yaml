@@ -19,7 +19,7 @@ cosmos:
   container: common
   
 cleanup_tool:
-  syntheticTestUserIds: "117be408cb875e8dab69612595822770,6e29b89de7355e5280fb644b203c4a11"
+  syntheticTestUserIds: "ea4d1f46014a5bf6bbd97d3ec5723266,68a13e8398b352c5b8e22ec18ab2bbb6"
 
 imagePullSecrets: image-pull-secrets
 

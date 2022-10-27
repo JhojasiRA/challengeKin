@@ -4,7 +4,7 @@ Background:  Be on the Le Mans portal
     Given the user opens the Le Mans portal
     And the user submits the form with its credentials
 
-@createWithLogo @SyntheticTrx @createOrg
+@createWithLogo @SyntheticTrx @createOrg @deletingUserr
 Scenario: Create Organization with logo organization Sucessfully
     When the user goes inside to create organization option
     And the user submits the form with its information and add an organization logo
@@ -15,7 +15,7 @@ Scenario: Cancel user creation
     When the user goes inside to create organization option
     And the user submits the form with its name
     Then User should see a message pop up: "Changes will not be saved. Do you want to proceed?"
-    And the user should see the "Home" page
+    And the user should see the "All Apps" page
     
 @SyntheticTrx @createOrg
 Scenario: Create private organization
@@ -86,9 +86,9 @@ Scenario: Change Foo Service tile visibility to OFF
     Then user should see not the Foo service in home
 
 @SyntheticTrx @testingTrial @createOrg
-Scenario: Create organization with FTRA-TRIAL-01 entitlement by default
+Scenario: Create an organization with FTRA-TRIAL-01 and FTOS-TRIAL-01 entitlements by default
     When the user goes inside to create organization option
     And the user submits the form with its information
     And the user goes to the entitlement page
-    Then user should see the "Catalog: FTRA-TRIAL-01" entitlement applied by default
-    And user should see the "Catalog: FTOS-TRIAL-01" entitlement
+    Then user should see the "FactoryTalk Remote Access | Catalog: FTRA-TRIAL-01" entitlement applied by default
+    And user should see the "FactoryTalk Optix | Catalog: FTOS-TRIAL-01" entitlement
