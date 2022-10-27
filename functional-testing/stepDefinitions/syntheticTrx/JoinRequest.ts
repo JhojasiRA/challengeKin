@@ -1,8 +1,7 @@
 import {Given, When, Then } from '@cucumber/cucumber'
 import { joinRequest } from '../../services/JoinTenant';
 import { AccesManagement } from '../../src/pages/AccessManagement';
-import { menuhomepage, organization, question, approveUser, topBar, indexPage, externalAccount, homePage } from '../../support/Hooks';
-import pause from 'webdriverio/build/commands/browser/pause';
+import { menuhomepage, organization, question, approveUser, topBar, indexPage, externalAccount } from '../../support/Hooks';
 
 When('User1 copies a new invite code', {timeout: 2 * 5000}, async() => {
     await organization.inviteCode();
@@ -15,7 +14,7 @@ When('User1 gives to user2 an invite code', async() => {
 When('User2 signs in on his account', async() => {   
      await browser.url(process.env.PORTAL_URL);
      await indexPage.goToSignIn();
-     await externalAccount.submitForm("tester1", process.env.PASSWORD);
+     await externalAccount.submitForm("tester3", process.env.PASSWORD);
 });
 
 When('User2 goes inside to the option join request', async() => {
@@ -97,16 +96,14 @@ Then('user should see a pop up message: {string}', async(MessageBadRequest) => {
   await question.assertElementText(organization.getBadRequestMessage(),MessageBadRequest);
 });
 
-Given('user1 creates an organization', async() => {
-  await menuhomepage.createOrganizationOption();
-  await organization.newOrganization();
+Given('user1 copy the invite code ', async() => {
   await menuhomepage.editOrganizationOption();
   await organization.inviteCode();
   await topBar.signOutOption();
 });
 
 
-When('user2 makes the request for the organization created before', async() => {
+When('user2 makes the request', async() => {
   await browser.url(process.env.PORTAL_URL);
   await indexPage.goToSignIn();
   await externalAccount.submitForm("tester1", process.env.PASSWORD);
@@ -131,12 +128,4 @@ When('user2 makes the same org request again', async() => {
   await menuhomepage.joinOrganizationOption();
   await organization.joinRequest();
   
-})
-
-Then('user should see a pop up message: {string}', async(MessageBadRequest) => {
-  await browser.pause(1000);
-  await question.assertElementText(organization.getBadRequestMessage(),MessageBadRequest);
 });
-
-
-     

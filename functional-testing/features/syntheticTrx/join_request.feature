@@ -32,7 +32,7 @@ Scenario: Send a join request with an outdate invite code
     And User2 tries to send a join request with a outdate invite code
     Then User2 will see the continue button disabled
 
-@joinrequest @SyntheticTrx @TearDownAddAccess
+@joinrequest @TearDownAddAccess
 Scenario: Approve a join request to billing admin role
     Given user "testuser1" has applied a join request to the last accessed organization of current user
     When the user tries to approve the join request with role "Billing Admin"
@@ -45,10 +45,10 @@ Scenario: Ask access to the same organization you are in
     When the user tries to join to the organization
     Then user should see a pop up message: "The request was invalid"
 
-@SyntheticTrx @testOrg
+@SyntheticTrx @testOrg @joinrequest
 Scenario: Ask access to an organization an user already belong
-    Given user1 creates an organization 
-    When user2 makes the request for the organization created before
+    Given user1 copy the invite code 
+    When user2 makes the request
     And user1 accepts the request of user2 with role "Administrator"
     And user2 makes the same org request again
     Then user should see a pop up message: "The request was invalid"
