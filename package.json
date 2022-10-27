@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "chrome": "npx wdio functional-testing/config/chrome.config.ts",
-    "headless:syntheticTrx": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@deletingUserr\"",
+    "headless:syntheticTrx": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@SyntheticTrx\"",
     "headless:accesManagement ": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@accesManagement\"",
     "headless:createOrg": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@createOrg\"",
     "headless:credits": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@credits\"",
@@ -16,10 +16,11 @@
     "headless:launchServices": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@LaunchServices\"",
     "headless:notifications": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@Notifications\"",
     "headless:topbar": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@Topbar\"",
+    "headless:entitlements": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@entitlements\"",
     
     "headless:api": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@APITest\"",
     "headless:login": "npx wdio functional-testing/config/grid.config.ts --cucumberOpts.tagExpression=\"@RockwellLogin\"",
-    "testing": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@editOrg\"",
+    "testing": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@refactoring\"",
     "local:syntheticTrx": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@SyntheticTrx\"",
     "local:api": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@APITest\"",
     "nightly": "sh ./nightly.sh" 
