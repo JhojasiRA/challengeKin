@@ -23,7 +23,7 @@ Feature: Invitations Management
         When the user resends the invitation to the user mentioned
         Then user should see that the invitation is resent successfully
 
-    @invitationManagement @SyntheticTrx
+    @invitationManagement @SyntheticTrx @refactoring
     Scenario: Cancel an active invitation
         Given the user submits the form with its credentials
         And an invitation has been made to the user "testuser6@rockwellautomation.com" with the role "Contributor" to the resource "Vault" 
