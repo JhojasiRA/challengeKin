@@ -12,6 +12,7 @@ cronSchedulejoinrequest: "30 */2 * * *"
 cronSchedulelaunchservices: "35 */2 * * *"
 cronSchedulenotifications: "40 */2 * * *"
 cronScheduletopbar: "45 */2 * * *"
+cronScheduleentitlements: "50 */2 * * *"
 
 cronScheduleSynthetictrx: "0 0 1 1 *"
 cronScheduleapi: "0 0 1 1 *"
