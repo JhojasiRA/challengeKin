@@ -4,7 +4,7 @@ Background:  Be on the Le Mans portal
     Given the user opens the Le Mans portal
     And the user submits the form with its credentials
 
-@createWithLogo @SyntheticTrx @createOrg @deletingUserr
+@createWithLogo @SyntheticTrx @createOrg
 Scenario: Create Organization with logo organization Sucessfully
     When the user goes inside to create organization option
     And the user submits the form with its information and add an organization logo
