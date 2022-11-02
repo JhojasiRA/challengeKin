@@ -41,7 +41,6 @@ export class Organization extends Action {
     get checkFoo(){return browser.$('//*[ contains (text(), "Foo (Integration Sample)")]')}
     get checkDesignStudio(){return browser.$('//*[ contains (text(), "FactoryTalk Design Studio")]')}
     get checkVault(){return browser.$('//*[ contains (text(), "FactoryTalk Vault")]')}
-    get homeUrl(){return browser.$("//*[text()='Home' and @role='button']")}
 
     public async newOrganization(): Promise<void> {
         await this.enterText(this.nameOrganizationField,"TestingOrgRockwell1");
@@ -65,7 +64,6 @@ export class Organization extends Action {
         await this.click(this.nextButton);
         await browser.pause(1000); 
         await this.click(this.createButton);
-        await this.click(this.homeUrl);
         await browser.pause(1000);
     }
     

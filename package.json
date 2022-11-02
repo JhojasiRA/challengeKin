@@ -6,7 +6,7 @@
   "scripts": {
     "chrome": "npx wdio functional-testing/config/chrome.config.ts",
     "headless:syntheticTrx": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@SyntheticTrx\"",
-    "headless:accessmanagement ": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@accesManagement\"",
+    "headless:accessmanagement": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@accesManagement\"",
     "headless:createOrg": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@createOrg\"",
     "headless:credits": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@credits\"",
     "headless:editOrg": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@editOrg\"",
