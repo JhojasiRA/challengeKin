@@ -1,6 +1,4 @@
-import { allowedNodeEnvironmentFlags } from "process";
 import { Action } from "../globalTasks/Action";
-import { entitlements } from '../../support/Hooks';
 const ALLOCATE_BTN = (catalogNumber: string) => `//*[contains(text(), '${catalogNumber}')]//ancestor::*[@role="row"]//descendant::button`
 const ALLOCATED_CREDITS = (quantity: number) => `//*[@class='ag-center-cols-viewport']//following::*[contains(text(),'9523-UtilityToken')]//following::*[@col-id='allocated' and text()='${quantity}']` 
 
