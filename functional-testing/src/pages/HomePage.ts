@@ -12,7 +12,7 @@ export class HomePage extends Action {
     get lockEaasIcon() { return $(`//*[@id="card-EaaS"]//*[contains (@class, "fav-lock-icon")]`) }
     get fiixCard() { return $(`#card-Fiix`) }
     get fooCard() { return $(`#card-FooService`) }
-    get optixCard() { return $(`#card-Vista`) }
+    get optixCard() { return $(`#card-FTOptix`) }
     get EaasCard() { return $(`#card-EaaS`) }
     get allAppsTab() { return $('#mat-tab-label-0-0') }
     get designHubTab() { return $('#mat-tab-label-0-1') }
