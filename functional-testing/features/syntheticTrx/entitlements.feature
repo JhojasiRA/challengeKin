@@ -19,7 +19,7 @@ Scenario: purchase additive entitlement
 
 @SyntheticTrx @entitlements
 Scenario: purchase utilityToken entitlement       
-     Given user purchases an "9523-UtilityToken -" entitlement
+     Given user purchases an "9317C-FLEXCRT12 - " entitlement
      When user allocates the entitlement
      Then user can see "Utility Token" type in the organization entitlements
 
