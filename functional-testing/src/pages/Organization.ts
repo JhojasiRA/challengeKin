@@ -10,7 +10,7 @@ export class Organization extends Action {
     get saveButton() { return browser.$('//*[ contains (text(), "Save")]'); }
     get confirmationButton() { return browser.$('//*[ contains (text(), "Continue")]'); }
     get descriptionField() { return browser.$('//*[@formcontrolname="tenantDescription"]'); }
-    get messageSuccessfully() { return browser.$('//*[ contains (text(), "Congratulations! You have created the organization")]'); }
+    get messageSuccessfully() { return browser.$('(//*[ contains (text(), "Congratulations!")])[1]'); }
     get successMessage() { return browser.$('//*[ contains (text(), "Organization updated successfully.")]'); }
     get discardChangesMessage() { return browser.$('//*[ contains (text(), "Changes will not be saved. Do you want to proceed?")]'); }
     get continueButton() { return browser.$('//div[contains(text(), "Continue")]'); }
@@ -41,7 +41,6 @@ export class Organization extends Action {
     get checkFoo(){return browser.$('//*[ contains (text(), "Foo (Integration Sample)")]')}
     get checkDesignStudio(){return browser.$('//*[ contains (text(), "FactoryTalk Design Studio")]')}
     get checkVault(){return browser.$('//*[ contains (text(), "FactoryTalk Vault")]')}
-    get homeUrl(){return browser.$("//*[text()='Home' and @role='button']")}
 
     public async newOrganization(): Promise<void> {
         await this.enterText(this.nameOrganizationField,"TestingOrgRockwell1");
@@ -65,7 +64,6 @@ export class Organization extends Action {
         await this.click(this.nextButton);
         await browser.pause(1000); 
         await this.click(this.createButton);
-        await this.click(this.homeUrl);
         await browser.pause(1000);
     }
     
