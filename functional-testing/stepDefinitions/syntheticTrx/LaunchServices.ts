@@ -49,8 +49,9 @@ When('the user launches the vault card', async() => {
 });
 
 Then('the user should see the {string} page of controller project', async(message) => {
-    await browser.pause(10000); //ISSUE VAULT
-    await question.assertElementText(homePage.getVaultView(),message);
+    await browser.pause(10000); 
+    var currentUrl = await browser.getUrl();
+    await question.assertTextContains(currentUrl,message);
   });
 
 When('the user signs out the home page', async() => {
