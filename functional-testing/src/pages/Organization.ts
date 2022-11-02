@@ -10,7 +10,7 @@ export class Organization extends Action {
     get saveButton() { return browser.$('//*[ contains (text(), "Save")]'); }
     get confirmationButton() { return browser.$('//*[ contains (text(), "Continue")]'); }
     get descriptionField() { return browser.$('//*[@formcontrolname="tenantDescription"]'); }
-    get messageSuccessfully() { return browser.$('//*[ contains (text(), "Congratulations! You have created the organization TestingOrgRockwell1 successfully!")]'); }
+    get messageSuccessfully() { return browser.$('//*[ contains (text(), "Congratulations! You have created the organization")]'); }
     get successMessage() { return browser.$('//*[ contains (text(), "Organization updated successfully.")]'); }
     get discardChangesMessage() { return browser.$('//*[ contains (text(), "Changes will not be saved. Do you want to proceed?")]'); }
     get continueButton() { return browser.$('//div[contains(text(), "Continue")]'); }
@@ -19,7 +19,7 @@ export class Organization extends Action {
     get continueDiscardChanges() { return browser.$('(//*[@class = "primary-mat-button"])[2]'); }
     get joinUsingInviCode() { return browser.$('//*[contains(text(),"here")]'); }
     get searchInput() { return browser.$('//*[@name = "searchInput"]'); }
-    get continueButtonRequest() { return browser.$('//*[contains(text(),"continue")]'); }
+    get continueButtonRequest() { return browser.$('//*[contains(text(),"Continue")]'); }
     get requestSentMessage() { return browser.$('//*[ contains (text(), "You will be notified once the owner of the organization approves your request")]'); }
     get newCodeButton() { return browser.$('//*[ contains (text(), "New Code") ]'); }
     get copyInviteCodeBtn() { return browser.$('//div[contains(text(), "Copy Invite Code")]'); }

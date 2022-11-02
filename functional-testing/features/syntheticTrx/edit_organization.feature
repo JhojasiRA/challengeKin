@@ -27,7 +27,7 @@ Scenario: Cancel edit organization info
     When the user goes inside to edit organization option
     And the user changes the description but then cancel the edition
     Then User should see a message pop up: "Changes will not be saved. Do you want to proceed?"
-    And the user should see the "Home" page
+    And the user should see the "All Apps" page
 
 @newInviteCode @SyntheticTrx @editOrg
 Scenario: Generate a new invite code

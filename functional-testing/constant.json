@@ -17,11 +17,12 @@
     "apps": {
         "designHub": {
             "Vault": "#card-Vault",
-            "Uniqo": "#card-Vista",
+            "FTDS": "#card-IDE",
             "LogixDesigner": "#card-Logix5000",
             "Emulate3D": "#card-Emulate3D",
             "Arena": "#card-Arena", 
-            "EPlan": "#card-EPlan"
+            "EPlan": "#card-EPlan",
+            "FTOptix" : "#card-FTOptix"
         },
         "operationsHub": {
             "FTRA": "#card-SecureRemoteAccess",
