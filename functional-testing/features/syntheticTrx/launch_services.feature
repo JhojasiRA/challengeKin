@@ -9,7 +9,7 @@ Feature: Launch Services
     @LaunchServices @SyntheticTrx
     Scenario: Launch vault into Home page
         When the user launches the vault card
-        Then the user should see the "vault.lemans" page of controller project
+        Then the user should see the "vault.lemans" page project
 
     #Trial entitlement is applied by default
     #@LaunchServices @SyntheticTrx @teardownAddEntitlement
@@ -38,7 +38,7 @@ Feature: Launch Services
 @LaunchServices @SyntheticTrx
     Scenario: Launch Optix service
         When the user launches the FTOptix card
-        Then the user sees page with the title "FT Optix"
+        Then the user should see the "optix.lemans" page project
 
 @LaunchServices @SyntheticTrx
     Scenario: Launch EaaS service without entitlement

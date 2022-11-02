@@ -21,15 +21,13 @@ Scenario: Cancel user creation
 Scenario: Create private organization
     When the user goes inside to create organization option
     And the user submits the form with its information
-    Then the user should see the message "Congratulations! You have created the organization TestingOrgRockwell1 successfully!"
-    And user cant see the name in join organization option
+    Then user cant see the name in join organization option
 
 @SyntheticTrx  @after @createOrg
 Scenario: Create public organization
     When the user goes inside to create organization option
     And the user submits the form with public organization information
-    Then the user should see the message "Congratulations! You have created the organization TestingOrgRockwell1 successfully!"
-    And user can see the "TestingOrgRockwell1" in join organization option
+    Then user can see the "TestingOrgRockwell1" in join organization option
 
 @SyntheticTrx @createOrg
 Scenario: Go back create organization details
