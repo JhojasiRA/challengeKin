@@ -17,13 +17,13 @@ Scenario: Cancel user creation
     Then User should see a message pop up: "Changes will not be saved. Do you want to proceed?"
     And the user should see the "All Apps" page
     
-@SyntheticTrx @createOrg @test
+@SyntheticTrx @createOrg
 Scenario: Create private organization
     When the user goes inside to create organization option
     And the user submits the form with its information
     Then user cant see the name in join organization option
 
-@SyntheticTrx  @after @createOrg @test
+@SyntheticTrx  @after @createOrg
 Scenario: Create public organization
     When the user goes inside to create organization option
     And the user submits the form with public organization information
