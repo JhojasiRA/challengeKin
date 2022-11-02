@@ -26,7 +26,7 @@ spec:
             - name: STEPS_TIMEOUT
               value: "90000"
             - name: TEST_TO_RUN
-              value: headless:utilityCredits             
+              value: headless:utilitycredits             
             - name: SPLUNK_INDEX
               value: "{{ .Values.splunkIndex }}"
             - name: PORTAL_URL

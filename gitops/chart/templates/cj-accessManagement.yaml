@@ -1,12 +1,12 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: {{ include "testing-automation.fullname" . }}-accesmanagement
+  name: {{ include "testing-automation.fullname" . }}-accessmanagement
   labels:
     {{- include "testing-automation.labels" . | nindent 4 }}
-    app: testing-automation-accesManagement
+    app: testing-automation-accessmanagement
 spec:
-  schedule: "{{ .Values.cronScheduleaccesmanagement }}"
+  schedule: "{{ .Values.cronScheduleaccessmanagement }}"
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:
@@ -20,13 +20,13 @@ spec:
           nodeSelector:
             kubernetes.io/os: linux
           containers:
-          - name: {{ include "testing-automation.fullname" . }}-accesmanagement
+          - name: {{ include "testing-automation.fullname" . }}-accessmanagement
             image: {{ .Values.image.repository }}:{{ .Values.appVersion | default .Chart.AppVersion }}
             env:
             - name: STEPS_TIMEOUT
               value: "90000"
             - name: TEST_TO_RUN
-              value: headless:accesManagement
+              value: headless:accessmanagement             
             - name: SPLUNK_INDEX
               value: "{{ .Values.splunkIndex }}"
             - name: PORTAL_URL
