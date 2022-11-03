@@ -32,7 +32,6 @@ export class TopBar extends Action {
     get pageTitle() { return $("//h1")}
     get feedbackElement() {return browser.$('//mat-dialog-container[@id="mat-dialog-0"]'); }
     get modal() {return browser.$('//mat-dialog-actions[@class="mat-dialog-actions feedback-modal-action-container"]'); }
-
     get orgNameOption() {return browser.$('//*[@id= "ft-hub-org-name"]'); }
     get changeOrgModal() {return browser.$('//*[@role= "dialog"]'); }
     get selectOrg() {return browser.$('//*[@role= "combobox"]'); }

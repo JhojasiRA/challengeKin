@@ -15,6 +15,8 @@ export class Entitlements extends Action {
     get additiveType() {return browser.$('//*[ contains (text(),"additive")]');} 
     get utilityType() {return browser.$('//*[ contains (text(),"Utility Token")]');} 
     get platformType() {return browser.$('//*[ contains (text(),"platform")]');}
+    get allocatedEntitlementMessage() {return browser.$('//*[ contains (text(),"Service already has a platform entitlement allocated for the time period")]');} 
+     
     
     public async allocateEntitlement(catalogNumber:string): Promise<void> {
         const allocateButton = await $(ALLOCATE_BTN(catalogNumber))
@@ -33,8 +35,7 @@ export class Entitlements extends Action {
         return allocatedCredits;
     }
 
-
-    public async purchaseAddons(entitlements): Promise<void> {
+    public async purchase(entitlements): Promise<void> {
       await this.click(this.purchaseFakeEntitlement);
       await browser.pause(3000);
       await this.selectFromDropdown(this.catalogCodeDropDown, entitlements)
@@ -45,25 +46,34 @@ export class Entitlements extends Action {
   public async allocateEnt(): Promise<void> {
       await this.click(this.allocateBtn);
       await this.click(this.reviewAllocationBtn);
-      await this.click(this.confirmAllocation);  
+      await this.click(this.confirmAllocation);
 }
 
     public getTrialFTRAEntitlement(): WebdriverIO.Element {
       return this.trialFTRAEntitlement;
   }
+
   public getTrialFTOSEntitlement(): WebdriverIO.Element {
     return this.trialFTOSEntitlement;
   }
+
     public getAddonType(): WebdriverIO.Element {
       return this.addonsType;
   }
+
   public getPlatformType(): WebdriverIO.Element {
     return this.platformType;
-}
-public getAdditiveType(): WebdriverIO.Element {
+  }
+
+  public getAdditiveType(): WebdriverIO.Element {
   return this.additiveType;
-}
-public getUtilityType(): WebdriverIO.Element {
+  }
+
+  public getUtilityType(): WebdriverIO.Element {
   return this.utilityType;
-}
+  }
+
+  public getAllocatedEntitlementMessage(): WebdriverIO.Element {
+    return this.allocatedEntitlementMessage;
+    }
 }
