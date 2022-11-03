@@ -10,7 +10,7 @@ Feature: Notifications
         When the user goes to the notification option
         And the user removes a notification from the panel
         Then the user will see one notification less on his NavBar
-    @Notifications @SyntheticTrx @faltaeste
+    @Notifications @SyntheticTrx
     Scenario: Delete a notification from the VIEW ALL page
         When the user goes to the notification option
         And the user clears one notification on the view all page

@@ -9,18 +9,7 @@ Feature: Launch Services
     @LaunchServices @SyntheticTrx
     Scenario: Launch vault into Home page
         When the user launches the vault card
-        Then the user should see the "Vault" page of controller project
-
-    @LaunchServices
-    Scenario: sign out vault and homepage
-        When the user launches the vault card
-        And the user signs out the home page
-        Then the user should see logout page
-
-    @LaunchServices
-    Scenario: Launch FTRA service without entitlement
-        When the user launches the FTRA card
-        Then the user does not have access to the FTRA service
+        Then the user should see the "vault.lemans" page project
 
     #Trial entitlement is applied by default
     #@LaunchServices @SyntheticTrx @teardownAddEntitlement
@@ -49,12 +38,12 @@ Feature: Launch Services
 @LaunchServices @SyntheticTrx
     Scenario: Launch Optix service
         When the user launches the FTOptix card
-        Then the user sees page with the title "FT Optix"
+        Then the user should see the "optix.lemans" page project
 
 @LaunchServices @SyntheticTrx
     Scenario: Launch EaaS service without entitlement
        When the user launches the EaaS card
-       Then the user sees page with the title "ZedControl"
+       Then the user sees page with the title "FactoryTalk Hub"
 
 
  @LaunchServices @SyntheticTrx @teardownAddEntitlement

@@ -21,7 +21,7 @@ When('the user submits the form with its information and add an organization log
    await organization.newOrganizationWithLogo();
 });  
 
-Then('the user should see the message {string}', async(message) => {
+Then('the user should see the message {string} You have created the organization TestingOrgRockwell1 successfully', async(message) => {
    await question.assertElementText(organization.getMessageCreateOrganization(),message);
     });
 

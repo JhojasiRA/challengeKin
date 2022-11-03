@@ -3,20 +3,21 @@
 # Declare variables to be passed into your templates.
 
 cronSchedulecreateorg: "0 */2 * * *"
-cronScheduleeditorg: "5 */2 * * *"
-cronScheduleaccesmanagement: "10 */2 * * *"
-cronScheduleutilitycredits: "15 */2 * * *"
-cronSchedulehomefilters: "20 */2 * * *"
-cronScheduleinvitationmanagement: "25 */2 * * *"
-cronSchedulejoinrequest: "30 */2 * * *"
-cronSchedulelaunchservices: "35 */2 * * *"
-cronSchedulenotifications: "40 */2 * * *"
-cronScheduletopbar: "45 */2 * * *"
+cronScheduleeditorg: "10 */2 * * *"
+cronScheduleaccessmanagement: "20 */2 * * *"
+cronScheduleutilitycredits: "25 */2 * * *"
+cronSchedulehomefilters: "30 */2 * * *"
+cronScheduleinvitationmanagement: "35 */2 * * *"
+cronSchedulejoinrequest: "40 */2 * * *"
+cronSchedulelaunchservices: "45 */2 * * *"
+cronSchedulenotifications: "50 */2 * * *"
+cronScheduletopbar: "54 */2 * * *"
+cronScheduleentitlements: "59 */2 * * *"
 
 cronScheduleSynthetictrx: "0 0 1 1 *"
 cronScheduleapi: "0 0 1 1 *"
 cronScheduleLogin: "0 0 1 1 *"
-cronSchedulenightly: "0 0 * * *"
+cronSchedulenightly: "0 5 * * *"
 
 
 splunkHost: http-inputs-ra.splunkcloud.com
