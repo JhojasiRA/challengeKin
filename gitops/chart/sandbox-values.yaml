@@ -17,7 +17,7 @@ cronScheduleentitlements: "59 */2 * * *"
 cronScheduleSynthetictrx: "0 0 1 1 *"
 cronScheduleapi: "0 0 1 1 *"
 cronScheduleLogin: "0 0 1 1 *"
-cronSchedulenightly: "0 0 * * *"
+cronSchedulenightly: "0 5 * * *"
 
 
 splunkHost: http-inputs-ra.splunkcloud.com

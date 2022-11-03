@@ -1,9 +1,10 @@
 import { When, Then } from '@cucumber/cucumber'
-import { homePage, question } from '../../support/Hooks';
+import { homePage, question, menuhomepage } from '../../support/Hooks';
 
 
 When('the user filters by all cards', async() =>  {
-  await homePage.clickAllAppsTab()
+    await menuhomepage.indexOption();
+    await homePage.clickAllAppsTab()
 });
 
 When('the user filters by design hub cards', async() =>  {
