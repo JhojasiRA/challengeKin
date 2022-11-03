@@ -47,7 +47,9 @@ export class Organization extends Action {
         await this.enterText(this.nameOrganizationField,"TestingOrgRockwell1");
         await this.enterText(this.descriptionField, "TEST"); 
         await this.click(this.nextButton);
-        await this.click(this.createButton);    
+        await browser.pause(1000);
+        await this.click(this.createButton);  
+        await browser.pause(10000);   
     }
 
     public async publicOrganizationCreation( ): Promise<void> { 

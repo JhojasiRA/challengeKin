@@ -18,6 +18,8 @@ export class HomePage extends Action {
     get designHubTab() { return $('#mat-tab-label-0-1') }
     get operationsHubTab() { return $('#mat-tab-label-0-2') }
     get maintenanceHubTab() { return $('#mat-tab-label-0-3') }
+    get clicProvisioning() { return $('//*[ contains (text(), "Click To Provision")]') }
+    get AllApps() { return $('//*[ contains (text(),"All Apps")]')}
 
     async dashboard(): Promise<void> {
         await browser.pause(3000);
