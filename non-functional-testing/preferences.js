@@ -49,6 +49,5 @@ export function  getAccessToken (user,password) {
   let userid = http.get(__ENV.AUTH0_URL + '/userinfo', options);            
   let uid = JSON.parse(userid.body)["https://cloud.rockwellautomation.com/uid"].replace(/-/g, "");
   let tokenandUid={token:accessToken,id:uid}
-
   return tokenandUid;
 };
