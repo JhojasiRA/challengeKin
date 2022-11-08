@@ -1,8 +1,5 @@
-import {Given, When, Then, Before } from '@cucumber/cucumber'
-import { joinRequest } from '../../services/JoinTenant';
-import { AccesManagement } from '../../src/pages/AccessManagement';
-import { menuhomepage, organization, question, approveUser, topBar, indexPage, externalAccount, homePage, entitlements } from '../../support/Hooks';
-import pause from 'webdriverio/build/commands/browser/pause';
+import {Given, When, Then } from '@cucumber/cucumber'
+import { menuhomepage, organization, question,entitlements } from '../../support/Hooks';
 
 
 Given('user purchases an {string} entitlement', async (entitlement: string) =>{
