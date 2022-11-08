@@ -33,7 +33,7 @@ Scenario: Create public organization
 Scenario: Go back create organization details
     When the user goes inside to create organization option	
     And the user submits the info but then user goes back 
-    Then user can see "Setup Your Organization" in organization details
+    Then user can see "Setup Your Organization " in organization details
 
 @SyntheticTrx @createOrg
 Scenario: Change Vault tile visibility to ON
