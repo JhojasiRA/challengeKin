@@ -22,6 +22,7 @@ When(
   /^the admin grants access to the user "([^"]*)" to the resource "([^"]*)" with role "([^"]*)"$/,
   async (user: string, resource: string, role: string) => {
     AccesManagement.setAsset(resource);
+    await browser.refresh();
     await menuhomepage.accessManagementOption();
     await accessManagement.modifyAccess(user, resource, role);
   }

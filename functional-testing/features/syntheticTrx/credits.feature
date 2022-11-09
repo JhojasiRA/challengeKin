@@ -42,3 +42,11 @@ Scenario: Renew expiry date allocating the utility credits
     When the user tries to allocate the credits entitlement
     And the user allocates "100000" credits entitlement with email "testuser20@rockwellautomation.com" and valid for "365" days
     Then the user should see the just allocated credits have expiry date of 1 year from that moment
+
+@creditsConsumption
+Scenario: Consume allocated credits Foo service
+    Given the user has created a new organization with name "Consume_credits_SC07"
+    And the user allocates "100000" credits entitlement with email "testuser20@rockwellautomation.com" and valid for "365" days
+    And the user has provisioned Foo service
+    When the user consumes the allocated credits for FOO service
+    Then the user should see "2835.00" credits consumed

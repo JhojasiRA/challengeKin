@@ -13,6 +13,7 @@ cronSchedulelaunchservices: "45 */2 * * *"
 cronSchedulenotifications: "50 */2 * * *"
 cronScheduletopbar: "54 */2 * * *"
 cronScheduleentitlements: "59 */2 * * *"
+cronSchedulecreditsConsumption: "58 13,21 * * *"
 
 cronScheduleSynthetictrx: "0 0 1 1 *"
 cronScheduleapi: "0 0 1 1 *"

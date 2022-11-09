@@ -3,7 +3,7 @@ const { removeSync } = require('fs-extra');
 import { logJSONresults } from '../support/SplunkLog'
 import { sendResultsToqTest } from '../utils/SendResultsToqTest';
 
-var intStepsTimeoutDefault = 30000;
+var intStepsTimeoutDefault = -1;
 let intStepsTimeout = process.env.STEPS_TIMEOUT !== undefined ? parseInt(process.env.STEPS_TIMEOUT) : intStepsTimeoutDefault;
 intStepsTimeout = isNaN(global.intElementsTimeout) ? intStepsTimeoutDefault : intStepsTimeout;
 const jsonDirPath = './reports/';
@@ -26,7 +26,7 @@ export const BaseConfig: WebdriverIO.Config = {
 
     maxInstances: 1,
 
-    waitforTimeout: 30000,
+    waitforTimeout: -1,
     connectionRetryTimeout: 60000,
 
     framework: 'cucumber',
