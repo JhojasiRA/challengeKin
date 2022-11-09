@@ -7,7 +7,9 @@ Feature: Home filters and service tiles
 
     @HomeFilters @SyntheticTrx 
     Scenario: Filter All Apps
-        When the user filters by all cards
+        When the user goes inside to create organization option
+        And the user submits the form with its information
+        And the user filters by all cards
         Then user should see all the service cards currently available
 
     @HomeFilters @SyntheticTrx 

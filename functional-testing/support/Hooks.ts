@@ -14,7 +14,7 @@ import { InviteUsers } from '../src/pages/InviteUsers';
 import { InvitationManagement } from '../src/pages/InvitationManagement';
 import { Notification } from '../src/pages/Notification';
 import { Entitlements } from '../src/pages/Entitlements';
-
+import { Provisioning } from '../src/pages/Provisioning';
 import cucumberJson from 'wdio-cucumberjs-json-reporter';
 
 export let accesManagement: AccesManagement;
@@ -32,6 +32,7 @@ export let inviteUsersPage: InviteUsers;
 export let invitationManagementPage: InvitationManagement;
 export let notification: Notification;
 export let entitlements: Entitlements;
+export let provisioning: Provisioning;
 
 Before(async (scenario) => {
     //@ts-ignore
@@ -52,6 +53,8 @@ Before(async (scenario) => {
     invitationManagementPage = new InvitationManagement();
     notification = new Notification();
     entitlements = new Entitlements();
+    provisioning = new Provisioning();
+    action = new Action();
 
 })
 

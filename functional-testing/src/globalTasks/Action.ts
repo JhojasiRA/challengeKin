@@ -25,6 +25,10 @@ export class Action {
         await browser.refresh();
     }
 
+    public async closeWindow(): Promise<void> {
+        await browser.refresh();
+    }
+
     public async waitForElementPresent(element: WebdriverIO.Element): Promise<void> {
         await element.waitForExist({ reverse: true });
     }

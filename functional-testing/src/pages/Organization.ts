@@ -32,7 +32,7 @@ export class Organization extends Action {
     get orgVisibilityOnCreate() {return browser.$('//mat-radio-button[@id="mat-radio-2"]');}
     get orgVisibilityOffEdit() {return browser.$('//*[ contains (text(), "Visibility OFF")]');}
     get organizationName() {return browser.$('//div[ contains (text(),"TestingOrgRockwell1")]');}
-    get organizationDetails() {return browser.$('//span[ contains (text(),"Setup Your Organization")]');}
+    get organizationDetails() {return browser.$('//span[ contains (text(),"Setup Your Organization ")]');}
     get orgVisibilityOnEdit() {return browser.$('//*[ contains (text(), "Visibility ON")]');}
     get goDashboard(){return browser.$('//div[contains(text(), "Go to Dashboard")]')}
     get badRequest() {return browser.$('//*[ contains (text(),"The request was invalid")]');}
@@ -46,7 +46,9 @@ export class Organization extends Action {
         await this.enterText(this.nameOrganizationField,"TestingOrgRockwell1");
         await this.enterText(this.descriptionField, "TEST"); 
         await this.click(this.nextButton);
-        await this.click(this.createButton);    
+        await browser.pause(1000);
+        await this.click(this.createButton);  
+        await browser.pause(10000);   
     }
 
     public async publicOrganizationCreation( ): Promise<void> { 

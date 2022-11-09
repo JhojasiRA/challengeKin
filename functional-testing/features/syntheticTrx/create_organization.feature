@@ -23,7 +23,7 @@ Scenario: Create private organization
     And the user submits the form with its information
     Then user cant see the name in join organization option
 
-@SyntheticTrx  @after @createOrg
+@SyntheticTrx @createOrg
 Scenario: Create public organization
     When the user goes inside to create organization option
     And the user submits the form with public organization information
@@ -33,7 +33,7 @@ Scenario: Create public organization
 Scenario: Go back create organization details
     When the user goes inside to create organization option	
     And the user submits the info but then user goes back 
-    Then user can see "Setup Your Organization" in organization details
+    Then user can see "Setup Your Organization " in organization details
 
 @SyntheticTrx @createOrg
 Scenario: Change Vault tile visibility to ON

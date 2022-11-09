@@ -7,13 +7,13 @@ Background: Be on the Le Mans portal
 Scenario: Login into Le Mans portal
     When the user submits the form with its credentials
     And the user accepts the EULA testing eula "false"
-    Then the user should see the "Home" page
+    Then the user should see the "All Apps" page
 
 @login @SyntheticTrx @loginSAML
 Scenario: Login SAML flow
     When the user logs in with MyRockwell-SAML
     And the user accepts the EULA testing eula "false"
-    Then the user should see the "Home" page
+    Then the user should see the "All Apps" page
 @login @SyntheticTrx @loginSAML
 Scenario: Logout SAML flow
     Given the user logs in with MyRockwell-SAML
