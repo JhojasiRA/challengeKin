@@ -18,7 +18,8 @@
     "headless:topbar": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@Topbar\"",
     "headless:entitlements": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@entitlements\"",
     "headless:utilitycredits": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@utilityCredits\"",
-
+    "headless:creditsConsumption": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@creditsConsumption\"",
+    
     "headless:api": "npx wdio functional-testing/config/chrome.headless.config.ts --cucumberOpts.tagExpression=\"@APITest\"",
     "headless:login": "npx wdio functional-testing/config/grid.config.ts --cucumberOpts.tagExpression=\"@RockwellLogin\"",
     "testing": "npx wdio functional-testing/config/chrome.config.ts --cucumberOpts.tagExpression=\"@mailosaur\"",
@@ -54,7 +55,7 @@
     "chai-like": "^1.1.1",
     "chai-string": "1.5.0",
     "chai-things": "^0.2.0",
-    "chromedriver": "^107.0.0",
+    "chromedriver": "^107.0.3",
     "eslint": "8.1.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-import": "2.25.2",

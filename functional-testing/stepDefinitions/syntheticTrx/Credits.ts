@@ -150,6 +150,28 @@ Then(/^the user should see the just allocated credits have expiry date of 1 year
 );
 
 
+When(/^the user consumes the allocated credits for FOO service$/, async() => {
+	let token = await getToken5(process.env.USERNAME, process.env.PASSWORD)
+  let tenantId = (await getTenantId(token)).id
+  let tokenM2M = await getM2MToken(process.env.CLIENT_ID_FOO, process.env.CLIENT_SECRET_FOO)
+  let userId = await getUserIdWithToken(token)
+  let d = new Date();
+  //@ts-ignore
+  timestamp = parseInt(d.getTime()/1000);
+  let response = await bulkReportMetrics(tenantId, planIds.Foo, tokenM2M, userId, timestamp)
+  console.log(response)
+});
+
+
+Then(/^the user should see "([^"]*)" credits consumed$/, async(credits:number) => {
+  await browser.pause(90000)
+  await menuhomepage.entitlementsOption()
+  await question.assertConsumedCredits(credits)
+});
+
+
+
+
 
 
 

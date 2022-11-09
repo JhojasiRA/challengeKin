@@ -8,7 +8,7 @@ Given('user purchases an {string} entitlement', async (entitlement: string) =>{
 });
 
 When('user allocates the entitlement', async () =>{
-  await  entitlements.allocateEnt();
+  await  entitlements.allocateEntitlement(null);
   await  menuhomepage.entitlementsOption();
 });
 
@@ -38,7 +38,7 @@ When('user tries to purchase another {string} entitlement', async (entitlement: 
   await browser.pause(1000);
   await  menuhomepage.entitlementsOption();
   await entitlements.purchase(entitlement);
-  await entitlements.allocateEnt();
+  await entitlements.allocateEntitlement(null);
 });
 
 Then('user should see {string} message', async (allocatedMessage: string) =>{
