@@ -47,6 +47,7 @@ export class Entitlements extends Action {
       await this.click(this.allocateBtn);
       await this.click(this.reviewAllocationBtn);
       await this.click(this.confirmAllocation);
+      await browser.pause(3000);
 }
 
     public getTrialFTRAEntitlement(): WebdriverIO.Element {

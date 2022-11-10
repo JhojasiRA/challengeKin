@@ -21,10 +21,10 @@ When('the user allocates the entitlement', async () =>{
 
 When('user closes the browser and opens it again', async () =>{
   await browser.closeWindow();
-});
-
-Then('user can see {string}', async () =>{
-  await  homePage.dashboard();
+  await browser.reloadSession();
+  await indexPage.open('');
+  await indexPage.goToSignIn();
+  await externalAccount.submitForm(process.env.USERNAME,process.env.PASSWORD);
 });
 
 Then('user can see logo is not clickable', async () =>{
@@ -40,10 +40,11 @@ When('user refresh the page', async () =>{
 Then('user can see the dashboard', async () =>{
   await question.assertElementExist(homePage.AllApps);
 });
-
-Then('user can see the click', async () =>{
-  await browser.url(process.env.PORTAL_URL);
+Then('user can see {string} in Edge card in the dashboard', async (provisioningMessage) =>{
+  await question.assertElementText(homePage.getClickProvisioningMessage(), provisioningMessage);
 });
+
+
 
 
 
