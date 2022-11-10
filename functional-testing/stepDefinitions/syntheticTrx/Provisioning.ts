@@ -16,7 +16,7 @@ Given('the user purchases an {string} entitlement', async (entitlement: string) 
 });
 
 When('the user allocates the entitlement', async () =>{
-  await  entitlements.allocateEnt();
+  await  entitlements.allocateEntitlement(null);
 });
 
 When('user closes the browser and opens it again', async () =>{

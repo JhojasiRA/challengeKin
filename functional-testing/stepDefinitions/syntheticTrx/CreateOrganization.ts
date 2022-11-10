@@ -1,8 +1,6 @@
-import {setDefaultTimeout, Given, When, Then, After} from '@cucumber/cucumber';
+import {setDefaultTimeout, Given, When, Then} from '@cucumber/cucumber';
 import 'regenerator-runtime/runtime';
-import { editTenantInfoWithParams } from '../../services/Tenants';
 import { menuhomepage, organization, question, indexPage, entitlements } from '../../support/Hooks';
-import {defaultOrg} from '../../constant.json'
 
 setDefaultTimeout(60 * 1000);
 When('the user goes inside to create organization option', async() => {
@@ -49,10 +47,6 @@ Then('User will see a success message and will be able to close it', async() => 
    await organization.ok();
 }); 
 
-After('@afterEditOrganization', async() =>{
-   global.lastError = "Error while doing the test teardown editing organization name"
-   await editTenantInfoWithParams(defaultOrg.name, defaultOrg.location, defaultOrg.description, defaultOrg.visibility);
-});
 
 Then('user cant see the name in join organization option', async() => {
    await menuhomepage.joinOrganizationOption(); 
@@ -72,16 +66,6 @@ When('the user submits the form with public organization information', async() =
 Then('user can see the {string} in join organization option', async(organizationName) => {
    await menuhomepage.joinOrganizationOption(); 
    await question.assertElementText(organization.getMessageOrganizationName(),organizationName);
-});
-
-
-After('@after', async() =>{
-   await menuhomepage.editOrganizationOption(); 
-   await organization.editPublicOrganization();
-});
-
-When('the user edits the form selecting vault service', async() => {
-   await organization.selectVaultService();  
 });
 
 When('the user submits the info but then user goes back', async() => {

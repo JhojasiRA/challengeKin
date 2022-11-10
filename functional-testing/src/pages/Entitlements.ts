@@ -1,7 +1,7 @@
 import { Action } from "../globalTasks/Action";
 const ALLOCATE_BTN = (catalogNumber: string) => `//*[contains(text(), '${catalogNumber}')]//ancestor::*[@role="row"]//descendant::button`
-const ALLOCATED_CREDITS = (quantity: number) => `//*[@class='ag-center-cols-viewport']//following::*[contains(text(),'9523-UtilityToken')]//following::*[@col-id='allocated' and text()='${quantity}']` 
-
+const ALLOCATED_CREDITS = (quantity: number) => `//*[@class='ag-center-cols-viewport']//following::*[contains(text(),'9317C-FLEXCRT12')]//following::*[@col-id='allocated' and text()='${quantity}']` 
+const CONSUMED_CREDITS = (quantity:number) => `//*[@class='ag-center-cols-viewport']//following::*[contains(text(),'9317C-FLEXCRT12')]//following::*[@col-id='consumed' and text()='${quantity}']`
 export class Entitlements extends Action {
     get allocateBtn() { return browser.$("(//*[contains(@label, 'Allocate')]//following::*[contains(text(),'Allocate')])[1]")}
     get trialFTRAEntitlement() {return browser.$('//*[ contains (text(),"Catalog: FTRA-TRIAL-01")]');}
@@ -19,9 +19,15 @@ export class Entitlements extends Action {
      
     
     public async allocateEntitlement(catalogNumber:string): Promise<void> {
-        const allocateButton = await $(ALLOCATE_BTN(catalogNumber))
+      var allocateButton
+      if(catalogNumber != null){
+        allocateButton = await $(ALLOCATE_BTN(catalogNumber))
+      }else{
+        allocateButton = this.allocateBtn
+      }
         await this.click(allocateButton)
-        await this.click(this.allocateBtn)
+        await this.click(this.reviewAllocationBtn);
+        await this.click(this.confirmAllocation);  
     }
 
     public async allocatedCredits(quantity:number): Promise<string> {
@@ -35,6 +41,17 @@ export class Entitlements extends Action {
         return allocatedCredits;
     }
 
+    public async consumedCredits(quantity:number): Promise<string> {
+      let consumedCredits;
+      try {
+        consumedCredits = await $(CONSUMED_CREDITS(quantity)).getText();
+      } catch (err) {
+        consumedCredits = 0;
+      }
+      return consumedCredits;
+  }
+
+
     public async purchase(entitlements): Promise<void> {
       await this.click(this.purchaseFakeEntitlement);
       await browser.pause(3000);
@@ -42,13 +59,6 @@ export class Entitlements extends Action {
       await this.click(this.addEntitlementsBtn);
       await browser.pause(3000);
   }
-
-  public async allocateEnt(): Promise<void> {
-      await this.click(this.allocateBtn);
-      await this.click(this.reviewAllocationBtn);
-      await this.click(this.confirmAllocation);
-      await browser.pause(3000);
-}
 
     public getTrialFTRAEntitlement(): WebdriverIO.Element {
       return this.trialFTRAEntitlement;
