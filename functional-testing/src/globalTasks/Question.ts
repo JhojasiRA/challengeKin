@@ -21,6 +21,11 @@ export class Question {
     await expect(creditsQuantity).to.be.equal(parseInt(credits));
   }
 
+  public async assertConsumedCredits(credits: number): Promise<void> {
+    let creditsQuantity = await entitlements.consumedCredits(credits);
+    await expect(creditsQuantity).to.be.equal(parseInt(credits));
+  }
+
   public async assertTexts(
     firstText: string,
     secondText: string

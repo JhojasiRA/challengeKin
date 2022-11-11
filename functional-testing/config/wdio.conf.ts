@@ -26,7 +26,7 @@ export const BaseConfig: WebdriverIO.Config = {
 
     maxInstances: 1,
 
-    waitforTimeout: 30000,
+    waitforTimeout: -1,
     connectionRetryTimeout: 60000,
 
     framework: 'cucumber',

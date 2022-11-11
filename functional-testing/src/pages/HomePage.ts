@@ -18,9 +18,13 @@ export class HomePage extends Action {
     get designHubTab() { return $('#mat-tab-label-0-1') }
     get operationsHubTab() { return $('#mat-tab-label-0-2') }
     get maintenanceHubTab() { return $('#mat-tab-label-0-3') }
-    get clicProvisioning() { return $('//*[ contains (text(), "Click To Provision")]') }
+    get clickProvisioning() { return $('//*[ contains (text(), "Click To Provision")]') }
     get AllApps() { return $('//*[ contains (text(),"All Apps")]')}
+<<<<<<< HEAD
     get invitationMessage() { return browser.$('//*[contains(text(),"Invitation Accepted Successfully!")]');}
+=======
+    
+>>>>>>> develop
 
     async dashboard(): Promise<void> {
         await browser.pause(3000);
@@ -94,9 +98,17 @@ export class HomePage extends Action {
     async clickMaintenanceHubTab(): Promise<void> {
         await this.click(this.maintenanceHubTab)
     }
+<<<<<<< HEAD
     public getInvitationMessage(): WebdriverIO.Element {
         return this.invitationMessage;
     }    
+=======
+
+    public getClickProvisioningMessage(): WebdriverIO.Element {
+        return this.clickProvisioning;
+        }
+
+>>>>>>> develop
 }
 
 
