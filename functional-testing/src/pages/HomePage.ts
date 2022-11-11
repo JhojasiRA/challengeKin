@@ -94,17 +94,14 @@ export class HomePage extends Action {
     async clickMaintenanceHubTab(): Promise<void> {
         await this.click(this.maintenanceHubTab)
     }
-<<<<<<< HEAD
     public getInvitationMessage(): WebdriverIO.Element {
         return this.invitationMessage;
     }    
-=======
 
     public getClickProvisioningMessage(): WebdriverIO.Element {
         return this.clickProvisioning;
         }
 
->>>>>>> develop
 }
 
 
