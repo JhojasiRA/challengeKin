@@ -1,14 +1,19 @@
 import { Given, When, Then } from '@cucumber/cucumber'
 import { createInvitation, getInvitationById, Invitation } from '../../services/Invitations';
-import { menuhomepage, inviteUsersPage, question, invitationManagementPage } from '../../support/Hooks';
+import { menuhomepage, inviteUsersPage, question, invitationManagementPage,homePage,indexPage,topBar } from '../../support/Hooks';
 import chai = require('chai')
 import chaiDateTime from 'chai-datetime';
+import MailosaurClient = require('mailosaur');
 
 chai.use(chaiDateTime)
 const expect = chai.expect
 
 var invitation: Invitation;
 var initialSentDate: Date
+
+const API_KEY = 'BWgGLl6gHnHGektK';
+const mailosaur = new MailosaurClient(API_KEY)
+const serverId = 'hfdfqcah';
 
 When('the user invites {string} to the resource {string} with role {string}', async(usermail: string, resource: string, role:string) =>  {
   await menuhomepage.inviteUsersOption();
@@ -49,5 +54,21 @@ Then('the user should see that the invitation gets canceled successfully', async
     invitation = await getInvitationById()
     expect(invitation).to.be.equal(404)
 }); 
+
+When('Mailosaur gets the invitation URL and navigates the url', async () => {
+  const inviteEmail = 'mailosaur-test1@hfdfqcah.mailosaur.net';
+  const searchCriteria = {
+    sentTo: inviteEmail,
+  };
+const message = await mailosaur.messages.get(serverId, searchCriteria);
+const joinNowLink = message.html.links[0];  //joinNowLink.href (link)  , joinNowLink.text (Join now)
+await browser.pause(3000);
+await topBar.signOutOption();
+await indexPage.openInvitUrl(joinNowLink.href);
+});
+
+Then('the user should see an {string}', async(invitationMessage) => {
+  await question.assertElementText(homePage.getInvitationMessage(),invitationMessage);
+});
 
 

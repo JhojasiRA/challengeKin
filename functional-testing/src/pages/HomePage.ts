@@ -20,6 +20,7 @@ export class HomePage extends Action {
     get maintenanceHubTab() { return $('#mat-tab-label-0-3') }
     get clicProvisioning() { return $('//*[ contains (text(), "Click To Provision")]') }
     get AllApps() { return $('//*[ contains (text(),"All Apps")]')}
+    get invitationMessage() { return browser.$('//*[contains(text(),"Invitation Accepted Successfully!")]');}
 
     async dashboard(): Promise<void> {
         await browser.pause(3000);
@@ -93,6 +94,9 @@ export class HomePage extends Action {
     async clickMaintenanceHubTab(): Promise<void> {
         await this.click(this.maintenanceHubTab)
     }
+    public getInvitationMessage(): WebdriverIO.Element {
+        return this.invitationMessage;
+    }    
 }
 
 
