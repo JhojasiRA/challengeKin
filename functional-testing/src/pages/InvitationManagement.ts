@@ -6,6 +6,7 @@ export class InvitationManagement extends Action {
     get cancelButton() { return browser.$('(//*[@class="ra-icon-ide-sm-delete"])[1]');}
     get okButton() { return browser.$('//*[contains(@id, "mat-dialog")]//button');}
     get DeleteButton() { return browser.$('//*[contains(text(),"Delete")]');}
+   
     
 
     public async resendActiveInvitation(): Promise<void> {
@@ -18,6 +19,6 @@ export class InvitationManagement extends Action {
         await browser.pause(1000);
         await this.click(this.cancelButton);
         await this.click(this.DeleteButton);
-      }
+      }   
 
 }

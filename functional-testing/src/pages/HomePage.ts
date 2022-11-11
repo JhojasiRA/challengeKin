@@ -4,7 +4,6 @@ export class HomePage extends Action {
     get vaultCard() { return $(`#card-Vault`) }
     get vaultView() { return $(`//*[ contains (text(), "Vault")]`) }
     get FTRACard() { return $(`#card-SecureRemoteAccess`) }
-    get homePage() { return $(`//*[ contains (text(), "All Apps")]`) }
     get rubikIcon() { return $('#rubick-menu-btn') }
     get lockFTRAIcon() { return $(`//*[@id="card-SecureRemoteAccess"]//*[contains (@class, "fav-lock-icon")]`) }
     get lockFooIcon() { return $(`//*[@id="card-FooService"]//*[contains (@class, "fav-lock-icon")]`) }
@@ -14,13 +13,12 @@ export class HomePage extends Action {
     get fooCard() { return $(`#card-FooService`) }
     get optixCard() { return $(`#card-FTOptix`) }
     get EaasCard() { return $(`#card-EaaS`) }
-    get allAppsTab() { return $('#mat-tab-label-0-0') }
     get designHubTab() { return $('#mat-tab-label-0-1') }
     get operationsHubTab() { return $('#mat-tab-label-0-2') }
     get maintenanceHubTab() { return $('#mat-tab-label-0-3') }
     get clickProvisioning() { return $('//*[ contains (text(), "Click To Provision")]') }
     get AllApps() { return $('//*[ contains (text(),"All Apps")]')}
-    
+    get invitationMessage() { return browser.$('//*[contains(text(),"Invitation Accepted Successfully!")]');}
 
     async dashboard(): Promise<void> {
         await browser.pause(3000);
@@ -78,11 +76,11 @@ export class HomePage extends Action {
     }
 
     public getMessageHome(): WebdriverIO.Element {
-        return this.homePage;
+        return this.AllApps;
     }
 
     async clickAllAppsTab(): Promise<void> {
-        await this.click(this.allAppsTab)
+        await this.click(this.AllApps)
     }
 
     async clickDesignHubTab(): Promise<void> {
@@ -94,6 +92,9 @@ export class HomePage extends Action {
     async clickMaintenanceHubTab(): Promise<void> {
         await this.click(this.maintenanceHubTab)
     }
+    public getInvitationMessage(): WebdriverIO.Element {
+        return this.invitationMessage;
+    }    
 
     public getClickProvisioningMessage(): WebdriverIO.Element {
         return this.clickProvisioning;
