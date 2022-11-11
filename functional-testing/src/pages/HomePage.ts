@@ -20,11 +20,7 @@ export class HomePage extends Action {
     get maintenanceHubTab() { return $('#mat-tab-label-0-3') }
     get clickProvisioning() { return $('//*[ contains (text(), "Click To Provision")]') }
     get AllApps() { return $('//*[ contains (text(),"All Apps")]')}
-<<<<<<< HEAD
     get invitationMessage() { return browser.$('//*[contains(text(),"Invitation Accepted Successfully!")]');}
-=======
-    
->>>>>>> develop
 
     async dashboard(): Promise<void> {
         await browser.pause(3000);
