@@ -29,9 +29,9 @@ Scenario: purchase utilityCredit entitlement
      When user allocates the entitlement
      Then user can see "Utility Token" type in the organization entitlements
 
-
+@PartialAllocation
 Scenario: Allocate utilityCredits in the range values
- #   Given user purchases an "9317C-FLEXCRT12 - " entitlement
+    Given user purchases an "9317C-FLEXCRT12 - " entitlement
     When user allocates "333" credits
     Then the user should see the "Invite User" bread Crumb
     
@@ -42,7 +42,7 @@ Scenario: Allocate a negative utilityCredit number
     
 @PartialAllocation
 Scenario: Allocate higher number
-   # Given user purchases an "9317C-FLEXCRT12 - " entitlement
+    Given user purchases an "9317C-FLEXCRT12 - " entitlement
     When user allocates "1333" credits
     Then user should not be able to allocate it "This value cannot be greater than 1000"
 

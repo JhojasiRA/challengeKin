@@ -39,8 +39,13 @@ export class Entitlements extends Action {
 
     public async allocatePartialCredits(quantity): Promise<void> {
       await this.enterText(this.customQuantity,quantity);
+      try {
         await this.click(this.reviewAllocationBtn);
         await this.click(this.confirmAllocation); 
+      } catch (error) {
+        
+      }
+       
 
   }
     public async allocatedCredits(quantity:number): Promise<string> {
