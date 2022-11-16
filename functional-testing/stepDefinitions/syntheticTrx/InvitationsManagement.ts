@@ -71,4 +71,7 @@ Then('the user should see an {string}', async(invitationMessage) => {
   await question.assertElementText(homePage.getInvitationMessage(),invitationMessage);
 });
 
+Then('the user should see the {string} bread Crumb', async(breadCrumbe) => {
+  await question.assertElementText(inviteUsersPage.getbreadCrumb(),breadCrumbe);
+});
 

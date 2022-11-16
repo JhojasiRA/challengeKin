@@ -8,8 +8,12 @@ Given('user purchases an {string} entitlement', async (entitlement: string) =>{
 });
 
 When('user allocates the entitlement', async () =>{
-  await  entitlements.allocateEntitlement(null);
-  await  menuhomepage.entitlementsOption();
+  await entitlements.allocateEntitlement(null);
+});
+
+When('user allocates {string} credits', async (quantity:string) =>{
+  await entitlements.allocateEntitlement(null);
+  await entitlements.allocatePartialCredits(quantity);
 });
 
 Then('user can see the {string} type in the organization entitlements', async (type: string) =>{
@@ -45,3 +49,6 @@ Then('user should see {string} message', async (allocatedMessage: string) =>{
   await question.assertElementText(entitlements.allocatedEntitlementMessage,allocatedMessage);
 });
 
+Then('user should not be able to allocate it {string}', async (partialallocateMessage) =>{
+  await question.assertElementText(entitlements.partialAllocateMessage,partialallocateMessage);
+});

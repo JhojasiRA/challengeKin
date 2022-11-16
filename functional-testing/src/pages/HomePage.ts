@@ -18,6 +18,8 @@ export class HomePage extends Action {
     get maintenanceHubTab() { return $('#mat-tab-label-0-3') }
     get clickProvisioning() { return $('//*[ contains (text(), "Click To Provision")]') }
     get AllApps() { return $('//*[ contains (text(),"All Apps")]')}
+    get breadCrumbHome() { return $('(//*[ contains (text(),"Home")])[2]')}
+    //get breadCrumbHome() { return $('(//*[ contains (text(),"Home")])[2]')}
     get invitationMessage() { return browser.$('//*[contains(text(),"Invitation Accepted Successfully!")]');}
 
     async dashboard(): Promise<void> {
@@ -76,7 +78,7 @@ export class HomePage extends Action {
     }
 
     public getMessageHome(): WebdriverIO.Element {
-        return this.AllApps;
+        return this.breadCrumbHome;
     }
 
     async clickAllAppsTab(): Promise<void> {

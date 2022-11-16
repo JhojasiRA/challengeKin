@@ -3,6 +3,12 @@ import 'regenerator-runtime/runtime';
 import { menuhomepage, organization, question, indexPage, entitlements } from '../../support/Hooks';
 
 setDefaultTimeout(60 * 1000);
+
+Given('the user creates an organization', async() =>{
+   await menuhomepage.createOrganizationOption();
+   await organization.newOrganization();
+ });
+ 
 When('the user goes inside to create organization option', async() => {
     await menuhomepage.createOrganizationOption();
 });

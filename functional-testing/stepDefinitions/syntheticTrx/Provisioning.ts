@@ -1,23 +1,5 @@
-import {Given, When, Then} from '@cucumber/cucumber'
-import { menuhomepage, organization, question, approveUser, topBar, indexPage, externalAccount, homePage, entitlements, provisioning, action } from '../../support/Hooks';
-import pause from 'webdriverio/build/commands/browser/pause';
-import { Provisioning } from '../../src/pages/Provisioning';
-import waitUntil from 'webdriverio/build/commands/browser/waitUntil';
-
-
-Given('the user creates an organization', async() =>{
-  await menuhomepage.createOrganizationOption();
-  await organization.newOrganization();
-});
-
-Given('the user purchases an {string} entitlement', async (entitlement: string) =>{
-  await  menuhomepage.entitlementsOption();
-   await entitlements.purchase(entitlement);
-});
-
-When('the user allocates the entitlement', async () =>{
-  await  entitlements.allocateEntitlement(null);
-});
+import { When, Then} from '@cucumber/cucumber'
+import { question, indexPage, externalAccount, homePage, provisioning, action } from '../../support/Hooks';
 
 When('user closes the browser and opens it again', async () =>{
   await browser.closeWindow();

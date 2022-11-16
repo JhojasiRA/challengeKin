@@ -1,4 +1,3 @@
-import pause from 'webdriverio/build/commands/browser/pause'
 import { Action } from '../globalTasks/Action'
 
 const ROLE_IN_MODAL = (role: string) => `//*[@class='mat-button-toggle-label-content' and text()='${role}']`

@@ -15,9 +15,12 @@ export class Entitlements extends Action {
     get additiveType() {return browser.$('//*[ contains (text(),"additive")]');} 
     get utilityType() {return browser.$('//*[ contains (text(),"Utility Token")]');} 
     get platformType() {return browser.$('//*[ contains (text(),"platform")]');}
+    get partialAllocation() {return browser.$('//*[ contains (text(),"Allocate Partial Quantity")]');}
+    get customQuantity() {return browser.$('//*[@formcontrolname="partialQty"]');}
     get allocatedEntitlementMessage() {return browser.$('//*[ contains (text(),"Service already has a platform entitlement allocated for the time period")]');} 
+    get partialAllocateMessage() {return browser.$('//*[ contains (text(),"This value cannot be greater than 1000")]');} 
      
-    
+
     public async allocateEntitlement(catalogNumber:string): Promise<void> {
       var allocateButton
       if(catalogNumber != null){
@@ -25,11 +28,21 @@ export class Entitlements extends Action {
       }else{
         allocateButton = this.allocateBtn
       }
-        await this.click(allocateButton)
-        await this.click(this.reviewAllocationBtn);
-        await this.click(this.confirmAllocation);  
+        await this.click(allocateButton);
+        if (this.partialAllocation.isExisting()) {
+          await this.click(this.partialAllocation);
+        } else {
+          await this.click(this.reviewAllocationBtn);
+          await this.click(this.confirmAllocation);  
+        }
     }
 
+    public async allocatePartialCredits(quantity): Promise<void> {
+      await this.enterText(this.customQuantity,quantity);
+        await this.click(this.reviewAllocationBtn);
+        await this.click(this.confirmAllocation); 
+
+  }
     public async allocatedCredits(quantity:number): Promise<string> {
         let allocatedCredits;
         try {
@@ -50,7 +63,6 @@ export class Entitlements extends Action {
       }
       return consumedCredits;
   }
-
 
     public async purchase(entitlements): Promise<void> {
       await this.click(this.purchaseFakeEntitlement);

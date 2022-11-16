@@ -7,6 +7,7 @@ export class InviteUsers extends Action {
     get emailsTextArea() { return browser.$('//*[@id="mat-input-0"]');}
     get sendInviteButton() { return browser.$('//*[contains(text(), "Send Invite")]');}
     get okButton() { return browser.$('//*[contains(text(), "OK")]');}
+    get breadCrumbInviteUser() { return browser.$('(//*[ contains (text(),"Invite User")])[2]');}
     get closeButton() { return browser.$("//button//child::*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), 'close')]")}
     public invitation: Invitation
 
@@ -21,6 +22,10 @@ export class InviteUsers extends Action {
 
     public async closeInvitation(): Promise<void> {
         await this.click(this.closeButton)
+    }
+
+    public getbreadCrumb(): WebdriverIO.Element {
+        return this.breadCrumbInviteUser;
     }
 
 
