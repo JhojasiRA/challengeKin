@@ -40,7 +40,7 @@ Scenario: Allocate a negative utilityCredit number
     Given user purchases an "9317C-FLEXCRT12 - " entitlement
     When user allocates "-3" credits
     
-@PartialAllocation
+@PartialAllocatio
 Scenario: Allocate higher number
     Given user purchases an "9317C-FLEXCRT12 - " entitlement
     When user allocates "1333" credits

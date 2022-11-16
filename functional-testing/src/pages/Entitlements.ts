@@ -45,8 +45,6 @@ export class Entitlements extends Action {
       } catch (error) {
         
       }
-       
-
   }
     public async allocatedCredits(quantity:number): Promise<string> {
         let allocatedCredits;
