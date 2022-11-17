@@ -1,7 +1,7 @@
 import {Given, When, Then } from '@cucumber/cucumber'
 import { joinRequest } from '../../services/JoinTenant';
 import { AccesManagement } from '../../src/pages/AccessManagement';
-import { menuhomepage, organization, question, approveUser, topBar, indexPage, externalAccount } from '../../support/Hooks';
+import { menuhomepage, organization, question, approveUser, topBar, indexPage, externalAccount,commons } from '../../support/Hooks';
 
 When('User1 copies a new invite code', {timeout: 2 * 5000}, async() => {
     await organization.inviteCode();
@@ -93,7 +93,7 @@ When('the user tries to join to the organization', async() => {
 })
 
 Then('user should see a pop up message: {string}', async(MessageBadRequest) => {
-  await question.assertElementText(organization.getBadRequestMessage(),MessageBadRequest);
+  await question.assertElementText(commons.getBadRequestMessage(),MessageBadRequest);
 });
 
 Given('user1 copy the invite code ', async() => {

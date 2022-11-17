@@ -15,6 +15,7 @@ import { InvitationManagement } from '../src/pages/InvitationManagement';
 import { Notification } from '../src/pages/Notification';
 import { Entitlements } from '../src/pages/Entitlements';
 import { Provisioning } from '../src/pages/Provisioning';
+import {Commons} from '../src/pages/commons ';
 import cucumberJson from 'wdio-cucumberjs-json-reporter';
 
 export let accesManagement: AccesManagement;
@@ -33,6 +34,7 @@ export let invitationManagementPage: InvitationManagement;
 export let notification: Notification;
 export let entitlements: Entitlements;
 export let provisioning: Provisioning;
+export let commons: Commons;
 
 Before(async (scenario) => {
     //@ts-ignore

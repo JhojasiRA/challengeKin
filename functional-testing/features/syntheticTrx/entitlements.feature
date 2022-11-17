@@ -35,28 +35,31 @@ Scenario: Allocate utilityCredits in the range values
     When user allocates "333" credits
     Then the user should see the "Invite User" bread Crumb
     
-
+@PartialAllocation
 Scenario: Allocate a negative utilityCredit number
     Given user purchases an "9317C-FLEXCRT12 - " entitlement
     When user allocates "-3" credits
+    Then user should see a pop up message: "The request was invalid"
     
-@PartialAllocatio
+@PartialAllocation
 Scenario: Allocate higher number
     Given user purchases an "9317C-FLEXCRT12 - " entitlement
     When user allocates "1333" credits
     Then user should not be able to allocate it "This value cannot be greater than 1000"
 
-
+@PartialAllocation
 Scenario: Allocate zero utilityCredits
     Given user purchases an "9317C-FLEXCRT12 - " entitlement
     When user allocates "0" credits
+    Then user should see a pop up message: "The request was invalid"
 
-
+@PartialAllocation
 Scenario: Allocate a decimal utilityCredit number
     Given user purchases an "9317C-FLEXCRT12 - " entitlement
     When user allocates "10.5" credits
+    Then user should see a pop up message: "The request was invalid"
 
-
+@PartialAllocation
 Scenario: purchase two platform entitlement       
     Given user creates an organization
     And user purchases an "9324C-FTDSBAST11 - IDE" entitlement

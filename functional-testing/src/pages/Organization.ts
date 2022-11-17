@@ -35,7 +35,6 @@ export class Organization extends Action {
     get organizationDetails() {return browser.$('//span[ contains (text(),"Setup Your Organization ")]');}
     get orgVisibilityOnEdit() {return browser.$('//*[ contains (text(), "Visibility ON")]');}
     get goDashboard(){return browser.$('//div[contains(text(), "Go to Dashboard")]')}
-    get badRequest() {return browser.$('//*[ contains (text(),"The request was invalid")]');}
     get nextButton(){return browser.$("//button//*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), 'next')]")}
     get checkFTRA(){return browser.$('//*[ contains (text(), "FactoryTalk Remote Access")]')}
     get checkFoo(){return browser.$('//*[ contains (text(), "Foo (Integration Sample)")]')}
@@ -281,9 +280,5 @@ export class Organization extends Action {
 
     public getOrganizationDetailsMessage(): WebdriverIO.Element {
         return this.organizationDetails;
-    }
-
-    public getBadRequestMessage(): WebdriverIO.Element {
-        return this,this.badRequest;
     }
 }
